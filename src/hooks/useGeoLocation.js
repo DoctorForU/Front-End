@@ -30,3 +30,5 @@ export const useGeoLocation = (options) => {
 
   return { location, error };
 }
+
+// 카카오맵 -> 최초 위치 잡기 ( 병원 검색 기능 할 때 )

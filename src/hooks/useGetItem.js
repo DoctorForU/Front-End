@@ -8,3 +8,5 @@ export const useGetItem = () => {
     window.sessionStorage.setItem("information", information);
   }, [information]);
 }
+
+// ? session 사용하는 것 (토큰 저장용)
