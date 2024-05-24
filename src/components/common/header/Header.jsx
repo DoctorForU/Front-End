@@ -1,10 +1,10 @@
 import { useNavigate } from "react-router-dom";
 import * as S from "./Header.styled";
 
-export function Header() {
+export function Header({ color }) {
   const navigate = useNavigate();
   return (
-    <S.Container>
+    <S.Container color={color}>
       <S.Logo>Doctor For U</S.Logo>
       <S.Nav>
         <ul>
@@ -15,9 +15,21 @@ export function Header() {
       </S.Nav>
       <S.Menu>
         <div style={{ cursor: "pointer" }}>
-          <span onClick={() => {navigate("/auth/login")}}>로그인</span>
+          <span
+            onClick={() => {
+              navigate("/auth/login");
+            }}
+          >
+            로그인
+          </span>
           <span> | </span>
-          <span onClick={() => {navigate("/auth/join")}}>회원가입</span>
+          <span
+            onClick={() => {
+              navigate("/auth/join");
+            }}
+          >
+            회원가입
+          </span>
         </div>
         <S.MenuButton>
           <span className="menu-button-line"></span>

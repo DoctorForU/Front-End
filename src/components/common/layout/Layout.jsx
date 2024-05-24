@@ -3,7 +3,7 @@ import { Header } from "../header";
 export function Layout({ children }) {
   return (
     <div style={{ height: "100%", width: "100%" }}>
-      <Header />
+      <Header color="black"/>
       <main
         style={{
           display: "flex",

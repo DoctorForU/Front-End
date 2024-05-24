@@ -6,6 +6,7 @@ const Container = styled.div`
   align-items: center;
   padding: 10px 20px;
   height: 50px;
+  color: ${(props) => props.color}; // 글자 색상 변경
 `;
 
 const Logo = styled.div`
