@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Layout } from "../../../components/common";
-
+import { Google, Kakao } from "../../../components/auth";
 import * as S from "./Join.styled";
 
 export function Join() {
@@ -9,7 +9,7 @@ export function Join() {
     userId: "",
     userEmail: "",
     userPasssword: "",
-    userPhoneNumber:""
+    userPhoneNumber: "",
   });
 
   const [confirm, setConfirm] = useState({
@@ -21,7 +21,29 @@ export function Join() {
   const [verify, setVerify] = useState({
     email: "", //이메일 인증코드
     password: "", //비밀번호 확인
-  })
+  });
+
+  const handlePhoneNumberChange = (e, part) => {
+    let phoneNumber = form.userPhoneNumber.split("-");
+    phoneNumber[part] = e.target.value;
+    setForm({
+      ...form,
+      userPhoneNumber: phoneNumber.join("-"),
+    });
+  };
+
+  const handleEmailChange = (e, part) => {
+    let emailParts = form.userEmail.split("@");
+    if (part === 0) {
+      emailParts[0] = e.target.value;
+    } else {
+      emailParts[1] = e.target.value;
+    }
+    setForm({
+      ...form,
+      userEmail: emailParts.join("@"),
+    });
+  };
 
   const onConfirmedId = (e) => {
     //아이디 중복 체크(api)
@@ -48,11 +70,9 @@ export function Join() {
       setConfirm.email(false);
       alert("이메일을 다시 확인해주세요.");
     }
-  }
+  };
 
-  const onSubmit = () => {
-    
-  }
+  const onSubmit = () => {};
 
   return (
     <Layout>
@@ -125,11 +145,16 @@ export function Join() {
             </S.Label>
             <S.InputBox style={{ width: "20%" }}>
               <S.Input
-                type="email"
-                onChange={(e) =>
-                  setForm({ ...form, userEmail: e.target.value })
-                }
-                value={form.userEmail}
+                onChange={(e) => handleEmailChange(e, 0)}
+                value={form.userEmail.split("@")[0] || ""}
+              />
+            </S.InputBox>
+
+            <span style={{ margin: "0 -35px 0 10px" }}>@</span>
+            <S.InputBox style={{ width: "20%" }}>
+              <S.Input
+                onChange={(e) => handleEmailChange(e, 1)}
+                value={form.userEmail.split("@")[1] || ""}
               />
             </S.InputBox>
             <S.CheckButton onClick={onConfirmEmail}>인증요청</S.CheckButton>
@@ -140,50 +165,38 @@ export function Join() {
             </S.Label>
             <S.InputBox style={{ width: "20%" }}>
               <S.Input
-                type="number"
-                onChange={(e) =>
-                  setForm({ ...verify, email: e.target.value })
-                }
+                onChange={(e) => setForm({ ...verify, email: e.target.value })}
                 value={verify.email}
               />
             </S.InputBox>
-            <S.CheckButton onClick={onConfirmEmail}>인증요청</S.CheckButton>
+            <S.CheckButton onClick={onConfirmEmail}>인증확인</S.CheckButton>
           </S.InputForm>
-          <S.InputForm>
+          <S.InputForm style={{ borderBottom: "1px solid #aaaaaa" }}>
             <S.Label>
               휴대전화번호<S.Required>*</S.Required>
             </S.Label>
             <S.InputBox style={{ width: "10%" }}>
               <S.Input
-                type="number"
-                style={{ width: "50%" }}
-                onChange={(e) =>
-                  setForm({ ...form, userEmail: e.target.value })
-                }
-                value={form.userEmail}
+                style={{ width: "80%" }}
+                onChange={(e) => handlePhoneNumberChange(e, 0)}
+                value={form.userPhoneNumber.split("-")[0] || ""}
               />
             </S.InputBox>
 
             <span style={{ margin: "0 -35px 0 10px" }}>-</span>
             <S.InputBox style={{ width: "10%" }}>
               <S.Input
-                type="number"
-                style={{ width: "50%" }}
-                onChange={(e) =>
-                  setForm({ ...form, userEmail: e.target.value })
-                }
-                value={form.userEmail}
+                style={{ width: "80%" }}
+                onChange={(e) => handlePhoneNumberChange(e, 1)}
+                value={form.userPhoneNumber.split("-")[1] || ""}
               />
             </S.InputBox>
             <span style={{ margin: "0 -35px 0 10px" }}>-</span>
             <S.InputBox style={{ width: "10%" }}>
               <S.Input
-                type="number"
-                style={{ width: "50%" }}
-                onChange={(e) =>
-                  setForm({ ...form, userEmail: e.target.value })
-                }
-                value={form.userEmail}
+                style={{ width: "80%" }}
+                onChange={(e) => handlePhoneNumberChange(e, 2)}
+                value={form.userPhoneNumber.split("-")[2] || ""}
               />
             </S.InputBox>
           </S.InputForm>
@@ -196,8 +209,8 @@ export function Join() {
         <S.Line style={{ width: "200px" }}></S.Line>
       </S.LineContainer>
       <S.SocialContainer>
-        <div>Google</div>
-        <div>Kakao</div>
+        <Google />
+        <Kakao />
       </S.SocialContainer>
     </Layout>
   );

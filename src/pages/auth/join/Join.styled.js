@@ -24,6 +24,7 @@ export const InfoContainer = styled.div`
 `;
 
 export const JoinContainer = styled.div`
+display: flex;
   width: 80%;
 `;
 
@@ -97,6 +98,7 @@ export const LineContainer = styled.div`
 
 export const Line = styled.div`
   border: 1px solid #eef0f3;
+  width: 100%
 `;
 
 export const SocialContainer = styled.div`

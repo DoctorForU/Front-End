@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Layout } from "../../../components/common";
+import { Google, Kakao } from "../../../components/auth";
 
 import * as S from "./Login.styled";
 
@@ -46,8 +47,8 @@ export function Login() {
         <S.Line style={{ width: "200px" }}></S.Line>
       </S.LineContainer>
       <S.SocialContainer>
-        <div>Google</div>
-        <div>Kakao</div>
+        <Google />
+        <Kakao />
       </S.SocialContainer>
     </Layout>
   );
