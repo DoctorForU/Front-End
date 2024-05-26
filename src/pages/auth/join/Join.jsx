@@ -1,7 +1,13 @@
 import { useState } from "react";
 import { Layout } from "../../../components/common";
 import { Google, Kakao } from "../../../components/auth";
+import {
+  postCheckDuplicateId,
+  postVerificationCode,
+  postVerificationEmail,
+} from "../../../api";
 import * as S from "./Join.styled";
+import { useNavigate } from "react-router-dom";
 
 export function Join() {
   const [form, setForm] = useState({
@@ -23,7 +29,64 @@ export function Join() {
     password: "", //비밀번호 확인
   });
 
+  const [errors, setErrors] = useState({
+    userId: "",
+    password: "",
+  });
+
+  const validateUserId = (userId) => {
+    const regex = /^[a-z0-9]{6,12}$/;
+    return regex.test(userId);
+  };
+
+  const validatePassword = (password) => {
+    // 비밀번호 확인
+    return form.userPasssword === password;
+  };
+
+  const handleUserIdChange = (e) => {
+    const userId = e.target.value;
+    setForm({ ...form, userId });
+
+    if (!validateUserId(userId)) {
+      setErrors((prevErrors) => ({
+        ...prevErrors,
+        userId: "아이디는 6~12자 영문 소문자와 숫자여야 합니다.",
+      }));
+    } else {
+      setErrors((prevErrors) => ({
+        ...prevErrors,
+        userId: "",
+      }));
+    }
+  };
+
+  const handleConfirmedPasswordChange = (e) => {
+    const confirmedPassword = e.target.value;
+    setVerify({ ...verify, password: confirmedPassword });
+    if (!validatePassword(confirmedPassword)) {
+      setErrors((prevErrors) => ({
+        ...prevErrors,
+        password: "비밀번호가 일치하지 않습니다.",
+      }));
+      setConfirm((prevErrors) => ({
+        ...prevErrors,
+        password: false,
+      }));
+    } else {
+      setErrors((prevErrors) => ({
+        ...prevErrors,
+        password: "",
+      }));
+      setConfirm((prevErrors) => ({
+        ...prevErrors,
+        password: true,
+      }));
+    }
+  };
+
   const handlePhoneNumberChange = (e, part) => {
+    // 전화번호 입력
     let phoneNumber = form.userPhoneNumber.split("-");
     phoneNumber[part] = e.target.value;
     setForm({
@@ -33,6 +96,7 @@ export function Join() {
   };
 
   const handleEmailChange = (e, part) => {
+    // 이메일 입력
     let emailParts = form.userEmail.split("@");
     if (part === 0) {
       emailParts[0] = e.target.value;
@@ -45,34 +109,54 @@ export function Join() {
     });
   };
 
-  const onConfirmedId = (e) => {
-    //아이디 중복 체크(api)
-    if (true) {
-      setConfirm.id(true);
+  const navigate = useNavigate();
+  const onSubmit = async () => {
+    //회원가입 요청
+    const data = { ...form };
+    const res = await postCheckDuplicateId(form.userId);
+    if (res) {
+      alert("회원가입이 완료되었습니다.");
+      navigate("/auth/login");
+    } else alert("잘못된 요청입니다.");
+  };
+
+  const handleCheckDuplicateId = async () => {
+    //아이디 중복 체크 요쳥
+    const res = await postCheckDuplicateId(form.userId);
+    console.log(res);
+    if (res) {
       alert("사용 가능한 아이디입니다.");
-    } else {
-      setConfirm.id(false);
-      alert("사용중인 아이디입니다.");
-    }
+    } else alert("사용중인 아이디입니다.");
+    setConfirm({
+      ...confirm,
+      id: res,
+    });
   };
 
-  const onConfirmedPassword = (e) => {
-    setVerify.password(e.target.value);
-    setConfirm.password(form.userPasssword === verify.password);
+  const handleVerificationEmail = async () => {
+    // 이메일 인증 코드 요청
+    const data = {
+      email: form.userEmail,
+    };
+    const res = await postVerificationEmail(data);
+    if (res) alert("인증 요청되었습니다.");
+    else alert("잘못된 이메일 요청입니다.");
   };
 
-  const onConfirmEmail = (e) => {
-    //이메일 확인
-    if (true) {
-      setConfirm.email(true);
-      alert("이메일이 확인되었습니다.");
-    } else {
-      setConfirm.email(false);
-      alert("이메일을 다시 확인해주세요.");
-    }
+  const handleVerificationCode = async () => {
+    //이메일 인증 확인
+    const data = {
+      code: verify.email,
+    };
+    const res = await postVerificationCode(data);
+    console.log(data);
+    if (res) alert("인증 완료되었습니다.");
+    else alert("잘못된 인증 코드 입니다.");
+    setConfirm({
+      ...confirm,
+      email: res,
+    });
   };
-
-  const onSubmit = () => {};
 
   return (
     <Layout>
@@ -95,6 +179,8 @@ export function Join() {
             </S.Label>
             <S.InputBox>
               <S.Input
+                type="text"
+                required
                 onChange={(e) => setForm({ ...form, userName: e.target.value })}
                 value={form.userName}
               />
@@ -106,12 +192,24 @@ export function Join() {
             </S.Label>
             <S.InputBox style={{ width: "20%" }}>
               <S.Input
+                type="text"
+                required
                 placeholder="6~12자 영문 소문자와 숫자"
-                onChange={(e) => setForm({ ...form, userId: e.target.value })}
+                onChange={handleUserIdChange}
                 value={form.userId}
+                disabled={confirm.id}
               />
             </S.InputBox>
-            <S.CheckButton onClick={onConfirmedId}>중복체크</S.CheckButton>
+            <S.CheckButton
+              onClick={handleCheckDuplicateId}
+              disabled={confirm.id}
+              style={{ opacity: errors.userId ? 0.5 : 1 }}
+            >
+              중복체크
+            </S.CheckButton>
+            {errors.userId && (
+              <S.Error style={{ color: "red" }}>{errors.userId}</S.Error>
+            )}
           </S.InputForm>
           <S.InputForm>
             <S.Label>
@@ -134,10 +232,18 @@ export function Join() {
             <S.InputBox>
               <S.Input
                 type="password"
-                onChange={onConfirmedPassword}
+                onChange={handleConfirmedPasswordChange}
                 value={verify.password}
               />
             </S.InputBox>
+            {errors.password && (
+              <S.Error style={{ color: "red" }}>{errors.password}</S.Error>
+            )}
+            {!errors.password && verify.password && (
+              <S.Error style={{ color: "green" }}>
+                비밀번호가 일치합니다.
+              </S.Error>
+            )}
           </S.InputForm>
           <S.InputForm>
             <S.Label>
@@ -155,9 +261,16 @@ export function Join() {
               <S.Input
                 onChange={(e) => handleEmailChange(e, 1)}
                 value={form.userEmail.split("@")[1] || ""}
+                disabled={confirm.email}
               />
             </S.InputBox>
-            <S.CheckButton onClick={onConfirmEmail}>인증요청</S.CheckButton>
+            <S.CheckButton
+              onClick={handleVerificationEmail}
+              disabled={confirm.email}
+              style={{ opacity: confirm.email ? 0.5 : 1 }}
+            >
+              인증요청
+            </S.CheckButton>
           </S.InputForm>
           <S.InputForm>
             <S.Label>
@@ -165,16 +278,23 @@ export function Join() {
             </S.Label>
             <S.InputBox style={{ width: "20%" }}>
               <S.Input
-                onChange={(e) => setForm({ ...verify, email: e.target.value })}
+                onChange={(e) =>
+                  setVerify({ ...verify, email: e.target.value })
+                }
                 value={verify.email}
+                disabled={confirm.email}
               />
             </S.InputBox>
-            <S.CheckButton onClick={onConfirmEmail}>인증확인</S.CheckButton>
+            <S.CheckButton
+              onClick={handleVerificationCode}
+              disabled={confirm.email}
+              style={{ opacity: confirm.email ? 0.5 : 1 }}
+            >
+              인증확인
+            </S.CheckButton>
           </S.InputForm>
           <S.InputForm style={{ borderBottom: "1px solid #aaaaaa" }}>
-            <S.Label>
-              휴대전화번호<S.Required>*</S.Required>
-            </S.Label>
+            <S.Label>휴대전화번호</S.Label>
             <S.InputBox style={{ width: "10%" }}>
               <S.Input
                 style={{ width: "80%" }}
@@ -202,7 +322,17 @@ export function Join() {
           </S.InputForm>
         </S.JoinForm>
       </S.JoinContainer>
-      <S.Button>가입하기</S.Button>
+      <S.Button
+        onClick={() => {
+          if (confirm.id && confirm.password && confirm.email) {
+            onSubmit();
+          }
+        }}
+        disabled={!(confirm.id && confirm.password && confirm.email)}
+        style={{ opacity: errors.userId ? 0.5 : 1 }}
+      >
+        가입하기
+      </S.Button>
       <S.LineContainer>
         <S.Line style={{ width: "200px" }}></S.Line>
         <div style={{ color: "#9A9FAB" }}>SNS 계정으로 로그인</div>

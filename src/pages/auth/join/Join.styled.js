@@ -24,7 +24,7 @@ export const InfoContainer = styled.div`
 `;
 
 export const JoinContainer = styled.div`
-display: flex;
+  display: flex;
   width: 80%;
 `;
 
@@ -57,8 +57,11 @@ export const Input = styled.input`
   border: none;
   outline: none;
   font-size: 15px;
-  margin: 10px;
+  margin-left: 10px;
+  height: 40px;
+  width: 100%;
 `;
+
 export const Label = styled.label`
   width: 10%;
   margin-bottom: 5px;
@@ -71,7 +74,7 @@ export const Required = styled.span`
 `;
 
 export const CheckButton = styled.button`
-  cursor: pointer;
+  cursor: ${(props) => (props.disabled ? "not-allowed" : "pointer")};
   width: 100px;
   height: 50px;
   margin-left: 10px;
@@ -80,7 +83,8 @@ export const CheckButton = styled.button`
   background-color: #777777;
 `;
 export const Button = styled.button`
-  cursor: pointer;
+  cursor: ${(props) => (props.disabled ? "not-allowed" : "pointer")};
+  opacity: ${(props) => (props.disabled ? 0.5 : 1)};
   width: 400px;
   height: 60px;
   margin: 80px 0 8px 0;
@@ -98,10 +102,18 @@ export const LineContainer = styled.div`
 
 export const Line = styled.div`
   border: 1px solid #eef0f3;
-  width: 100%
+  width: 100%;
 `;
 
 export const SocialContainer = styled.div`
   ${sharedContainerStyles}
   flex-direction: row;
+`;
+
+export const Error = styled.span`
+  display: flex;
+  align-self: flex-end;
+  font-size: 12px;
+  font-weight: bold;
+  margin: 7px;
 `;
