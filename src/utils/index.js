@@ -3,7 +3,7 @@ import axios from "axios";
 
 //임시 URL
 const BASE_URL = 'http://localhost:3000';
-const MS1_URL ='http://localhost:9001/hospital-service'; // 여긴 공통적인 부분만 넣기
+const MS1_URL ='http://localhost:8000/hospital-service'; // 여긴 공통적인 부분만 넣기 여기 나중에 8000번 변경하기!! api-gateway로
 
 const axiosAPI = (url, options) => {
   const instance = axios.create({ baseURL: url, ...options });
