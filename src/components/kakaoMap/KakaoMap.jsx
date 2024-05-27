@@ -9,6 +9,15 @@ export function KakaoMap({ data }) {
   });
 
   useEffect(() => {
+    if (data.length > 0) {
+      setLocation({
+        x: data[0].wgs84Lon,
+        y: data[0].wgs84Lat,
+      });
+    }
+  }, [data]);
+
+  useEffect(() => {
     const container = document.getElementById("map");
     const options = {
       center: new kakao.maps.LatLng(location.y, location.x),
