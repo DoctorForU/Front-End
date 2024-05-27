@@ -1,7 +1,10 @@
+//HospitalSearch.jsx
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { postHospitals } from '../../api/hospital';
 import HospitalList from '../../components/hospitalList/HospitalList';
+import { KakaoMap } from '../../components'; // 맞데
+import KakaoMap2 from '../../components/kakaoMap/KakaoMap2';
 
 const Container = styled.div`
   width: 100%;
@@ -182,6 +185,8 @@ export function HospitalSearch() {
         />
         <Button onClick={handleClick}>검색</Button>
       </Form>
+      <KakaoMap data={searchResults} />
+      {/* <KakaoMap2 />  */}
       <HospitalList results={searchResults} />
     </Container>
   );
