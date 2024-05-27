@@ -1,9 +1,8 @@
-//HospitalSearch.jsx
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { postHospitals } from '../../api/hospital';
 import HospitalList from '../../components/hospitalList/HospitalList';
-import { KakaoMap } from '../../components'; // 맞데
+import { KakaoMap } from '../../components';
 import KakaoMap2 from '../../components/kakaoMap/KakaoMap2';
 
 const Container = styled.div`
@@ -83,9 +82,10 @@ export function HospitalSearch() {
   const [cityData, setCityData] = useState({});
   const [hospitalName, setHospitalName] = useState('');
   const [searchResults, setSearchResults] = useState([]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 10;
 
   useEffect(() => {
-    // Fetch the city data from the JSON file
     fetch('/city_data.json')
       .then(response => response.json())
       .then(data => {
@@ -130,15 +130,24 @@ export function HospitalSearch() {
       hospitalName
     };
 
-    console.log("Request data: ", data); // 요청 데이터 로그 출력
+    console.log("Request data: ", data);
 
     try {
       const result = await postHospitals(data);
-      console.log("Response data: ", result); // 응답 데이터 로그 출력
-      setSearchResults(result || []); // 검색 결과 설정
+      console.log("Response data: ", result);
+      setSearchResults(result || []);
+      setCurrentPage(1); // Reset to first page on new search
     } catch (error) {
       console.error('Error:', error);
     }
+  };
+
+  const startIndex = (currentPage - 1) * itemsPerPage;
+  const currentItems = searchResults.slice(startIndex, startIndex + itemsPerPage);
+  const totalPages = Math.ceil(searchResults.length / itemsPerPage);
+
+  const handlePageChange = (pageNumber) => {
+    setCurrentPage(pageNumber);
   };
 
   return (
@@ -185,9 +194,8 @@ export function HospitalSearch() {
         />
         <Button onClick={handleClick}>검색</Button>
       </Form>
-      <KakaoMap data={searchResults} />
-      {/* <KakaoMap2 />  */}
-      <HospitalList results={searchResults} />
+      <KakaoMap data={currentItems} />
+      <HospitalList results={currentItems} onPageChange={handlePageChange} totalPages={totalPages} currentPage={currentPage} />
     </Container>
   );
-};
+}

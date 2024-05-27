@@ -1,5 +1,4 @@
-// HospitalList.jsx
-import React, { useState } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 
 const ListContainer = styled.div`
@@ -70,18 +69,9 @@ const PageButton = styled.button`
   }
 `;
 
-const HospitalList = ({ results = [] }) => {
-  const [currentPage, setCurrentPage] = useState(1);
+const HospitalList = ({ results = [], onPageChange, totalPages, currentPage }) => {
   const itemsPerPage = 10;
   const maxPageButtons = 7;
-
-  const handleClick = (newPage) => {
-    setCurrentPage(newPage);
-  };
-
-  const startIndex = (currentPage - 1) * itemsPerPage;
-  const currentItems = results.slice(startIndex, startIndex + itemsPerPage); // lengend 여기를 이용해서 -> 113번줄 map을 통해 한 배열의 값 인덱싱해서 result로 이용 [item 1 -> result]
-  const totalPages = Math.ceil(results.length / itemsPerPage);
 
   const generatePageNumbers = () => {
     const pages = [];
@@ -109,8 +99,8 @@ const HospitalList = ({ results = [] }) => {
   return (
     <>
       <ListContainer>
-        {currentItems.length > 0 ? (
-          currentItems.map((result, index) => (
+        {results.length > 0 ? (
+          results.map((result, index) => (
             <ListItem key={index}>
               <Placeholder />
               <Info>
@@ -133,7 +123,7 @@ const HospitalList = ({ results = [] }) => {
       </ListContainer>
       <PaginationContainer>
         <PageButton
-          onClick={() => handleClick(currentPage - 1)}
+          onClick={() => onPageChange(currentPage - 1)}
           disabled={currentPage === 1}
         >
           이전
@@ -141,14 +131,14 @@ const HospitalList = ({ results = [] }) => {
         {pageNumbers.map((number) => (
           <PageButton
             key={number}
-            onClick={() => handleClick(number)}
+            onClick={() => onPageChange(number)}
             disabled={currentPage === number}
           >
             {number}
           </PageButton>
         ))}
         <PageButton
-          onClick={() => handleClick(currentPage + 1)}
+          onClick={() => onPageChange(currentPage + 1)}
           disabled={currentPage === totalPages}
         >
           다음
