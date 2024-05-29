@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import {handleViewDetails} from '../../api/hospitalDetail';
 
 const ListContainer = styled.div`
   margin-top: 20px;
@@ -69,6 +70,7 @@ const PageButton = styled.button`
   }
 `;
 
+
 const HospitalList = ({ results = [], onPageChange, totalPages, currentPage }) => {
   const itemsPerPage = 10;
   const maxPageButtons = 7;
@@ -111,7 +113,7 @@ const HospitalList = ({ results = [], onPageChange, totalPages, currentPage }) =
               </Info>
               <Actions>
                 <Button>길찾기</Button>
-                <Button>상세보기</Button>
+                <Button onClick={()=> handleViewDetails(result.hpid)}>상세보기</Button>
                 <Button>응급진료확인하기</Button>
                 <Button>관심병원</Button>
               </Actions>
