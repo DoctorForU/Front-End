@@ -6,6 +6,7 @@ import * as common from "../pages/common";
 import * as pages from "../pages"; // page를 매칭한다면 -> element에 'page.'으로 꺼내기
 
 import * as home from "../pages/home";
+import * as myPage from "../pages/myPage";
 
 
 export function Router() {
@@ -14,7 +15,8 @@ export function Router() {
     { path: "/", element: <home.Main /> },
     { path: "auth/login", element: <auth.Login /> },
     { path: "auth/join", element: <auth.Join /> },
-    { path: "hospital-search", element: <pages.HospitalSearch /> }
+    { path: "hospital-search", element: <pages.HospitalSearch /> },
+    { path: "mypage", element: <myPage.MyPage /> }
   ]);
 
   return <RouterProvider router={router} />;

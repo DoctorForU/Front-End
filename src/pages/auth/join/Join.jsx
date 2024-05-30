@@ -5,6 +5,7 @@ import {
   postCheckDuplicateId,
   postVerificationCode,
   postVerificationEmail,
+  postJoin,
 } from "../../../api";
 import * as S from "./Join.styled";
 import { useNavigate } from "react-router-dom";
@@ -113,7 +114,7 @@ export function Join() {
   const onSubmit = async () => {
     //회원가입 요청
     const data = { ...form };
-    const res = await postCheckDuplicateId(form.userId);
+    const res = await postJoin(data);
     if (res) {
       alert("회원가입이 완료되었습니다.");
       navigate("/auth/login");
