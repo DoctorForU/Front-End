@@ -1,61 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import styled from 'styled-components';
 import { postHospitals } from '../../api/hospital';
 import HospitalList from '../../components/hospitalList/HospitalList';
 import { KakaoMap } from '../../components';
-import KakaoMap2 from '../../components/kakaoMap/KakaoMap2';
 
-const Container = styled.div`
-  width: 100%;
-  max-width: 800px;
-  margin: 0 auto;
-  padding: 20px;
-  background-color: #f1f1f1;
-  border-radius: 10px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-`;
-
-const Title = styled.h1`
-  font-size: 24px;
-  text-align: center;
-  margin-bottom: 20px;
-`;
-
-const Form = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 10px;
-`;
-
-const Select = styled.select`
-  padding: 10px;
-  font-size: 16px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-`;
-
-const Input = styled.input`
-  padding: 10px;
-  font-size: 16px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  flex: 1;
-`;
-
-const Button = styled.button`
-  padding: 10px 20px;
-  font-size: 16px;
-  background-color: #007bff;
-  color: white;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-
-  &:hover {
-    background-color: #0056b3;
-  }
-`;
+import * as S from "./Header.styled";
 
 const primaryOptions = [
   { value: 'department', label: '진료과목' },
