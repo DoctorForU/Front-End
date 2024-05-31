@@ -5,7 +5,13 @@ export function Header({ color }) {
   const navigate = useNavigate();
   return (
     <S.Container color={color}>
-      <S.Logo>Doctor For U</S.Logo>
+      <S.Logo
+        onClick={() => {
+          navigate("/");
+        }}
+      >
+        Doctor For U
+      </S.Logo>
       <S.Nav>
         <ul>
           <li>병원 검색</li>
@@ -32,7 +38,7 @@ export function Header({ color }) {
             회원가입
           </span>
         </div>
-        <S.MenuButton>
+        <S.MenuButton color={color}>
           <span className="menu-button-line"></span>
           <span className="menu-button-line"></span>
           <span className="menu-button-line"></span>

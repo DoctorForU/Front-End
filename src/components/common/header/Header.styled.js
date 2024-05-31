@@ -54,7 +54,7 @@ const MenuButton = styled.button`
   .menu-button-line {
     width: 100%;
     height: 2px;
-    background-color: black;
+    background-color: ${({ color }) => color || "white"};
   }
 `;
 
