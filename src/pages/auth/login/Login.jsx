@@ -12,7 +12,6 @@ export function Login() {
 
   return (
     <Layout>
-      <S.Line style={{ width: "100%" }}></S.Line>
       <S.LoginInfo>
         <h1 style={{ fontSize: "40px" }}>로그인</h1>
         <div style={{ fontSize: "15px", fontWeight: "bold" }}>

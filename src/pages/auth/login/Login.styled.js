@@ -10,6 +10,7 @@ export const LoginInfo = styled.div`
   ${sharedContainerStyles}
   flex-direction: column;
   justify-content: center;
+  height: 30%;
 `;
 
 export const LoginContainer = styled.div`
@@ -17,7 +18,7 @@ export const LoginContainer = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  margin: 45px 0 30px;
+  margin: 30px;
 `;
 
 export const LoginForm = styled.div`

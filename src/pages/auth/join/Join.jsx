@@ -160,8 +160,13 @@ export function Join() {
   };
 
   return (
-    <Layout>
-      <S.Line></S.Line>
+    <Layout
+      style={{
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "center",
+      }}
+    >
       <S.JoinInfo>
         <h1 style={{ fontSize: "40px" }}>회원가입</h1>
         <S.InfoContainer>

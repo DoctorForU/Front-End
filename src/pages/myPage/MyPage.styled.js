@@ -1,8 +1,15 @@
 import styled from "styled-components";
 
+export const Container = styled.div`
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  height: 100%;
+`;
 export const Sidebar = styled.div`
-  width: 20%;
-  background-color: #2c3e50;
+  width: 15%;
+  height: 100%;
+  background-color: #435cc8;
   color: white;
   display: flex;
   flex-direction: column;
