@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Layout } from "../../../components/common";
 import { Google, Kakao } from "../../../components/auth";
 import {
-  postCheckDuplicateId,
+  getCheckDuplicateId,
   postVerificationCode,
   postVerificationEmail,
   postJoin,
@@ -15,7 +15,7 @@ export function Join() {
     userName: "",
     userId: "",
     userEmail: "",
-    userPasssword: "",
+    userPassword: "",
     userPhoneNumber: "",
   });
 
@@ -42,7 +42,7 @@ export function Join() {
 
   const validatePassword = (password) => {
     // 비밀번호 확인
-    return form.userPasssword === password;
+    return form.userPassword === password;
   };
 
   const handleUserIdChange = (e) => {
@@ -110,20 +110,9 @@ export function Join() {
     });
   };
 
-  const navigate = useNavigate();
-  const onSubmit = async () => {
-    //회원가입 요청
-    const data = { ...form };
-    const res = await postJoin(data);
-    if (res) {
-      alert("회원가입이 완료되었습니다.");
-      navigate("/auth/login");
-    } else alert("잘못된 요청입니다.");
-  };
-
   const handleCheckDuplicateId = async () => {
     //아이디 중복 체크 요쳥
-    const res = await postCheckDuplicateId(form.userId);
+    const res = await getCheckDuplicateId(form.userId);
     console.log(res);
     if (res) {
       alert("사용 가능한 아이디입니다.");
@@ -132,6 +121,24 @@ export function Join() {
       ...confirm,
       id: res,
     });
+  };
+
+  const navigate = useNavigate();
+  const onSubmit = async () => {
+    //회원가입 요청
+    const data = {
+      userName: form.userName,
+      userId: form.userId,
+      userEmail: form.userEmail,
+      userPassword: form.userPassword,
+      userPhoneNumber: form.userPhoneNumber,
+    };
+    console.log(data);
+    const res = await postJoin(data);
+    if (res) {
+      alert("회원가입이 완료되었습니다.");
+      navigate("/auth/login");
+    } else alert("잘못된 요청입니다.");
   };
 
   const handleVerificationEmail = async () => {
@@ -228,9 +235,9 @@ export function Join() {
                 <S.Input
                   type="password"
                   onChange={(e) =>
-                    setForm({ ...form, userPasssword: e.target.value })
+                    setForm({ ...form, userPassword: e.target.value })
                   }
-                  value={form.userPasssword}
+                  value={form.userPassword}
                 />
               </S.InputBox>
             </S.InputForm>
@@ -331,26 +338,26 @@ export function Join() {
             </S.InputForm>
           </S.JoinForm>
         </S.JoinContainer>
-          <S.Button
-            onClick={() => {
-              if (confirm.id && confirm.password && confirm.email) {
-                onSubmit();
-              }
-            }}
-            disabled={!(confirm.id && confirm.password && confirm.email)}
-            style={{ opacity: errors.userId ? 0.5 : 1 }}
-          >
-            가입하기
-          </S.Button>
-          <S.LineContainer>
-            <S.Line style={{ width: "200px" }}></S.Line>
-            <div style={{ color: "#9A9FAB" }}>SNS 계정으로 로그인</div>
-            <S.Line style={{ width: "200px" }}></S.Line>
-          </S.LineContainer>
-          <S.SocialContainer>
-            <Google />
-            <Kakao />
-          </S.SocialContainer>
+        <S.Button
+          onClick={() => {
+            if (confirm.id && confirm.password && confirm.email) {
+              onSubmit();
+            }
+          }}
+          disabled={!(confirm.id && confirm.password && confirm.email)}
+          style={{ opacity: errors.userId ? 0.5 : 1 }}
+        >
+          가입하기
+        </S.Button>
+        <S.LineContainer>
+          <S.Line style={{ width: "200px" }}></S.Line>
+          <div style={{ color: "#9A9FAB" }}>SNS 계정으로 로그인</div>
+          <S.Line style={{ width: "200px" }}></S.Line>
+        </S.LineContainer>
+        <S.SocialContainer>
+          <Google />
+          <Kakao />
+        </S.SocialContainer>
       </S.Container>
     </Layout>
   );

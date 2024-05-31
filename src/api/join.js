@@ -1,26 +1,30 @@
-import { defaultInstance } from "../utils";
+import { authInstance } from "../utils";
 
-export const postCheckDuplicateId = async (data) => { // 아이디 중복 확인
+export const getCheckDuplicateId = async (data) => {
+  // 아이디 중복 확인
   try {
-    const res = await defaultInstance.get(`/api/user/register/${data}`);
+    const res = await authInstance.get(`/register/${data}`);
     return res.data.isSuccess;
   } catch (error) {
     console.log(error);
   }
 };
 
-export const postVerificationEmail = async (data) => { // 인증 코드 요청
+export const postVerificationEmail = async (data) => {
+  // 인증 코드 요청
   try {
-    const res = await defaultInstance.post("/verify-email", data);
+    const res = await authInstance.post("/verify-email", data);
     return res.data.isSuccess;
   } catch (error) {
     console.log(error);
   }
 };
 
-export const postVerificationCode = async (data) => { // 인증 코드 확인
+export const postVerificationCode = async (data) => {
+  // 인증 코드 확인
   try {
-    const res = await defaultInstance.post("/verification-code", data);
+    console.log(data);
+    const res = await authInstance.post("/verification-code", data);
     return res.data.isSuccess;
   } catch (error) {
     console.log(error);
@@ -29,9 +33,9 @@ export const postVerificationCode = async (data) => { // 인증 코드 확인
 
 export const postJoin = async (data) => {
   try {
-    const res = await defaultInstance.post("/api/user/join", data);
+    const res = await authInstance.post("/join", data);
     return res.data.isSuccess;
   } catch (error) {
-    console.log(error);
+    console.log(error.response);
   }
 };

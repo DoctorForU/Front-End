@@ -3,6 +3,7 @@ import axios from "axios";
 
 //임시 URL
 const BASE_URL = "http://localhost:9002";
+const MyPage_URL = "http://localhost:8000/user-service";
 const MS1_URL = "http://localhost:8000/hospital-service"; // 여긴 공통적인 부분만 넣기 여기 나중에 8000번 변경하기!! api-gateway로
 
 const axiosAPI = (url, options) => {
@@ -22,13 +23,4 @@ const axiosAuthAPI = (url, options) => {
 
 export const defaultInstance = axiosAPI(BASE_URL);
 export const hospitalInstance = axiosAPI(MS1_URL);
-export const authInstance = axiosAuthAPI(BASE_URL);
-
-/*
-  유진아
-  이거 
-  headers: {
-    'Content-Type': 'application/json',
-  },
-  이것도 포함되어 있다는 거지?
-*/
+export const authInstance = axiosAuthAPI(MyPage_URL);
