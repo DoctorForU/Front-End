@@ -72,7 +72,7 @@ const PageButton = styled.button`
 
 
 const HospitalList = ({ results = [], onPageChange, totalPages, currentPage }) => {
-  const itemsPerPage = 10;
+  //const itemsPerPage = 10;
   const maxPageButtons = 7;
 
   const generatePageNumbers = () => {
@@ -98,6 +98,11 @@ const HospitalList = ({ results = [], onPageChange, totalPages, currentPage }) =
 
   const pageNumbers = generatePageNumbers();
 
+  const handleNavigateClick = (hospital) => {
+    const url = `https://map.kakao.com/link/to/${encodeURIComponent(hospital.dutyName)},${hospital.wgs84Lat},${hospital.wgs84Lon}`;
+    window.open(url, '_blank');
+  };
+
   return (
     <>
       <ListContainer>
@@ -112,7 +117,7 @@ const HospitalList = ({ results = [], onPageChange, totalPages, currentPage }) =
                 <p><strong>진료 시간:</strong> {result.dutyTime1s} - {result.dutyTime1c}</p>
               </Info>
               <Actions>
-                <Button>길찾기</Button>
+                <Button onClick={() => handleNavigateClick(result)}>길찾기</Button>
                 <Button onClick={()=> handleViewDetails(result.hpid)}>상세보기</Button>
                 <Button>응급진료확인하기</Button>
                 <Button>관심병원</Button>
