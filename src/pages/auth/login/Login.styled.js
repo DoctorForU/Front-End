@@ -6,6 +6,12 @@ const sharedContainerStyles = css`
   align-items: center;
 `;
 
+export const Container = styled.div`
+  ${sharedContainerStyles}
+  flex-direction: column;
+  margin: 2%;
+`;
+
 export const LoginInfo = styled.div`
   ${sharedContainerStyles}
   flex-direction: column;

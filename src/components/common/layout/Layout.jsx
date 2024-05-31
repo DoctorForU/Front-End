@@ -11,8 +11,7 @@ export function Layout({ children }) {
           flexDirection: "column",
           alignItems: "center",
           flex: 1,
-          overflow: "hidden",
-          minHeight: "calc(100vh - 150px)",
+          height: "100%",
         }}
       >
         {children}

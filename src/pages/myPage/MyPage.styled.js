@@ -6,6 +6,7 @@ export const Container = styled.div`
   width: 100%;
   height: 100%;
 `;
+
 export const Sidebar = styled.div`
   width: 15%;
   height: 100%;
@@ -26,20 +27,28 @@ export const SidebarItem = styled.div`
 
 export const MainContent = styled.div`
   width: 80%;
+  height: 100%;
   padding: 20px;
   background-color: #ecf0f1;
 `;
 
+export const Content = styled.div`
+  display: flex;
+  flex-direction: row;
+  padding: 20px;
+  width: 100%;
+`;
+
 export const CardsContainer = styled.div`
   display: flex;
-  justify-content: space-between;
+  flex-direction: row;
   margin-bottom: 20px;
 `;
 
 export const Card = styled.div`
   background-color: white;
   padding: 20px;
-  width: 48%;
+  width: 28%;
   border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 `;

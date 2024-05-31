@@ -12,6 +12,7 @@ export function Login() {
 
   return (
     <Layout>
+      <S.Container>
       <S.LoginInfo>
         <h1 style={{ fontSize: "40px" }}>로그인</h1>
         <div style={{ fontSize: "15px", fontWeight: "bold" }}>
@@ -49,6 +50,7 @@ export function Login() {
         <Google />
         <Kakao />
       </S.SocialContainer>
+      </S.Container>
     </Layout>
   );
 }

@@ -6,6 +6,12 @@ const sharedContainerStyles = css`
   align-items: center;
 `;
 
+export const Container = styled.div`
+  ${sharedContainerStyles}
+  flex-direction: column;
+  margin: 2%;
+`;
+
 export const JoinInfo = styled.div`
   display: flex;
   flex-direction: column;
@@ -93,6 +99,7 @@ export const Button = styled.button`
   color: white;
   background-color: #435cc8;
 `;
+export const ButtonContainer = styled.div``;
 
 export const LineContainer = styled.div`
   ${sharedContainerStyles}
@@ -108,6 +115,7 @@ export const Line = styled.div`
 export const SocialContainer = styled.div`
   ${sharedContainerStyles}
   flex-direction: row;
+  margin-bottom: 20px;
 `;
 
 export const Error = styled.span`
