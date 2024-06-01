@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
-import { postHospitals } from "../../api/hospital";
-import HospitalList from "../../components/hospitalList/HospitalList";
-import { KakaoMap, Layout } from "../../components";
+import { postHospitals } from "../../../api/hospital";
+import HospitalList from "../../../components/hospitalList/HospitalList";
+import { KakaoMap, Layout } from "../../../components";
 
 import { departments, institutes } from "./Data";
 import * as S from "./HospitalSearch.styled";
