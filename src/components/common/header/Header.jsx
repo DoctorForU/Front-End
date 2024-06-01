@@ -14,7 +14,7 @@ export function Header({ color }) {
       </S.Logo>
       <S.Nav>
         <ul>
-          <li>병원 검색</li>
+          <li onClick={() => navigate("/hospital-search")}>병원 검색</li>
           <li>응급실 검색</li>
           <li>질병 검색</li>
           <li>의료 제품 검색</li>

@@ -27,7 +27,10 @@ export function KakaoMap({ data }) {
 
     const labels = ["A", "B", "C", "D", "E", "F"];
     data.forEach((hospital, index) => {
-      const coords = new kakao.maps.LatLng(hospital.wgs84Lat, hospital.wgs84Lon);
+      const coords = new kakao.maps.LatLng(
+        hospital.wgs84Lat,
+        hospital.wgs84Lon
+      );
       const marker = new kakao.maps.Marker({
         map: map,
         position: coords,
@@ -35,12 +38,14 @@ export function KakaoMap({ data }) {
       });
 
       const infowindow = new kakao.maps.InfoWindow({
-        content: `<div style="width:50px;height:50px;display:flex;align-items:center;justify-content:center;border-radius:50%;background-color:blue;color:white;font-size:16px;">${labels[index % labels.length]}</div>`,
+        content: `<div style="width:50px;height:50px;display:flex;align-items:center;justify-content:center;border-radius:50%;background-color:blue;color:white;font-size:16px;">${
+          labels[index % labels.length]
+        }</div>`,
       });
 
       infowindow.open(map, marker);
     });
   }, [data, location]);
 
-  return <div id="map" style={{ width: "100%", height: "500px" }}></div>;
+  return <div id="map" style={{ width: "70%", height: "500px" }}></div>;
 }
