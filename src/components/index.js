@@ -5,4 +5,4 @@ export * from "./calendar";
 export * from "./banner";
 export * from "./healthCare";
 export * from "./health";
-export * from "./inquiry"
+export * from "./inquiry";

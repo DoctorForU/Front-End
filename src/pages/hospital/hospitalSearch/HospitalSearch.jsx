@@ -69,6 +69,7 @@ export function HospitalSearch() {
 
     console.log("Request data: ", data);
 
+    
     try {
       const result = await postHospitals(data);
       console.log("Response data: ", result);

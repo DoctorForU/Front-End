@@ -39,35 +39,3 @@ export const Img = styled.img`
   height: 20px;
   margin-right: 10px;
 `;
-
-export const MainContent = styled.div`
-  display: flex;
-  flex-direction: column;
-  height: 100%;
-  width: 85%;
-  padding: 30px;
-  background-color: #ecf0f1;
-`;
-
-export const Content = styled.div`
-  display: flex;
-  flex-direction: row;
-  width: 100%;
-  gap: 30px;
-`;
-
-export const CardTitle = styled.div`
-  font-size: 1.2em;
-  margin-bottom: 10px;
-`;
-
-export const CardValue = styled.div`
-  font-size: 2em;
-  margin-bottom: 10px;
-`;
-
-export const CardChart = styled.div`
-  height: 100px;
-  background-color: #f2f3f4;
-  border-radius: 5px;
-`;

@@ -1,7 +1,8 @@
 import React from "react";
-import { getHospitalDetail } from "../../api";
+import { getHospitalDetail } from "../../api"; // 상세보기 버튼을 눌렀을 때
 import * as S from "./HospitalList.styled";
 import { useNavigate } from "react-router-dom";
+import { exampleDataList } from "./ExampleData";
 
 const HospitalList = ({
   results = [],
@@ -46,7 +47,7 @@ const HospitalList = ({
   return (
     <>
       <S.ListContainer>
-        {results.length > 0 ? (
+        {results.length > 0 ? ( // exampleDataList -> results라고 해야함
           results.map((result, index) => (
             <S.ListItem key={index}>
               <S.Placeholder />
