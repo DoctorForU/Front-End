@@ -13,9 +13,7 @@ export const postHospitals = async (data) => {
 export const getHospitalDetail  = async (hpid) => {
   try {
     const response = await hospitalInstance.get(`/hospitalDetail`, {
-      params: {
-        hpid: hpid,
-      },
+      params: { hpid }
     });
     console.log(response.data); // 데이터 출력
     return response.data;

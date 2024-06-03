@@ -10,7 +10,7 @@ export function HospitalDetail() {
   const params = useParams();
 
   const handleHospitalDetail = async () => {
-    const res = await getHospitalDetail(params);
+    const res = await getHospitalDetail(params.hpid);
     if (res) {
       setHospitalData(res.data);
     } else alert("잘못된 요청입니다.");
