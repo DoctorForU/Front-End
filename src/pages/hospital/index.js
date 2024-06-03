@@ -1,2 +1,2 @@
 export * from "./hospitalSearch/HospitalSearch";
-export * from "./hospitalDetail/hospitalDetail";
+export * from "./hospitalDetail/HospitalDetail";

@@ -1,6 +1,7 @@
 import React from "react";
 import { getHospitalDetail } from "../../api";
 import * as S from "./HospitalList.styled";
+import { useNavigate } from "react-router-dom";
 
 const HospitalList = ({
   results = [],
@@ -33,6 +34,7 @@ const HospitalList = ({
   };
 
   const pageNumbers = generatePageNumbers();
+  const navigate = useNavigate();
 
   const handleNavigateClick = (hospital) => {
     const url = `https://map.kakao.com/link/to/${encodeURIComponent(
@@ -67,7 +69,11 @@ const HospitalList = ({
                 <S.Button onClick={() => handleNavigateClick(result)}>
                   길찾기
                 </S.Button>
-                <S.Button onClick={() => getHospitalDetail(result.hpid)}>
+                <S.Button
+                  onClick={() => {
+                    navigate(`/hospital-search/${result.hpid}`);
+                  }}
+                >
                   상세보기
                 </S.Button>
                 <S.Button>응급진료확인하기</S.Button>

@@ -13,7 +13,7 @@ export function Router() {
     { path: "auth/login", element: <auth.Login /> },
     { path: "auth/join", element: <auth.Join /> },
     { path: "hospital-search", element: <hospital.HospitalSearch /> },
-    { path: "hospital-search:hospitalName",element: <hospital.hospitalDetail />, },
+    { path: "hospital-search/:hpid",element: <hospital.hospitalDetail />, },
     { path: "mypage", element: <myPage.MyPage /> },
   ]);
   return <RouterProvider router={router} />;
