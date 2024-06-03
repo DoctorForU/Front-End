@@ -8,49 +8,52 @@ export const Container = styled.div`
 `;
 
 export const Sidebar = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 3em 9px;
   width: 15%;
   height: 100%;
   background-color: #435cc8;
   color: white;
-  display: flex;
-  flex-direction: column;
-  padding: 20px;
 `;
 
 export const SidebarItem = styled.div`
-  margin: 20px 0;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  height: 40px;
+  width: 13em;
+  padding: 0 20px;
+  border-radius: 5px;
+  background-color: #251650;
   cursor: pointer;
   &:hover {
     color: #3498db;
   }
 `;
 
+export const Img = styled.img`
+  width: 20px;
+  height: 20px;
+  margin-right: 10px;
+`;
+
 export const MainContent = styled.div`
-  width: 80%;
+  display: flex;
+  flex-direction: column;
   height: 100%;
-  padding: 20px;
+  width: 85%;
+  padding: 30px;
   background-color: #ecf0f1;
 `;
 
 export const Content = styled.div`
   display: flex;
   flex-direction: row;
-  padding: 20px;
   width: 100%;
-`;
-
-export const CardsContainer = styled.div`
-  display: flex;
-  flex-direction: row;
-  margin-bottom: 20px;
-`;
-
-export const Card = styled.div`
-  background-color: white;
-  padding: 20px;
-  width: 28%;
-  border-radius: 10px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  gap: 30px;
 `;
 
 export const CardTitle = styled.div`
