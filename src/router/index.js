@@ -13,7 +13,7 @@ export function Router() {
     { path: "auth/login", element: <auth.Login /> },
     { path: "auth/join", element: <auth.Join /> },
     { path: "hospital-search", element: <hospital.HospitalSearch /> },
-    { path: "hospital-search/:hpid", element: <hospital.HospitalDetail /> },
+    { path: "hospital-search/:hpid", element: <hospital.HospitalDetail /> }, // :이 url 파람 -> 저걸로 hospital.HospitalDetail로 라우팅 
     { path: "mypage", element: <myPage.MyPage /> },
   ]);
   return <RouterProvider router={router} />;

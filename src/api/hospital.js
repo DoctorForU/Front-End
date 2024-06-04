@@ -15,7 +15,7 @@ export const getHospitalDetail  = async (hpid) => {
     const response = await hospitalInstance.get(`/hospitalDetail`, {
       params: { hpid }
     });
-    console.log(response.data); // 데이터 출력
+    console.log({response}); // 데이터 출력
     return response.data;
   } catch (error) {
     console.log(error);
