@@ -4,9 +4,14 @@ import "react-calendar/dist/Calendar.css";
 import styled from "styled-components";
 
 export const StyledCalendar = styled(Calendar)`
-  width: 300px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 350px;
   max-width: 100%;
   border: none;
+  margin: 10px 0;
 
   /* 달력 배경색 */
   .react-calendar {
@@ -69,12 +74,13 @@ export const StyledCalendar = styled(Calendar)`
   .react-calendar__tile {
     display: flex;
     flex-direction: column;
-    text-align: center;
     align-items: center;
-    line-height: 1.4em;
+    line-height: 23px;
+    height: 50px;
     color: #808c99;
     font-size: 15px;
     font-weight: bold;
+    text-align: center;
   }
 
   /* 저번 달 & 다음 달 일자 */
@@ -82,14 +88,17 @@ export const StyledCalendar = styled(Calendar)`
     color: #e9edf0;
     font-size: 15px;
     font-weight: bold;
-    line-height: 1.4px;
+    line-height: 23px;
+    height: 50px;
   }
 
   /* 오늘 날짜 */
   .react-calendar__tile--now {
     background-color: #c6f7d9;
     color: #808c99;
-    line-height: 1.4em;
+    height: 50px;
+    line-height: 23px;
+    height: 50px;
     font-size: 15px;
     font-weight: bold;
     border-radius: 50%;
@@ -100,22 +109,18 @@ export const StyledCalendar = styled(Calendar)`
   .react-calendar__tile:enabled:hover,
   .react-calendar__tile:enabled:focus,
   .react-calendar__tile--active {
-    display: flex;
-    justify-content: center;
     font-size: 15px;
-    color: white;
-    height: 100%;
-    background-color: #319dff;
+    height: 50px;
+    background-color: none;
     border-radius: 50%;
   }
 
   /* 선택된 날짜의 배경색 변경 */
   .react-calendar__tile--active {
-    display: flex;
-    justify-content: center;
     background-color: #319dff;
     color: white;
-    line-height: 1.4em;
+    line-height: 23px;
+    height: 50px;
     font-size: 15px;
     font-weight: bold;
     border-radius: 50%;
@@ -123,7 +128,8 @@ export const StyledCalendar = styled(Calendar)`
 
   .react-calendar__tile--active:enabled:hover,
   .react-calendar__tile--active:enabled:focus {
-    line-height: 1.4em;
+    line-height: 23px;
+    height: 50px;
     background: #319dff;
     border: 1px solid #435cc8;
   }
@@ -132,7 +138,11 @@ export const StyledCalendar = styled(Calendar)`
   .dot {
     display: flex;
     justify-content: center;
+    align-items: center;
+    width: 5px;
+    height: 5px;
     border-radius: 50%;
     background-color: #d4eaff;
+    margin: 2px 0 0 0;
   }
 `;

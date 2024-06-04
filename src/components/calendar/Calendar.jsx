@@ -1,28 +1,60 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import Modal from "react-modal";
 import dayjs from "dayjs";
 
 import * as S from "./Calendar.styled";
 import * as R from "./ReactCalendar.styled";
+import * as M from "../../pages/myPage/inquiries/Inquiries.styled";
 
 // 날짜 리스트 데이터
 const dayList = [
-  "2023-03-10",
-  "2023-03-21",
-  "2023-04-02",
-  "2023-04-14",
-  "2023-04-27",
+  "2024-06-10",
+  "2024-06-21",
+  "2024-06-02",
+  "2024-06-14",
+  "2024-06-27",
 ];
 
 export function Calendar() {
-  const curDate = new Date(); // 현재 날짜
-  const [value, setValue] = useState(curDate); // 클릭한 날짜
-  const [date, setDate] = useState(new Date());
+  const [selectedDate, setSelectedDate] = useState(null);
   const [mark, setMark] = useState([]);
+  const [isOpen, setIsOpen] = useState(false);
 
-  const onChange = (newDate) => {
-    setDate(newDate);
+  useEffect(() => {
+    setMark(dayList); // dayList 데이터를 mark 상태로 설정
+  }, []);
+
+  const openModal = () => {
+    document.body.style.overflow = "hidden";
+    setIsOpen(true);
   };
 
+  const closeModal = (e) => {
+    document.body.style.overflow = "unset";
+    setIsOpen(false);
+  };
+
+  const customStyles = {
+    overlay: {
+      backgroundColor: "rgba(0, 0, 0, 0.5)",
+    },
+    content: {
+      display: "flex",
+      flexDirection: "column",
+      alignItems: "center",
+      width: "40em",
+      height: "480px",
+      margin: "auto",
+      borderRadius: "10px",
+      boxShadow: "0 2px 4px rgba(0, 0, 0, 0.2)",
+      overflow: "hidden"
+    },
+  };
+
+  const handleChange = (date) => {
+    setSelectedDate(date);
+    console.log(dayjs(date).format("YYYY-MM-DD")); // 날짜를 포맷하여 출력
+  };
   const onSubmit = async () => {
     //진료 내역
     const data = {};
@@ -34,36 +66,43 @@ export function Calendar() {
   };
 
   return (
-    <S.CalendarContainer>
-      <p style={{ fontWeight: "bold" }}>진료예정</p>
-      <S.Line></S.Line>
-      <R.StyledCalendar
-        onChange={onChange}
-        value={date}
-        showNeighboringMonth={false}
-        tileContent={({ date }) => {
-          let html = [];
-          // 현재 날짜가 post 작성한 날짜 배열(mark)에 있다면, dot div 추가
-          if (mark.find((x) => x === dayjs(date).format("YYYY-MM-DD"))) {
-            html.push(<div className="dot"></div>);
+    <>
+      <Modal isOpen={isOpen} style={customStyles}>
+        <button
+          onClick={() => {
+            closeModal();
+          }}
+        >
+          닫기
+        </button>
+      </Modal>
+      <S.CalendarContainer>
+        <p style={{ fontWeight: "bold" }}>진료예정</p>
+        <S.Line></S.Line>
+        <R.StyledCalendar
+          onChange={handleChange}
+          value={selectedDate}
+          showNeighboringMonth={false}
+          tileContent={({ date, view }) => {
+            if (view === "month") {
+              const formattedDate = dayjs(date).format("YYYY-MM-DD");
+              if (mark.includes(formattedDate)) {
+                return <div className="dot"></div>;
+              }
+            }
+            return null;
+          }}
+          formatDay={(locale, date) =>
+            date.toLocaleString("en", { day: "numeric" })
           }
-          // 다른 조건을 주어서 html.push 에 추가적인 html 태그를 적용할 수 있음.
-          return (
-            <>
-              <div className="flex justify-center items-center absoluteDiv">
-                {html}
-              </div>
-            </>
-          );
-        }}
-        formatDay={(locale, date) =>
-          date.toLocaleString("en", { day: "numeric" })
-        }
-      />
-      <S.CalendarButtons>
-        <S.Button primary>예약하기</S.Button>
-        <S.Button>변경 및 취소</S.Button>
-      </S.CalendarButtons>
-    </S.CalendarContainer>
+        />
+        <S.CalendarButtons>
+          <S.Button primary onClick={openModal}>
+            예약하기
+          </S.Button>
+          <S.Button>변경 및 취소</S.Button>
+        </S.CalendarButtons>
+      </S.CalendarContainer>
+    </>
   );
 }

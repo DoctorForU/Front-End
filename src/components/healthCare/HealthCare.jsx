@@ -4,14 +4,23 @@ import {
   CartesianGrid,
   XAxis,
   YAxis,
+  ReferenceArea,
+  AreaChart,
+  Area,
   Tooltip,
 } from "recharts";
 import * as S from "./HealthCare.styled";
 
+const normalBloodPressureData = {
+  systolic: 120,
+  diastolic: 80,
+};
 const bloodPressureData = [
   { systolic: 120, diastolic: 80, createdAt: "1/4" },
   { systolic: 115, diastolic: 75, createdAt: "1/11" },
   { systolic: 130, diastolic: 85, createdAt: "1/18" },
+  { systolic: 120, diastolic: 80, createdAt: "1/25" },
+  { systolic: 130, diastolic: 85, createdAt: "2/1" },
 ];
 
 const weightData = [
@@ -30,26 +39,82 @@ export function HealthCare({ title }) {
       ? `${latestData.systolic}/${latestData.diastolic} ${unit}`
       : `${latestData.weight} ${unit}`;
 
+  const displayTitle = title === "Blood Pressure" ? "혈압" : "체중";
   return (
     <S.Container>
       <S.Title>
-        <span>{title}</span>
+        <span style={{ fontWeight: "bold" }}>{displayTitle}</span>
         <S.Value>{latestValue}</S.Value>
       </S.Title>
-      <LineChart width={350} height={200} data={data}>
-        <CartesianGrid strokeDasharray="3 3" />
-        <XAxis dataKey="createdAt" />
-        <YAxis />
-        <Tooltip />
+      <S.Content>
         {title === "Blood Pressure" ? (
           <>
-            <Line type="monotone" dataKey="systolic" stroke="#8884d8" />
-            <Line type="monotone" dataKey="diastolic" stroke="#82ca9d" />
+            <LineChart
+              width={350}
+              height={200}
+              data={data}
+              margin={{ top: 10, right: 40, left: 0, bottom: 0 }}
+            >
+              <CartesianGrid strokeDasharray="3 3" />
+              <Tooltip />
+              <XAxis
+                dataKey="createdAt"
+                fontSize={12}
+                tickMargin={10}
+                axisLine={false}
+                tickLine={false}
+              />
+              <YAxis
+                fontSize={12}
+                tickMargin={10}
+                axisLine={false}
+                tickLine={false}
+                domain={[50, 175]}
+                tickCount={5}
+                interval="preserveStartEnd"
+              />
+              <ReferenceArea y1={150} y2={175} fill="pink" fillOpacity={0.3} />
+              <ReferenceArea y1={50} y2={80} fill="pink" fillOpacity={0.3} />
+              <Line type="monotone" dataKey="systolic" stroke="#FF3B51" />
+              <Line type="monotone" dataKey="diastolic" stroke="#5FA1D3" />
+            </LineChart>
           </>
         ) : (
-          <Line type="monotone" dataKey="weight" stroke="#8884d8" />
+          <>
+            <AreaChart
+              width={350}
+              height={200}
+              data={data}
+              margin={{ top: 10, right: 40, left: 0, bottom: 0 }}
+            >
+              <CartesianGrid strokeDasharray="3 3" />
+              <Tooltip />
+              <XAxis
+                dataKey="createdAt"
+                fontSize={12}
+                tickMargin={10}
+                axisLine={false}
+                tickLine={false}
+              />
+              <YAxis
+                fontSize={12}
+                tickMargin={10}
+                axisLine={false}
+                tickLine={false}
+                domain={[latestValue, "auto"]}
+                tickCount={5}
+                interval="preserveStartEnd"
+              />
+              <Area
+                type="monotone"
+                dataKey="weight"
+                stroke="#6640FF"
+                fill="#b4a6f1"
+              />
+            </AreaChart>
+          </>
         )}
-      </LineChart>
+      </S.Content>
     </S.Container>
   );
 }

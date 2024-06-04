@@ -38,24 +38,12 @@ const Menu = styled.div`
   span {
     font-size: 10px;
   }
-`;
 
-const MenuButton = styled.button`
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  width: 30px;
-  height: 18px;
-  border: none;
-  margin: 12px;
-  background: transparent;
-  cursor: pointer;
-
-  .menu-button-line {
-    width: 100%;
-    height: 2px;
-    background-color: ${({ color }) => color || "white"};
+  .material-icons {
+    cursor: pointer;
+    font-size: 28px;
+    margin: 5px;
   }
 `;
 
-export { Container, Logo, Nav, Menu, MenuButton };
+export { Container, Logo, Nav, Menu };

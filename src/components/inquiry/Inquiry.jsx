@@ -1,10 +1,106 @@
+import { useState } from "react";
+import Modal from "react-modal";
 import * as S from "./Inquiry.styled";
 
 export function Inquiry() {
+  const [isOpen, setIsOpen] = useState(false);
+  const [form, setForm] = useState({
+    title: "",
+    content: "",
+  });
+
+  const openModal = () => {
+    document.body.style.overflow = "hidden";
+    setIsOpen(true);
+  };
+
+  const closeModal = (e) => {
+    document.body.style.overflow = "unset";
+    setIsOpen(false);
+  };
+
+  const customStyles = {
+    overlay: {
+      backgroundColor: "rgba(0, 0, 0, 0.5)",
+    },
+    content: {
+      display: "flex",
+      flexDirection: "column",
+      alignItems: "center",
+      width: "40em",
+      height: "480px",
+      margin: "auto",
+      borderRadius: "10px",
+      boxShadow: "0 2px 4px rgba(0, 0, 0, 0.2)",
+      overflow: "hidden",
+    },
+  };
+
+  const onSubmit = () => {
+    const contentsReplaceNewline = () => {
+      return form.content.replaceAll("<br>", "\r\n");
+    };
+
+    const data = {
+      title: form.title,
+      content: contentsReplaceNewline(),
+    };
+
+    console.log(data);
+    closeModal();
+  };
+
   return (
-    <S.Container>
-      <p style={{ fontWeight: "bold" }}>문의하기</p>
-      <S.Line></S.Line>
-    </S.Container>
+    <>
+      <Modal isOpen={isOpen} style={customStyles}>
+        <h2 style={{ fontWeight: "bold" }}>문의하기</h2>
+        <S.Line></S.Line>
+        <S.Content>
+          <S.Title>문의제목</S.Title>
+          <S.Input
+            style={{ height: "40px" }}
+            value={form.content}
+            onChange={(e) => setForm({ ...form, content: e.target.value })}
+          ></S.Input>
+        </S.Content>
+        <S.Content>
+          <S.Title>문의내용</S.Title>
+          <S.Input
+            style={{ height: "150px" }}
+            value={form.content}
+            onChange={(e) => setForm({ ...form, content: e.target.value })}
+          ></S.Input>
+        </S.Content>
+        <S.ModalButton>
+          <S.Button
+            primary
+            onClick={() => {
+              if (form.title && form.content) onSubmit();
+            }}
+          >
+            문의하기
+          </S.Button>
+          <S.Button
+            onClick={() => {
+              closeModal();
+            }}
+          >
+            취소
+          </S.Button>
+        </S.ModalButton>
+      </Modal>
+      <S.Container onClick={openModal}>
+        <p style={{ fontWeight: "bold" }}>문의하기</p>
+        <S.Line></S.Line>
+        <S.Content>
+          <S.Title>문의제목</S.Title>
+          <S.Box style={{ height: "30px" }}></S.Box>
+        </S.Content>
+        <S.Content>
+          <S.Title>문의내용</S.Title>
+          <S.Box style={{ height: "100px" }}></S.Box>
+        </S.Content>
+      </S.Container>
+    </>
   );
 }

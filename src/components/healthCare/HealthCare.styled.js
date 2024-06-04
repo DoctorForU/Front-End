@@ -3,8 +3,8 @@ import styled from "styled-components";
 export const Container = styled.div`
   display: flex;
   flex-direction: column;
-  height: 220px;
-  width: 50%;
+  height: 280px;
+  width: 100%;
   padding: 10px;
   margin-top: 30px;
   background-color: white;
@@ -16,10 +16,18 @@ export const Title = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+  font-size: 20px;
+  padding: 10px;
   margin: 10px;
 `;
 
 export const Value = styled.span`
-  font-size: 1.2em;
-  font-weight: bold;
+  font-size: 0.8em;
+  font-weight: 15px;
+`;
+
+export const Content = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `;

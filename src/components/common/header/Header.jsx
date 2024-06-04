@@ -38,11 +38,9 @@ export function Header({ color }) {
             회원가입
           </span>
         </div>
-        <S.MenuButton color={color}>
-          <span className="menu-button-line"></span>
-          <span className="menu-button-line"></span>
-          <span className="menu-button-line"></span>
-        </S.MenuButton>
+        <span class="material-icons" onClick={() => navigate("/mypage")}>
+          account_circle
+        </span>
       </S.Menu>
     </S.Container>
   );

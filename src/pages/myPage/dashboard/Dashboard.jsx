@@ -15,7 +15,7 @@ export function Dashboard() {
           style={{
             display: "flex",
             flexDirection: "column",
-            width: "65%",
+            width: "64%",
           }}
         >
           <Banner />
@@ -23,12 +23,18 @@ export function Dashboard() {
             <HealthCare title="Blood Pressure" />
             <HealthCare title="Weight" />
           </S.Content>
+          <Health />
         </div>
-        <Calendar />
-      </S.Content>
-      <S.Content>
-        <Health />
-        <Inquiry />
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            width: "35%",
+          }}
+        >
+          <Calendar />
+          <Inquiry />
+        </div>
       </S.Content>
     </S.MainContent>
   );
