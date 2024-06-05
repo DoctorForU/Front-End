@@ -14,15 +14,15 @@ export function HospitalDetail() {
     try {
       console.log(`Fetching data for HPID: ${params.hpid}`);
       const data = await getHospitalDetail(params.hpid);
-      console.log('Received data:', data);
+      console.log("Received data:", data);
       if (data) {
         setHospitalData(data); // 데이터를 단일 객체로 처리
       } else {
         throw new Error("잘못된 요청입니다.");
       }
     } catch (error) {
-      console.error('Error fetching hospital detail:', error);
-      setError(error.message || '데이터를 가져오는 중 오류가 발생했습니다.');
+      console.error("Error fetching hospital detail:", error);
+      setError(error.message || "데이터를 가져오는 중 오류가 발생했습니다.");
     }
   };
 
@@ -95,13 +95,27 @@ export function HospitalDetail() {
             <h3>기본정보</h3>
             <p>진료과목: {hospitalData.dgidIdName}</p>
             <p>진료가능시간</p>
-            <p>월요일: {hospitalData.dutyTime1s} - {hospitalData.dutyTime1c}</p>
-            <p>화요일: {hospitalData.dutyTime2s} - {hospitalData.dutyTime2c}</p>
-            <p>수요일: {hospitalData.dutyTime3s} - {hospitalData.dutyTime3c}</p>
-            <p>목요일: {hospitalData.dutyTime4s} - {hospitalData.dutyTime4c}</p>
-            <p>금요일: {hospitalData.dutyTime5s} - {hospitalData.dutyTime5c}</p>
-            <p>토요일: {hospitalData.dutyTime6s} - {hospitalData.dutyTime6c}</p>
-            <p>공휴일: {hospitalData.dutyTime7s} - {hospitalData.dutyTime7c}</p>
+            <p>
+              월요일: {hospitalData.dutyTime1s} - {hospitalData.dutyTime1c}
+            </p>
+            <p>
+              화요일: {hospitalData.dutyTime2s} - {hospitalData.dutyTime2c}
+            </p>
+            <p>
+              수요일: {hospitalData.dutyTime3s} - {hospitalData.dutyTime3c}
+            </p>
+            <p>
+              목요일: {hospitalData.dutyTime4s} - {hospitalData.dutyTime4c}
+            </p>
+            <p>
+              금요일: {hospitalData.dutyTime5s} - {hospitalData.dutyTime5c}
+            </p>
+            <p>
+              토요일: {hospitalData.dutyTime6s} - {hospitalData.dutyTime6c}
+            </p>
+            <p>
+              공휴일: {hospitalData.dutyTime7s} - {hospitalData.dutyTime7c}
+            </p>
             <p>기관설명상세: {hospitalData.dutyInf}</p>
             <p>응급실운영여부: {renderValue(hospitalData.dutyEryn)}</p>
           </S.Section>
@@ -226,7 +240,10 @@ export function HospitalDetail() {
                 { label: "외과중환자실", value: hospitalData.o007 },
                 { label: "신생아중환자실", value: hospitalData.o008 },
                 { label: "소아 중환자실", value: hospitalData.o009 },
-                { label: "소아응급전용 중환자실 병상", value: hospitalData.o010 },
+                {
+                  label: "소아응급전용 중환자실 병상",
+                  value: hospitalData.o010,
+                },
                 { label: "신경과중환자실", value: hospitalData.o011 },
                 { label: "신경외과중환자실", value: hospitalData.o012 },
                 { label: "화상중환자실", value: hospitalData.o013 },
@@ -234,7 +251,10 @@ export function HospitalDetail() {
                 { label: "심장내과 중환자실", value: hospitalData.o015 },
                 { label: "흉부외과 중환자실", value: hospitalData.o016 },
                 { label: "일반 중환자실", value: hospitalData.o017 },
-                { label: "중환자실 내 음압격리 병상", value: hospitalData.o018 },
+                {
+                  label: "중환자실 내 음압격리 병상",
+                  value: hospitalData.o018,
+                },
                 { label: "응급전용 입원실", value: hospitalData.o019 },
                 { label: "소아응급전용 입원 병상", value: hospitalData.o020 },
                 { label: "외상전용 입원실", value: hospitalData.o021 },
