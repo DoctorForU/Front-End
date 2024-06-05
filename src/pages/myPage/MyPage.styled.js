@@ -14,7 +14,7 @@ export const Sidebar = styled.div`
   padding: 3em 9px;
   width: 250px;
   height: auto;
-  min-height: 100vh;
+  
   background-color: #435cc8;
   color: white;
   overflow: hidden;

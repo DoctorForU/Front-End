@@ -77,7 +77,13 @@ const HospitalList = ({
                 >
                   상세보기
                 </S.Button>
-                <S.Button>응급진료확인하기</S.Button>
+                <S.Button
+                  onClick={() => {
+                    navigate(`/hospital-reservation/${result.hpid}`);
+                  }}
+                >
+                  진료예약
+                </S.Button>
                 <S.Button>관심병원</S.Button>
               </S.Actions>
             </S.ListItem>

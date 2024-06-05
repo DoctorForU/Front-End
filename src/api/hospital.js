@@ -1,4 +1,5 @@
 import { hospitalInstance } from "../utils";
+import { reservationInstance } from "../utils";
 
 export const postHospitals = async (data) => {
   try {
@@ -13,6 +14,19 @@ export const postHospitals = async (data) => {
 export const getHospitalDetail  = async (hpid) => {
   try {
     const response = await hospitalInstance.get(`/hospitalDetail`, {
+      params: { hpid }
+    });
+    console.log({response}); // 데이터 출력
+    return response.data;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+// 진료 내역
+export const getReservationDetail  = async (hpid) => {
+  try {
+    const response = await reservationInstance.get(`/toMypageForDate`, {
       params: { hpid }
     });
     console.log({response}); // 데이터 출력
