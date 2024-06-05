@@ -16,6 +16,7 @@ export function Inquiry() {
 
   const closeModal = (e) => {
     document.body.style.overflow = "unset";
+    setForm((form.title = ""), (form.content = ""));
     setIsOpen(false);
   };
 
@@ -58,9 +59,9 @@ export function Inquiry() {
         <S.Content>
           <S.Title>문의제목</S.Title>
           <S.Input
-            style={{ height: "40px" }}
-            value={form.content}
-            onChange={(e) => setForm({ ...form, content: e.target.value })}
+            style={{ height: "20px" }}
+            value={form.title}
+            onChange={(e) => setForm({ ...form, title: e.target.value })}
           ></S.Input>
         </S.Content>
         <S.Content>

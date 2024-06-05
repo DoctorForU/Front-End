@@ -43,6 +43,7 @@ export const Input = styled.textarea`
   width: 85%;
   height: 100%;
   resize: none;
+  padding: 10px;
 `;
 
 export const ModalButton = styled.div`
