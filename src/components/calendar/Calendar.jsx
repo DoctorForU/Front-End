@@ -4,6 +4,7 @@ import dayjs from "dayjs";
 
 import * as S from "./Calendar.styled";
 import * as R from "./ReactCalendar.styled";
+import { useNavigate } from "react-router-dom";
 
 // 날짜 리스트 데이터
 const dayList = [
@@ -18,6 +19,7 @@ export function Calendar() {
   const [selectedDate, setSelectedDate] = useState(null);
   const [mark, setMark] = useState([]);
   const [isOpen, setIsOpen] = useState(false);
+  const navigate = useNavigate();
 
   useEffect(() => {
     setMark(dayList); // dayList 데이터를 mark 상태로 설정
@@ -46,7 +48,7 @@ export function Calendar() {
       margin: "auto",
       borderRadius: "10px",
       boxShadow: "0 2px 4px rgba(0, 0, 0, 0.2)",
-      overflow: "hidden"
+      overflow: "hidden",
     },
   };
 
@@ -54,7 +56,7 @@ export function Calendar() {
     setSelectedDate(date);
     console.log(dayjs(date).format("YYYY-MM-DD")); // 날짜를 포맷하여 출력
   };
-  
+
   const onSubmit = async () => {
     //진료 내역
     const data = {};
@@ -88,7 +90,12 @@ export function Calendar() {
           }
         />
         <S.CalendarButtons>
-          <S.Button primary onClick={openModal}>
+          <S.Button
+            primary
+            onClick={() => {
+              navigate("/hospital-search");
+            }}
+          >
             예약하기
           </S.Button>
           <S.Button>변경 및 취소</S.Button>
