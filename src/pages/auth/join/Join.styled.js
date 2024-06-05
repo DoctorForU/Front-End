@@ -99,7 +99,6 @@ export const Button = styled.button`
   color: white;
   background-color: #435cc8;
 `;
-export const ButtonContainer = styled.div``;
 
 export const LineContainer = styled.div`
   ${sharedContainerStyles}

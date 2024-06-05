@@ -4,7 +4,6 @@ import dayjs from "dayjs";
 
 import * as S from "./Calendar.styled";
 import * as R from "./ReactCalendar.styled";
-import * as M from "../../pages/myPage/inquiries/Inquiries.styled";
 
 // 날짜 리스트 데이터
 const dayList = [
@@ -55,6 +54,7 @@ export function Calendar() {
     setSelectedDate(date);
     console.log(dayjs(date).format("YYYY-MM-DD")); // 날짜를 포맷하여 출력
   };
+  
   const onSubmit = async () => {
     //진료 내역
     const data = {};
@@ -67,15 +67,6 @@ export function Calendar() {
 
   return (
     <>
-      <Modal isOpen={isOpen} style={customStyles}>
-        <button
-          onClick={() => {
-            closeModal();
-          }}
-        >
-          닫기
-        </button>
-      </Modal>
       <S.CalendarContainer>
         <p style={{ fontWeight: "bold" }}>진료예정</p>
         <S.Line></S.Line>

@@ -16,6 +16,7 @@ export function Dashboard() {
             display: "flex",
             flexDirection: "column",
             width: "64%",
+            height: "100%",
           }}
         >
           <Banner />
@@ -30,6 +31,7 @@ export function Dashboard() {
             display: "flex",
             flexDirection: "column",
             width: "35%",
+            height: "100%",
           }}
         >
           <Calendar />

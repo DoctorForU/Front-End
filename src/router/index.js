@@ -14,7 +14,7 @@ export function Router() {
     { path: "auth/join", element: <auth.Join /> },
     { path: "hospital-search", element: <hospital.HospitalSearch /> },
     { path: "hospital-search/:hpid", element: <hospital.HospitalDetail /> },
-    { path: "mypage", element: <myPage.MyPage /> },
+    { path: "mypage/:page", element: <myPage.MyPage /> },
   ]);
   return <RouterProvider router={router} />;
 }

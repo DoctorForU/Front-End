@@ -1,4 +1,4 @@
-import background from "../../../assets/test2.png";
+import background from "../../../assets/test3.png";
 import styled from "styled-components";
 
 export const Container = styled.div`

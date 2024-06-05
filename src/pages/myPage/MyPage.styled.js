@@ -12,10 +12,12 @@ export const Sidebar = styled.div`
   flex-direction: column;
   align-items: center;
   padding: 3em 9px;
-  width: 15%;
-  height: 100%;
+  width: 250px;
+  height: auto;
+  min-height: 100vh;
   background-color: #435cc8;
   color: white;
+  overflow: hidden;
 `;
 
 export const SidebarItem = styled.div`
@@ -23,14 +25,14 @@ export const SidebarItem = styled.div`
   flex-direction: row;
   justify-content: flex-start;
   align-items: center;
-  height: 40px;
-  width: 13em;
-  padding: 0 20px;
+  height: 50px;
+  width: 100%;
+  padding-left: 30px;
   border-radius: 5px;
-  background-color: #251650;
+  background-color: ${(props) => (props.isActive ? "#291958" : "inherit")};
   cursor: pointer;
   &:hover {
-    color: #3498db;
+    font-weight: bold;
   }
 `;
 

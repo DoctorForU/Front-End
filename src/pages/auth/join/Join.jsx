@@ -88,8 +88,15 @@ export function Join() {
 
   const handlePhoneNumberChange = (e, part) => {
     // 전화번호 입력
+    const value = e.target.value;
     let phoneNumber = form.userPhoneNumber.split("-");
-    phoneNumber[part] = e.target.value;
+
+    if (part === 0 && value.length <= 3) {
+      phoneNumber[part] = value;
+    } else if ((part === 1 || part === 2) && value.length <= 4) {
+      phoneNumber[part] = value;
+    }
+
     setForm({
       ...form,
       userPhoneNumber: phoneNumber.join("-"),

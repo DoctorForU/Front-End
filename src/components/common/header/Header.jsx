@@ -38,7 +38,7 @@ export function Header({ color }) {
             회원가입
           </span>
         </div>
-        <span class="material-icons" onClick={() => navigate("/mypage")}>
+        <span class="material-icons" onClick={() => navigate("/mypage/dashboard")}>
           account_circle
         </span>
       </S.Menu>

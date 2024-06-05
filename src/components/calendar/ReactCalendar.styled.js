@@ -105,6 +105,11 @@ export const StyledCalendar = styled(Calendar)`
     text-align: center;
   }
 
+  .react-calendar__tile--now:enabled:hover,
+.react-calendar__tile--now:enabled:focus {
+  background: #c6f7d9;
+}
+
   /* 선택한 날짜 스타일 적용 */
   .react-calendar__tile:enabled:hover,
   .react-calendar__tile:enabled:focus,

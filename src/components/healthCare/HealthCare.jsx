@@ -11,10 +11,6 @@ import {
 } from "recharts";
 import * as S from "./HealthCare.styled";
 
-const normalBloodPressureData = {
-  systolic: 120,
-  diastolic: 80,
-};
 const bloodPressureData = [
   { systolic: 120, diastolic: 80, createdAt: "1/4" },
   { systolic: 115, diastolic: 75, createdAt: "1/11" },
