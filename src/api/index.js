@@ -1,3 +1,3 @@
 export * from "./hospital";
-export * from "./join";
-export * from "./login";
+export * from "./user";
+export * from "./mypage";

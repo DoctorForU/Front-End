@@ -20,10 +20,7 @@ export function Dashboard() {
           }}
         >
           <Banner />
-          <S.Content>
-            <HealthCare title="Blood Pressure" />
-            <HealthCare title="Weight" />
-          </S.Content>
+            <HealthCare />
           <Health />
         </div>
         <div

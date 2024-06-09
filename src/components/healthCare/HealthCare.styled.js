@@ -1,8 +1,9 @@
 import styled from "styled-components";
 
 export const Container = styled.div`
+  cursor: pointer;
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   height: 280px;
   width: 100%;
   padding: 10px;
@@ -30,4 +31,49 @@ export const Content = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+`;
+
+export const Chart = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
+
+export const InputForm = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
+
+export const InputBox = styled.div`
+  width: 200px;
+  height: 60px;
+  margin: 8px;
+  font-size: 15px;
+  border: 1px solid #8e8e8e;
+`;
+
+export const Input = styled.input`
+  border: none;
+  outline: none;
+  font-weight: bold;
+  font-size: 15px;
+  opacity: 0.55;
+  margin: 10px;
+`;
+
+export const ModalButton = styled.div`
+  display: flex;
+  justify-content: center;
+  width: 80%;
+  margin-top: 30px;
+`;
+
+export const Button = styled.button`
+  background-color: ${(props) => (props.primary ? "#435CC8" : "white")};
+  color: ${(props) => (props.primary ? "white" : "#435CC8")};
+  border: ${(props) => (props.primary ? "none" : "2px solid #435CC8")};
+  padding: 10px 20px;
+  margin: 15px;
+  width: 120px;
+  border-radius: 10px;
+  cursor: pointer;
 `;

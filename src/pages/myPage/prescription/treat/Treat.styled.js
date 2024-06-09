@@ -17,7 +17,7 @@ export const Title = styled.div`
 `;
 
 export const Table = styled.table`
-  width: 80%;
+  width: 90%;
   border-collapse: collapse;
   margin: 40px;
 `;
@@ -31,12 +31,12 @@ export const TableHeader = styled.th`
 `;
 
 export const TableRow = styled.tr`
-  height: 50px;
   border: 1px solid #ddd;
   padding: 8px;
 `;
 
 export const TableCell = styled.td`
+  height: 30px;
   border: 1px solid #ddd;
   padding: 8px;
   text-align: center;

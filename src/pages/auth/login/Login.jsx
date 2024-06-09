@@ -1,12 +1,14 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 import { Layout } from "../../../components/common";
 import { Google, Kakao } from "../../../components/auth";
+import { IsLoginContext } from "../../../hooks";
 import { postLogin } from "../../../api";
 
 import * as S from "./Login.styled";
 import { useNavigate } from "react-router-dom";
 
 export function Login() {
+  const { setIsLogin } = useContext(IsLoginContext);
   const navigate = useNavigate();
   const [form, setForm] = useState({
     userId: "",
@@ -17,12 +19,12 @@ export function Login() {
     //로그인
     const data = {
       userId: form.userId,
-      userPassword: form.userPassword
-    }
+      userPassword: form.userPassword,
+    };
     const res = await postLogin(data);
-    console.log(res);
     if (res) {
       alert("로그인이 완료되었습니다.");
+      setIsLogin(res);
       navigate("/");
     } else alert("로그인이 실패하였습니다.");
   };

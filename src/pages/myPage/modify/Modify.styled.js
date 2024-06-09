@@ -11,7 +11,7 @@ export const Container = styled.div`
 export const Title = styled.div`
   display: flex;
   align-items: center;
-  height: 13em;
+  height: 11em;
   width: 100%;
   background: #f4f6f9;
 `;

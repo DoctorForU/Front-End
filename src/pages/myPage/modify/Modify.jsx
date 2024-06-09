@@ -1,11 +1,7 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { getUserInfo, postUserUpdate } from "../../../api";
 import * as S from "./Modify.styled";
-
-const exampleData = {
-  userName: "김유진",
-  userId: "uj0791",
-  userEmail: "uj0791@naver.com",
-};
+import { useNavigate } from "react-router-dom";
 
 export function Modify() {
   const [form, setForm] = useState({
@@ -13,14 +9,21 @@ export function Modify() {
     confirmPassword: "",
     phoneNumber: "",
   });
-
-  //비밀번호 확인
+  const [data, setData] = useState({
+    userName: "김유진",
+    userId: "uj0791",
+    userEmail: "uj0791@naver.com",
+  });
   const [confirmPassword, setConfirmPassword] = useState(false);
   const [errors, setErrors] = useState("");
+  const navigate = useNavigate();
+  useEffect(() => {
+    handleUserInfo();
+  }, []);
 
   const validatePassword = (password) => {
     // 비밀번호 확인
-    return form.userPassword === this.password;
+    return form.userPassword === password;
   };
 
   const handleConfirmedPasswordChange = (e) => {
@@ -51,13 +54,31 @@ export function Modify() {
     });
   };
 
+  const handleUserInfo = async () => {
+    const res = await getUserInfo();
+    console.log(res);
+    if (res) setData(res);
+    else alert("로그인후 이용 가능합니다.");
+  };
+
+  const onSubmit = async () => {
+    const data = {
+      password: form.password,
+      phoneNumber: form.phoneNumber,
+    };
+    const res = await postUserUpdate(data);
+    console.log(res);
+    if (res) navigate("/mypage/dashboard");
+    else alert("잘못된 요청입니다.");
+  };
+
   return (
     <S.Container>
       <S.Title>
         <h1 style={{ margin: "2em 0 0 4em" }}>내 정보 수정</h1>
       </S.Title>
       <S.Content>
-        {Object.entries(exampleData).map(([key, value]) => (
+        {Object.entries(data).map(([key, value]) => (
           <S.InputForm key={key}>
             <S.Label>
               {key === "userName"
@@ -133,7 +154,13 @@ export function Modify() {
         </S.InputForm>
       </S.Content>
       <S.ButtonContainer>
-        <S.Button>저장</S.Button>
+        <S.Button
+          onClick={() => {
+            if (confirmPassword) onSubmit();
+          }}
+        >
+          저장
+        </S.Button>
       </S.ButtonContainer>
     </S.Container>
   );

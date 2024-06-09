@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { Layout } from "../../components/common";
-import { Dashboard, Modify, Treat } from "./";
+import { Dashboard, Modify, Inquiries, Treat } from "./";
 import * as S from "./MyPage.styled";
 
 export function MyPage() {
@@ -25,6 +25,8 @@ export function MyPage() {
       <Treat />
     ) : activeItem === "modify" ? (
       <Modify />
+    ) : activeItem === "inquiries" ? (
+      <Inquiries />
     ) : (
       <Dashboard />
     );
@@ -61,7 +63,10 @@ export function MyPage() {
           >
             <S.Img src="/img/Icon14.png" alt="Icon14" />내 정보 수정
           </S.SidebarItem>
-          <S.SidebarItem onClick={() => navigate("/mypage/dashboard")}>
+          <S.SidebarItem
+            isActive={activeItem === "inquiries"}
+            onClick={() => handleSidebarClick("inquiries")}
+          >
             <S.Img
               style={{ margin: "0 8px 0 2px" }}
               src="/img/Icon15.png"

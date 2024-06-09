@@ -1,4 +1,7 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import { useEffect } from "react";
+import { IsLoginProvider } from "../hooks";
+import { postRefresh } from "../api";
 
 import * as auth from "../pages/auth";
 import * as common from "../pages/common";
@@ -7,6 +10,10 @@ import * as hospital from "../pages/hospital";
 import * as myPage from "../pages/myPage";
 
 export function Router() {
+  useEffect(() => {
+    postRefresh();
+  }, []);
+
   const router = createBrowserRouter([
     { path: "*", element: <common.NotFound /> },
     { path: "/", element: <home.Main /> },
@@ -16,5 +23,9 @@ export function Router() {
     { path: "hospital-search/:hpid", element: <hospital.HospitalDetail /> }, // :이 url 파람 -> 저걸로 hospital.HospitalDetail로 라우팅
     { path: "mypage/:page", element: <myPage.MyPage /> },
   ]);
-  return <RouterProvider router={router} />;
+  return (
+    <IsLoginProvider>
+      <RouterProvider router={router} />
+    </IsLoginProvider>
+  );
 }

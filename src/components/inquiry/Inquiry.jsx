@@ -16,7 +16,10 @@ export function Inquiry() {
 
   const closeModal = (e) => {
     document.body.style.overflow = "unset";
-    setForm((form.title = ""), (form.content = ""));
+    setForm({
+      title: "",
+      content: "",
+    });
     setIsOpen(false);
   };
 
@@ -76,7 +79,9 @@ export function Inquiry() {
           <S.Button
             primary
             onClick={() => {
-              if (form.title && form.content) onSubmit();
+              if (!form.title) alert("문의 제목을 입력해주세요");
+              else if (!form.content) alert("문의 내용을 입력해주세요");
+              else onSubmit();
             }}
           >
             문의하기
