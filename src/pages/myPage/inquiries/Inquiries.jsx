@@ -1,14 +1,29 @@
+import { useState, useEffect } from "react";
+import { getInquiriesData } from "../../../api";
 import * as S from "./Inquiries.styled";
 
+const exampleData = [
+  {
+    title: "비밀번호",
+    content: "비밀번호 바꾸는 방법 알려주세요",
+    date: "2024-06-06",
+    status: "접수완료", // 접수완료, 답변완료
+  },
+];
+
 export function Inquiries() {
-  const inquiries = [
-    {
-      title: "비밀번호",
-      content: "비밀번호 바꾸는 방법 알려주세요",
-      date: "2024-06-06",
-      status: "접수완료", // 접수완료, 답변완료
-    },
-  ];
+  const [data, setData] = useState([]);
+
+  useEffect(() => {
+    handleInquiriesData();
+  }, []);
+
+  const handleInquiriesData = async () => {
+    const res = await getInquiriesData();
+    if (res) {
+      setData(res);
+    } else setData(exampleData);
+  };
 
   return (
     <S.Container>
@@ -26,14 +41,14 @@ export function Inquiries() {
           </S.TableRow>
         </thead>
         <tbody>
-          {inquiries.length === 0 ? (
+          {data.length === 0 ? (
             <S.TableRow>
               <S.TableCell colSpan="5">
                 <S.EmptyMessage>문의 내역이 없습니다.</S.EmptyMessage>
               </S.TableCell>
             </S.TableRow>
           ) : (
-            inquiries.map((inquiry, index) => (
+            data.map((inquiry, index) => (
               <S.TableRow key={index}>
                 <S.TableCell>{index + 1}</S.TableCell>
                 <S.TableCell>{inquiry.title}</S.TableCell>

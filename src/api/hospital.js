@@ -24,17 +24,17 @@ export const getHospitalDetail  = async (hpid) => {
 };
 
 // 진료 내역
-export const getReservationDetail  = async (hpid) => {
-  try {
-    const response = await reservationInstance.get(`/toMypageForDate`, {
-      params: { hpid }
-    });
-    console.log({response}); // 데이터 출력
-    return response.data;
-  } catch (error) {
-    console.log(error);
-  }
-};
+// export const getReservationDetail  = async (hpid) => {
+//   try {
+//     const response = await reservationInstance.get(`/toMypageForDate`, {
+//       params: { hpid }
+//     });
+//     console.log({response}); // 데이터 출력
+//     return response.data;
+//   } catch (error) {
+//     console.log(error);
+//   }
+// };
 
 
 // 리액트에서 -> 백엔드로 데이터를 요청하기

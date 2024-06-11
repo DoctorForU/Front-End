@@ -4,6 +4,7 @@ export const Container = styled.div`
   cursor: pointer;
   display: flex;
   flex-direction: row;
+  justify-content: space-around;
   height: 280px;
   width: 100%;
   padding: 10px;

@@ -44,22 +44,24 @@ export const postLogin = async (data) => {
   // 로그인
   try {
     const res = await authInstance.post("/login", data);
-    onLoginSuccess(res);
-    return res.data.userId;
+    return res;
   } catch (error) {
     console.log(error);
   }
 };
 
-export const postRefresh = async () => {
-  try {
-    const res = await authInstance.post("/refresh", {}, { withCredentials: true });
-    onLoginSuccess(res);
-    return res.data;
-  } catch (error) {
-    console.log(error);
-  }
-};
+// export const postRefresh = async () => {
+//   try {
+//     const res = await authInstance.post(
+//       "/refresh",
+//       { withCredentials: true }
+//     );
+//     onLoginSuccess(res);
+//     return res.data;
+//   } catch (error) {
+//     console.log(error);
+//   }
+// };
 
 export const getUserInfo = async () => {
   // 내 정보 요청
