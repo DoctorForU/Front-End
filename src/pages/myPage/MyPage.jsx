@@ -7,11 +7,21 @@ import * as S from "./MyPage.styled";
 export function MyPage() {
   const params = useParams();
   const navigate = useNavigate();
+  const [isLogin, setIsLogin] = useState(false);
   const [activeItem, setActiveItem] = useState("");
 
   useEffect(() => {
     setActiveItem(params.page || "dashboard"); // 기본값 설정
   }, [params]);
+
+  useEffect(() => {
+    const item = sessionStorage.getItem("userId");
+    if (item === null) {
+      alert("로그인 후 이용가능한 서비스입니다.")
+      navigate("/auth/login")
+    }
+  }, [isLogin]);
+
 
   const handleSidebarClick = (itemName) => {
     setActiveItem(itemName);

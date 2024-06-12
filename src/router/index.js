@@ -10,18 +10,6 @@ import * as myPage from "../pages/myPage";
 import Cookies from "js-cookie";
 
 export function Router() {
-  // const { setUserId, setIsLogin } = useContext(IsLoginContext);
-
-  // useEffect(() => {
-  //   const jwt = Cookies.get("accessToken");
-  //   if (jwt) {
-  //     const storedUserId = sessionStorage.getItem("userId");
-  //     if (storedUserId) {
-  //       setUserId(storedUserId);
-  //       setIsLogin(true);
-  //     }
-  //   }
-  // }, []);
 
   const router = createBrowserRouter([
     { path: "*", element: <common.NotFound /> },

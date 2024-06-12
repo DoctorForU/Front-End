@@ -1,28 +1,29 @@
 import { mypageInstance } from "../utils";
 
-export const getHealthData = async () => {
+export const getHealthData = async (userId) => {
   // 혈압, 체중
   try {
-    const res = await mypageInstance.get("/health");
+    const res = await mypageInstance.get(`/health/${userId}`); //1. api-gateway jwt 설정 2. openfeign -> userId
     return res.data;
   } catch (error) {
     console.log(error);
   }
 };
 
-export const postHealthData = async (data) => {
+export const postHealthData = async (userId, data) => {
   try {
-    const res = await mypageInstance.get("/health/register", data);
+    const res = await mypageInstance.post(`/health/register/${userId}`, data);
     return res.data.isSuccess;
   } catch (error) {
     console.log(error);
   }
 };
 
-export const getInquiriesData = async () => {
+export const getInquiriesData = async (userId) => {
   // 문의사항
   try {
-    const res = await mypageInstance.get("/inquiry");
+    const res = await mypageInstance.get(`/inquiry/${userId}`);
+    console.log(res.data);
     return res.data;
   } catch (error) {
     console.log(error);

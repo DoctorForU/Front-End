@@ -25,12 +25,6 @@ const exampleData = [
 
 export function HealthCare() {
   const [isOpen, setIsOpen] = useState(false);
-  const [form, setForm] = useState({
-    systolic: 0,
-    diastolic: 0,
-    weight: 0,
-  });
-
   const [data, setData] = useState([]);
   const latestBloodPressure = data.length
     ? `${data[data.length - 1].systolic}/${data[data.length - 1].diastolic}`
@@ -48,16 +42,13 @@ export function HealthCare() {
 
   const closeModal = (e) => {
     document.body.style.overflow = "unset";
-    setForm({
-      systolic: "",
-      diastolic: "",
-      weight: "",
-    });
     setIsOpen(false);
   };
 
   const handleHealthData = async () => {
-    const res = await getHealthData();
+    const userId = sessionStorage.getItem("userId");
+    const res = await getHealthData(userId);
+    console.log(res);
     if (res) {
       const transformedData = transformHealthData(res);
       setData(transformedData);
@@ -66,12 +57,7 @@ export function HealthCare() {
 
   return (
     <>
-      <Modal
-        isOpen={isOpen}
-        closeModal={closeModal}
-        form={form}
-        setForm={setForm}
-      />
+      <Modal isOpen={isOpen} closeModal={closeModal} />
       <S.Container onClick={openModal}>
         <S.Chart>
           <S.Title>

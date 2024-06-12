@@ -25,10 +25,11 @@ export function Calendar() {
   }, []);
 
   const handleReservationData = async () => {
-    const res = await getReservationData();
-    if (res) {
-      setData(res);
-    } else setData(exampleData);
+    // const res = await getReservationData();
+    // if (res) {
+    //   setData(res);
+    // } else setData(exampleData);
+    setData(exampleData);
   };
 
   const handleChange = (date) => {

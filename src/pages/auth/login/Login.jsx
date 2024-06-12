@@ -23,8 +23,7 @@ export function Login() {
     const res = await postLogin(data, setUserId);
     console.log(data);
     if (res) {
-      alert("로그인이 완료되었습니다.");
-      sessionStorage.setItem('userId', form.userId);
+      sessionStorage.setItem("userId", form.userId);
       navigate("/");
     } else alert("로그인이 실패하였습니다.");
   };

@@ -45,7 +45,9 @@ export const InputForm = styled.div`
 `;
 
 export const InputBox = styled.div`
-  width: 200px;
+  display: flex;
+  align-items: center;
+  width: 150px;
   height: 60px;
   margin: 8px;
   font-size: 15px;
@@ -53,10 +55,10 @@ export const InputBox = styled.div`
 `;
 
 export const Input = styled.input`
+  width: 100%;
   border: none;
   outline: none;
-  font-weight: bold;
-  font-size: 15px;
+  font-size: 18px;
   opacity: 0.55;
   margin: 10px;
 `;

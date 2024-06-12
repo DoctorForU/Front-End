@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { getInquiriesData } from "../../../api";
+import { transformInquiryData } from "../../../services";
 import * as S from "./Inquiries.styled";
 
 const exampleData = [
@@ -19,8 +20,10 @@ export function Inquiries() {
   }, []);
 
   const handleInquiriesData = async () => {
-    const res = await getInquiriesData();
+    const userId = sessionStorage.getItem("userId");
+    const res = await getInquiriesData(userId);
     if (res) {
+      const transformedData = transformInquiryData(res);
       setData(res);
     } else setData(exampleData);
   };
@@ -53,8 +56,10 @@ export function Inquiries() {
                 <S.TableCell>{index + 1}</S.TableCell>
                 <S.TableCell>{inquiry.title}</S.TableCell>
                 <S.TableCell>{inquiry.content}</S.TableCell>
-                <S.TableCell>{inquiry.date}</S.TableCell>
-                <S.TableCell>{inquiry.status}</S.TableCell>
+                <S.TableCell>{inquiry.createAt}</S.TableCell>
+                <S.TableCell>
+                  {inquiry.status ? "답변 완료" : "접수 완료"}
+                </S.TableCell>
               </S.TableRow>
             ))
           )}
