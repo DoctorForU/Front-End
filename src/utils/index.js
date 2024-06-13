@@ -1,5 +1,4 @@
 import axios from "axios";
-import Cookies from "js-cookie";
 
 //임시 URL
 const BASE_URL = "http://localhost:9002";
@@ -29,7 +28,6 @@ const axiosAuthAPI = (url, options) => {
 
 export const onLoginSuccess = (response) => {
   const userId = response.data.userId;
-  Cookies.set("accessToken", response.data.token, { httpOnly: true });
   sessionStorage.setItem("userId", userId);
 };
 
