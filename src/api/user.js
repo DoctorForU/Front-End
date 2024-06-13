@@ -50,20 +50,20 @@ export const postLogin = async (data) => {
   }
 };
 
-export const getUserInfo = async () => {
+export const getUserInfo = async (userId) => {
   // 내 정보 요청
   try {
-    const res = await authInstance.get("/userinfo");
+    const res = await authInstance.get(`/userinfo/${userId}`);
     return res.data;
   } catch (error) {
     console.log(error);
   }
 };
 
-export const postUserUpdate = async (data) => {
+export const postUserUpdate = async (userId, data) => {
   // 내 정보 수정 요청
   try {
-    const res = await authInstance.post("/userupdate", data);
+    const res = await authInstance.post(`/userupdate/${userId}`, data);
     return res.data.isSuccess;
   } catch (error) {
     console.log(error);

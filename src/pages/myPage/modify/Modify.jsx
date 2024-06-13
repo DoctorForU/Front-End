@@ -3,20 +3,23 @@ import { getUserInfo, postUserUpdate } from "../../../api";
 import * as S from "./Modify.styled";
 import { useNavigate } from "react-router-dom";
 
+const exampleData = {
+  userName: "김유진",
+  userId: "admin1234",
+  userEmail: "uj0791@naver.com",
+};
+
 export function Modify() {
   const [form, setForm] = useState({
     password: "",
     confirmPassword: "",
     phoneNumber: "",
   });
-  const [data, setData] = useState({
-    userName: "김유진",
-    userId: "uj0791",
-    userEmail: "uj0791@naver.com",
-  });
+  const [data, setData] = useState({});
   const [confirmPassword, setConfirmPassword] = useState(false);
   const [errors, setErrors] = useState("");
   const navigate = useNavigate();
+
   useEffect(() => {
     handleUserInfo();
   }, []);
@@ -28,6 +31,7 @@ export function Modify() {
 
   const handleConfirmedPasswordChange = (e) => {
     const password = e.target.value;
+    setForm({ ...form, confirmPassword: password });
     if (!validatePassword(password)) {
       setErrors("비밀번호가 일치하지 않습니다.");
       setConfirmPassword(false);
@@ -55,18 +59,20 @@ export function Modify() {
   };
 
   const handleUserInfo = async () => {
-    const res = await getUserInfo();
+    const item = sessionStorage.getItem("userId");
+    const res = await getUserInfo(item);
     console.log(res);
     if (res) setData(res);
-    else alert("로그인후 이용 가능합니다.");
+    else setData(exampleData);
   };
 
   const onSubmit = async () => {
+    const item = sessionStorage.getItem("userId");
     const data = {
-      password: form.password,
-      phoneNumber: form.phoneNumber,
+      userPassword: form.password,
+      userPhoneNumber: form.phoneNumber,
     };
-    const res = await postUserUpdate(data);
+    const res = await postUserUpdate(item, data);
     console.log(res);
     if (res) navigate("/mypage/dashboard");
     else alert("잘못된 요청입니다.");
@@ -118,10 +124,10 @@ export function Modify() {
               value={form.confirmPassword}
             />
           </S.InputBox>
-          {errors.password && (
-            <S.Error style={{ color: "red" }}>{errors.password}</S.Error>
+          {errors && (
+            <S.Error style={{ color: "red" }}>{errors}</S.Error>
           )}
-          {!errors.password && form.confirmPassword && (
+          {!errors && form.confirmPassword && (
             <S.Error style={{ color: "green" }}>비밀번호가 일치합니다.</S.Error>
           )}
         </S.InputForm>
