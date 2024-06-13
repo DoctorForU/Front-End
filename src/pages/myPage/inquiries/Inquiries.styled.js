@@ -24,7 +24,7 @@ export const Table = styled.table`
 
 export const TableHeader = styled.th`
   height: 40px;
-  border: 1px solid #ddd;
+  border-top: 1px solid #ddd;
   padding: 8px;
   background-color: #f2f2f2;
   text-align: center;
@@ -32,18 +32,45 @@ export const TableHeader = styled.th`
 
 export const TableRow = styled.tr`
   height: 50px;
-  border: 1px solid #ddd;
+  border-bottom: 1px solid #ddd;
   padding: 8px;
 `;
 
 export const TableCell = styled.td`
-  border: 1px solid #ddd;
+  cursor: pointer;
   padding: 8px;
   text-align: center;
 `;
 
 export const EmptyMessage = styled.div`
-  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   margin: 20px 0;
   color: #888;
+  height: 5em;
+`;
+
+export const Line = styled.div`
+  border: 1px solid #eef0f3;
+  width: 100%;
+  margin-bottom: 20px;
+`;
+
+export const Content = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  margin: 10px;
+`;
+
+export const Button = styled.button`
+  border: none;
+  width: 25%;
+  height: 40px;
+  margin: 4em;
+  color: white;
+  background-color: #435cc8;
 `;
