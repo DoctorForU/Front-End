@@ -11,8 +11,8 @@ const exampleData = {
 
 export function Modify() {
   const [form, setForm] = useState({
-    password: "",
-    confirmPassword: "",
+    userPassword: "1",
+    confirmPassword: "1",
     phoneNumber: "",
   });
   const [data, setData] = useState({});
@@ -69,9 +69,10 @@ export function Modify() {
   const onSubmit = async () => {
     const item = sessionStorage.getItem("userId");
     const data = {
-      userPassword: form.password,
+      userPassword: form.userPassword,
       userPhoneNumber: form.phoneNumber,
     };
+    console.log(data);
     const res = await postUserUpdate(item, data);
     console.log(res);
     if (res) navigate("/mypage/dashboard");
@@ -124,9 +125,7 @@ export function Modify() {
               value={form.confirmPassword}
             />
           </S.InputBox>
-          {errors && (
-            <S.Error style={{ color: "red" }}>{errors}</S.Error>
-          )}
+          {errors && <S.Error style={{ color: "red" }}>{errors}</S.Error>}
           {!errors && form.confirmPassword && (
             <S.Error style={{ color: "green" }}>비밀번호가 일치합니다.</S.Error>
           )}

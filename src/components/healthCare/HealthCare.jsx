@@ -12,16 +12,16 @@ import {
 import { useState, useEffect } from "react";
 import * as S from "./HealthCare.styled";
 import { Modal } from "./Modal";
-import { getHealthData } from "../../api";
+import { getHealthCareData } from "../../api";
 import { transformHealthData } from "../../services";
 
-const exampleData = [
-  { systolic: 120, diastolic: 80, weight: 30, createdAt: "1/4" },
-  { systolic: 115, diastolic: 75, weight: 40, createdAt: "1/11" },
-  { systolic: 130, diastolic: 85, weight: 50, createdAt: "1/18" },
-  { systolic: 120, diastolic: 80, weight: 45, createdAt: "1/25" },
-  { systolic: 130, diastolic: 85, weight: 70, createdAt: "2/1" },
-];
+// const exampleData = [
+//   { systolic: 120, diastolic: 80, weight: 30, createdAt: "1/4" },
+//   { systolic: 115, diastolic: 75, weight: 40, createdAt: "1/11" },
+//   { systolic: 130, diastolic: 85, weight: 50, createdAt: "1/18" },
+//   { systolic: 120, diastolic: 80, weight: 45, createdAt: "1/25" },
+//   { systolic: 130, diastolic: 85, weight: 70, createdAt: "2/1" },
+// ];
 
 export function HealthCare() {
   const [isOpen, setIsOpen] = useState(false);
@@ -33,7 +33,7 @@ export function HealthCare() {
 
   useEffect(() => {
     handleHealthData();
-  }, []);
+  }, [isOpen]);
 
   const openModal = () => {
     document.body.style.overflow = "hidden";
@@ -47,12 +47,12 @@ export function HealthCare() {
 
   const handleHealthData = async () => {
     const userId = sessionStorage.getItem("userId");
-    const res = await getHealthData(userId);
+    const res = await getHealthCareData(userId);
     console.log(res);
     if (res) {
       const transformedData = transformHealthData(res);
       setData(transformedData);
-    } else setData(exampleData);
+    }
   };
 
   return (

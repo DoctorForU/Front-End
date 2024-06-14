@@ -1,5 +1,5 @@
 import ReactModal from "react-modal";
-import { postHealthData } from "../../api";
+import { postHealthCareData } from "../../api";
 import { useState } from "react";
 
 import * as S from "./HealthCare.styled";
@@ -30,8 +30,8 @@ export function Modal({ isOpen, closeModal }) {
     };
 
     console.log(data);
-    const res = await postHealthData(userId, data);
-    closeModal();
+    const res = await postHealthCareData(userId, data);
+    if (res) closeModal();
   };
 
   const customStyles = {
@@ -99,7 +99,6 @@ export function Modal({ isOpen, closeModal }) {
           primary
           onClick={() => {
             onSubmit();
-            closeModal();
           }}
         >
           저장

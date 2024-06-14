@@ -20,7 +20,7 @@ export function Dashboard() {
           }}
         >
           <Banner />
-            <HealthCare />
+          <HealthCare />
           <Health />
         </div>
         <div

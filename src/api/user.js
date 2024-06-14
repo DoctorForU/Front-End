@@ -63,7 +63,7 @@ export const getUserInfo = async (userId) => {
 export const postUserUpdate = async (userId, data) => {
   // 내 정보 수정 요청
   try {
-    const res = await authInstance.post(`/userupdate/${userId}`, data);
+    const res = await authInstance.post(`/updateuser/${userId}`, data);
     return res.data.isSuccess;
   } catch (error) {
     console.log(error);

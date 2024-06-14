@@ -14,7 +14,7 @@ export const Container = styled.div`
 
 export const Line = styled.div`
   border: 1px solid #eef0f3;
-  width: 100%;
+  height: 100%;
 `;
 
 export const CalendarContainer = styled.div`
@@ -52,4 +52,52 @@ export const Td = styled.td`
 
 export const Tr = styled.tr`
   width: 1em;
+`;
+
+export const Img = styled.img`
+  width: 50px;
+  height: 50px;
+  margin-right: 10px;
+`;
+
+export const HealthContainer = styled.div`
+  display: flex;
+  flex-direction: row;
+  height: 100%;
+  padding: 2em;
+  gap: 40px;
+`;
+
+export const HealthContent = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+  color: #546678;
+  font-weight: bold;
+`;
+
+export const Button = styled.button`
+  cursor: pointer;
+  color: white;
+  border: none;
+  width: 130px;
+  height: 100px;
+  font-size: 20px;
+  margin-left: 3em;
+  border-radius: 10px;
+  background-color: #435cc8;
+
+  &:hover {
+    background-color: #324a9e;
+  }
+`;
+export const Content = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  margin: 10px;
 `;

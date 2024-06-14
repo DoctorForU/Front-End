@@ -34,4 +34,10 @@ export const Button = styled.button`
   width: 120px;
   border-radius: 10px;
   cursor: pointer;
+
+  &:hover {
+    background-color: ${(props) => (props.primary ? "#324A9E" : "#white")};
+    color: ${(props) => (props.primary ? "white" : "#324A9E")};
+    font-weight: ${(props) => (props.primary ? "" : "bold")};
+  }
 `;
