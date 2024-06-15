@@ -1,9 +1,12 @@
 import { useState } from "react";
 import { Layout } from "../../components/common";
+import { useNavigate } from "react-router-dom";
+
 import * as S from "./Certification.styled";
 
 export function Certification() {
   const [identify, setIdentify] = useState("");
+  const navigate = useNavigate();
 
   const handleIdentifyChange = (e, part) => {
     let value = e.target.value.replace(/[^0-9]/g, ""); // 숫자 이외의 문자 제거
@@ -18,16 +21,13 @@ export function Certification() {
 
   const onSubmit = () => {
     const [firstPart, secondPart] = identify.split("-");
-    
+
     if (firstPart.length !== 6 || secondPart.length !== 7) {
-      alert('주민등록번호를 입력해주세요.')
+      alert("주민등록번호를 입력해주세요.");
     }
 
-    const data = {
-      identify: identify,
-    };
-
-    console.log(data);
+    sessionStorage.setItem("identify", identify);
+    navigate("/mypage/treat")
   };
 
   return (

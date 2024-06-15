@@ -1,1 +1,2 @@
-export * from "./treat/Treat";
+export * from "./Prescription";
+export * from "./Modal";

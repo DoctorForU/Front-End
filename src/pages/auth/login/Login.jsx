@@ -12,7 +12,6 @@ export function Login() {
     userId: "",
     userPassword: "",
   });
-  const [userId, setUserId] = useState("");
 
   const onSubmit = async () => {
     //로그인
@@ -20,7 +19,7 @@ export function Login() {
       userId: form.userId,
       userPassword: form.userPassword,
     };
-    const res = await postLogin(data, setUserId);
+    const res = await postLogin(data);
     console.log(data);
     if (res) {
       alert(`${form.userId}님 환영합니다`);

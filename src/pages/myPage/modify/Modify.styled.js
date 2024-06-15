@@ -40,7 +40,7 @@ export const InputBox = styled.div`
   align-items: center;
   width: 28%;
   height: 50px;
-  margin-left: 50px;
+  margin-left: 60px;
   border: 1px solid #aaaaaa;
 `;
 

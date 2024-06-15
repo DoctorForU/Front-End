@@ -5,7 +5,7 @@ import * as common from "../pages/common";
 import * as home from "../pages/home";
 import * as hospital from "../pages/hospital";
 import * as myPage from "../pages/myPage";
-import * as certification from "../pages/certification"
+import * as certify from "../pages/certification"
 
 export function Router() {
 
@@ -17,7 +17,8 @@ export function Router() {
     { path: "hospital-search", element: <hospital.HospitalSearch /> },
     { path: "hospital-search/:hpid", element: <hospital.HospitalDetail /> }, // :이 url 파람 -> 저걸로 hospital.HospitalDetail로 라우팅
     { path: "mypage/:page", element: <myPage.MyPage /> },
-    { path: "certification", element: <certification.Certification />}
+    { path: "certify", element: <certify.Certification />},
+    { path: "certify/:page", element: <certify.Certification />}
   ]);
 
   return (

@@ -11,8 +11,8 @@ const exampleData = {
 
 export function Modify() {
   const [form, setForm] = useState({
-    userPassword: "1",
-    confirmPassword: "1",
+    userPassword: "",
+    confirmPassword: "",
     phoneNumber: "",
   });
   const [data, setData] = useState({});

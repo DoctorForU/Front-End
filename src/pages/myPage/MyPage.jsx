@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { Layout } from "../../components/common";
-import { Dashboard, Modify, Inquiries, Treat } from "./";
+import { Dashboard, Modify, Inquiries, Prescription } from "./";
 import * as S from "./MyPage.styled";
 
 export function MyPage() {
@@ -16,11 +16,10 @@ export function MyPage() {
   useEffect(() => {
     const item = sessionStorage.getItem("userId");
     if (item === null) {
-      alert("로그인 후 이용가능한 서비스입니다.")
-      navigate("/auth/login")
+      alert("로그인 후 이용가능한 서비스입니다.");
+      navigate("/auth/login");
     }
   }, []);
-
 
   const handleSidebarClick = (itemName) => {
     setActiveItem(itemName);
@@ -30,8 +29,8 @@ export function MyPage() {
   const renderContent = () =>
     activeItem === "dashboard" ? (
       <Dashboard />
-    ) : activeItem === "treat" ? (
-      <Treat />
+    ) : activeItem === "prescription" ? (
+      <Prescription />
     ) : activeItem === "modify" ? (
       <Modify />
     ) : activeItem === "inquiries" ? (
@@ -49,20 +48,27 @@ export function MyPage() {
             onClick={() => handleSidebarClick("dashboard")}
           >
             <S.Img
-              style={{ height: "15px", width: "15px", margin: "0 14px 0 2px" }}
+              style={{
+                height: "15px",
+                width: "15px",
+                margin: "0 14px 0 2px",
+              }}
               src="/img/Icon11.png"
               alt="Icon11"
             />
             <span>Dashboard</span>
           </S.SidebarItem>
           <S.SidebarItem
-            isActive={activeItem === "treat"}
-            onClick={() => handleSidebarClick("treat")}
+            isActive={activeItem === "prescription"}
+            onClick={() => handleSidebarClick("prescription")}
           >
             <S.Img src="/img/Icon12.png" alt="Icon12" />
             <span>진단 내역</span>
           </S.SidebarItem>
-          <S.SidebarItem onClick={() => navigate("/mypage/dashboard")}>
+          <S.SidebarItem
+            isActive={activeItem === "dashboard"}
+            onClick={() => handleSidebarClick("dashboard")}
+          >
             <S.Img src="/img/Icon13.png" alt="Icon13" />
             <span>Daily Health</span>
           </S.SidebarItem>

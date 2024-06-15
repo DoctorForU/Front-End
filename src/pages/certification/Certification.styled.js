@@ -31,7 +31,7 @@ export const InputContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 80%;
+  width: 65%;
   padding: 20px;
   background-color: #f4f6f9;
 `;
