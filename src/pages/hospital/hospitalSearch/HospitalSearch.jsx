@@ -3,7 +3,7 @@ import { postHospitals } from "../../../api/hospital";
 import HospitalList from "../../../components/hospitalList/HospitalList";
 import { KakaoMap, Layout } from "../../../components";
 
-import { departments, institutes } from "./Data";
+import { departments, institutes } from "../Data";
 import * as S from "./HospitalSearch.styled";
 
 const primaryOptions = [

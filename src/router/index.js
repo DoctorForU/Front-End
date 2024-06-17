@@ -16,6 +16,8 @@ export function Router() {
     { path: "auth/join", element: <auth.Join /> },
     { path: "hospital-search", element: <hospital.HospitalSearch /> },
     { path: "hospital-search/:hpid", element: <hospital.HospitalDetail /> }, // :이 url 파람 -> 저걸로 hospital.HospitalDetail로 라우팅
+    // { path: "reservation", element: <hospital.Reservation /> },
+    { path: "hospital-search/reservation", element: <hospital.QuickReservation /> },
     { path: "mypage/:page", element: <myPage.MyPage /> },
     { path: "certify", element: <certify.Certification />},
     { path: "certify/:page", element: <certify.Certification />}

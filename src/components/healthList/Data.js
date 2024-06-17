@@ -32,11 +32,6 @@ export const healthListData = [
   { id: 15, name: "덤벨 벤치프레스", icon: "/health/덤벨 벤치프레스.png" },
   { id: 16, name: "딥스", icon: "/health/딥스.png" },
   { id: 17, name: "덤벨 플라이", icon: "/health/덤벨 플라이.png" },
-  {
-    id: 18,
-    name: "인클라인 덤벨플라이",
-    icon: "/health/인클라인 덤벨플라이.png",
-  },
   { id: 19, name: "푸시업", icon: "/health/푸시업.png" },
   {
     id: 20,
@@ -57,9 +52,6 @@ export const healthListData = [
   { id: 24, name: "친업", icon: "/health/친업.png" },
   { id: 25, name: "로우 로우 머신", icon: "/health/로우 로우 머신.png" },
   { id: 26, name: "하이 로우 머신", icon: "/health/하이 로우 머신.png" },
-  { id: 27, name: "바벨로우", icon: "/health/바벨로우.png" },
-  { id: 28, name: "인클라인 바벨로우", icon: "/health/인클라인 바벨로우.png" },
-  { id: 29, name: "덤벨로우", icon: "/health/덤벨로우.png" },
   { id: 30, name: "바벨 풀오버", icon: "/health/바벨 풀오버.png" },
   { id: 31, name: "랫풀다운", icon: "/health/랫풀다운.png" },
   { id: 32, name: "케이블 암 풀다운", icon: "/health/케이블 암 풀다운.png" },

@@ -3,8 +3,8 @@ import styled from "styled-components";
 export const Container = styled.div`
   display: flex;
   flex-direction: column;
-  flex: 1;
   width: 500px;
+  height: 800px;
   padding: 40px;
   background-color: white;
 `;
@@ -13,7 +13,7 @@ export const SearchContainer = styled.div`
   display: flex;
   align-items: center;
   width: auto;
-  height: 60px;
+  height: 50px;
   padding: 10px;
   margin: 20px 0 40px 0;
   background-color: #435cc8;
@@ -23,7 +23,7 @@ export const InputBox = styled.div`
   display: flex;
   flex-direction: row;
   align-items: center;
-  height: 60px;
+  height: 50px;
   padding: 0 10px;
   background-color: white;
 `;
@@ -68,6 +68,8 @@ export const CheckBox = styled.input`
 `;
 
 export const ExerciseList = styled.ul`
+  flex: 1;
+  height: auto;
   list-style: none;
   padding: 0 20px;
   overflow-y: scroll;
@@ -83,4 +85,5 @@ export const ExerciseListItem = styled.li`
 
 export const ExerciseName = styled.span`
   flex: 1;
+  padding-left: 10px;
 `;

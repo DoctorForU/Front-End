@@ -7,3 +7,4 @@ export * from "./healthCare";
 export * from "./health";
 export * from "./healthList";
 export * from "./inquiry";
+export * from "./reservationList";
