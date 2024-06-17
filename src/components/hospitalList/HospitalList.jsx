@@ -4,12 +4,7 @@ import * as S from "./HospitalList.styled";
 import { useNavigate } from "react-router-dom";
 import { exampleDataList } from "./ExampleData";
 
-const HospitalList = ({
-  results = [],
-  onPageChange,
-  totalPages,
-  currentPage,
-}) => {
+const HospitalList = ({ results = [], onPageChange, totalPages, currentPage }) => {
   //const itemsPerPage = 10;
   const maxPageButtons = 7;
 
@@ -38,9 +33,9 @@ const HospitalList = ({
   const navigate = useNavigate();
 
   const handleNavigateClick = (hospital) => {
-    const url = `https://map.kakao.com/link/to/${encodeURIComponent(
-      hospital.dutyName
-    )},${hospital.wgs84Lat},${hospital.wgs84Lon}`;
+    const url = `https://map.kakao.com/link/to/${encodeURIComponent(hospital.dutyName)},${hospital.wgs84Lat},${
+      hospital.wgs84Lon
+    }`;
     window.open(url, "_blank");
   };
 
@@ -62,14 +57,11 @@ const HospitalList = ({
                   <strong>전화번호:</strong> {result.dutyTel1}
                 </p>
                 <p>
-                  <strong>진료 시간:</strong> {result.dutyTime1s} -{" "}
-                  {result.dutyTime1c}
+                  <strong>진료 시간:</strong> {result.dutyTime1s} - {result.dutyTime1c}
                 </p>
               </S.Info>
               <S.Actions>
-                <S.Button onClick={() => handleNavigateClick(result)}>
-                  길찾기
-                </S.Button>
+                <S.Button onClick={() => handleNavigateClick(result)}>길찾기</S.Button>
                 <S.Button
                   onClick={() => {
                     navigate(`/hospital-search/${result.hpid}`);
@@ -93,25 +85,15 @@ const HospitalList = ({
         )}
       </S.ListContainer>
       <S.PaginationContainer>
-        <S.PageButton
-          onClick={() => onPageChange(currentPage - 1)}
-          disabled={currentPage === 1}
-        >
+        <S.PageButton onClick={() => onPageChange(currentPage - 1)} disabled={currentPage === 1}>
           이전
         </S.PageButton>
         {pageNumbers.map((number) => (
-          <S.PageButton
-            key={number}
-            onClick={() => onPageChange(number)}
-            disabled={currentPage === number}
-          >
+          <S.PageButton key={number} onClick={() => onPageChange(number)} disabled={currentPage === number}>
             {number}
           </S.PageButton>
         ))}
-        <S.PageButton
-          onClick={() => onPageChange(currentPage + 1)}
-          disabled={currentPage === totalPages}
-        >
+        <S.PageButton onClick={() => onPageChange(currentPage + 1)} disabled={currentPage === totalPages}>
           다음
         </S.PageButton>
       </S.PaginationContainer>
