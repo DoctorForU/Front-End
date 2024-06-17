@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { getSearchExerciseData } from "../../api";
 
-import { healthListData } from "./healthListData";
+import { healthListData } from "./Data";
 import * as S from "./HealthList.styled";
 
 export function HealthList({
