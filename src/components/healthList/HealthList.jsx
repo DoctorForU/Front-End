@@ -1,55 +1,16 @@
 import { useEffect, useState } from "react";
 import { getSearchExerciseData } from "../../api";
 
+import { healthListData } from "./healthListData";
 import * as S from "./HealthList.styled";
-
-const exampleData = [
-  { id: 1, name: "바벨 백스쿼트", icon: "/health/바벨 백스쿼트.png" },
-  { id: 2, name: "프론트 스쿼트", icon: "/health/프론트 스쿼트.png" },
-  { id: 3, name: "덤벨 스플릿 스쿼트", icon: "/health/덤벨 스플릿 스쿼트.png" },
-  {
-    id: 4,
-    name: "바벨 불가리안 스플릿 스쿼트",
-    icon: "/health/바벨 불가리안 스플릿 스쿼트.png",
-  },
-  {
-    id: 5,
-    name: "루마니안 데드리프트",
-    icon: "/health/루마니안 데드리프트.png",
-  },
-  {
-    id: 6,
-    name: "스모 데드리프트",
-    icon: "/health/스모 데드리프트.png",
-  },
-  {
-    id: 7,
-    name: "컨벤셔널 데드리프트",
-    icon: "/health/컨벤셔널 데드리프트.png",
-  },
-  {
-    id: 8,
-    name: "루마니안 데드리프트",
-    icon: "/health/루마니안 데드리프트.png",
-  },
-  {
-    id: 9,
-    name: "레그 프레스",
-    icon: "/health/레그 프레스.png",
-  },
-];
 
 export function HealthList({
   exerciseList,
   setExerciseList,
   onExerciseChange,
 }) {
-  const [data, setData] = useState([]);
+  const [data, setData] = useState("");
   const [exerciseName, setExerciseName] = useState("");
-
-  useEffect(() => {
-    handleExerciseData();
-  });
 
   const handleExerciseList = (exercise) => {
     const existingExercise = exerciseList.find(
@@ -71,13 +32,6 @@ export function HealthList({
         },
       ]);
     }
-  };
-
-  const handleExerciseData = async () => {
-    const res = await getSearchExerciseData();
-    console.log(res);
-    if (res) setData(res);
-    else setData(exampleData);
   };
 
   const handleSearchExerciseData = async () => {
@@ -113,7 +67,7 @@ export function HealthList({
         </S.Button>
       </S.SearchContainer>
       <S.ExerciseList>
-        {data.map((exercise, index) => (
+        {healthListData.map((exercise, index) => (
           <S.ExerciseListItem key={index}>
             <S.CheckBox
               key={exercise.id}
