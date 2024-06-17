@@ -3,14 +3,13 @@ import { useEffect, useState } from "react";
 import { Calendar, Layout } from "../../../components";
 import { getHospitalReservation, postHospitalReservation } from "../../../api";
 
-import { exampleData } from "./Data";
+//import { exampleData } from "./Data";
 import dayjs from "dayjs";
 import * as S from "./HospitalReservation.styled";
 
 export function HospitalReservation() {
   const [selectedDay, setSelectedDay] = useState(null);
   const [selectedReservations, setSelectedReservations] = useState([]);
-  //   const [selectedTime, ]
   const [data, setData] = useState({});
   const navigate = useNavigate();
   const params = useParams();
@@ -20,10 +19,11 @@ export function HospitalReservation() {
   }, []);
 
   const handleReservation = async () => {
-    const res = await getHospitalReservation();
+    const res = await getHospitalReservation(params.hpid);
+    console.log(res);
     if (res) {
       setData(res);
-    } else setData(exampleData);
+    } // else setData(exampleData);
   };
 
   useEffect(() => {
@@ -46,7 +46,7 @@ export function HospitalReservation() {
 
     const data = {
       userId: item,
-      hpid: params,
+      hpid: params.hpid,
       date: dayjs(selectedDay).format("YYYY-MM-DD"),
       time: time,
     };

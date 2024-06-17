@@ -1,6 +1,9 @@
+import { useNavigate } from "react-router-dom";
 import * as S from "./ReservationList.styled";
 
 export function ReservationList({ searchResults }) {
+  const navigate = useNavigate();
+
   console.log({ searchResults });
   return (
     <S.Table>
@@ -39,7 +42,13 @@ export function ReservationList({ searchResults }) {
                 {item.dutyTime1c}
               </S.TableCell>
               <S.TableCell style={{ textAlign: "center" }}>
-                <S.Button>예약하기</S.Button>
+                <S.Button
+                  onClick={() => {
+                    navigate(`/hospital-search/reservation/${item.hpid}`);
+                  }}
+                >
+                  예약하기
+                </S.Button>
               </S.TableCell>
             </S.TableRow>
           ))

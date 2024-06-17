@@ -24,7 +24,7 @@ export const InfoContainer = styled.div`
   flex-direction: row;
   align-items: center;
   height: auto;
-  width: 600px;
+  width: 50em;
   padding: 20px;
   margin: 40px 0;
   border: solid 1px #ddd;

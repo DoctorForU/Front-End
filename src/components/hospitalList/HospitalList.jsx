@@ -71,7 +71,7 @@ const HospitalList = ({ results = [], onPageChange, totalPages, currentPage }) =
                 </S.Button>
                 <S.Button
                   onClick={() => {
-                    navigate(`/hospital-reservation/${result.hpid}`);
+                    navigate(`/hospital-search/reservation/${result.hpid}`);
                   }}
                 >
                   진료예약

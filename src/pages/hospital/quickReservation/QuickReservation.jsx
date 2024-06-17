@@ -1,27 +1,27 @@
 import { useState, useEffect } from "react";
 import { Layout } from "../../../components";
 import { departments } from "../Data";
-import { getHospitalReservation } from "../../../api";
+import { getFastReservation } from "../../../api";
 
 import * as S from "./QuickReservation.styled";
 import { ReservationList } from "../../../components";
 
-const exampleDataList = [
-  {
-    dutyName: "서울대학교병원",
-    dutyAddr: "서울특별시 종로구 대학로 101",
-    dutyTel1: "02-2072-2114",
-    dutyTime1s: "09:00",
-    dutyTime1c: "18:00",
-  },
-  {
-    dutyName: "서울대학교병원",
-    dutyAddr: "서울특별시 종로구 대학로 101",
-    dutyTel1: "02-2072-2114",
-    dutyTime1s: "09:00",
-    dutyTime1c: "18:00",
-  },
-];
+// const exampleDataList = [
+//   {
+//     dutyName: "서울대학교병원",
+//     dutyAddr: "서울특별시 종로구 대학로 101",
+//     dutyTel1: "02-2072-2114",
+//     dutyTime1s: "09:00",
+//     dutyTime1c: "18:00",
+//   },
+//   {
+//     dutyName: "서울대학교병원",
+//     dutyAddr: "서울특별시 종로구 대학로 101",
+//     dutyTel1: "02-2072-2114",
+//     dutyTime1s: "09:00",
+//     dutyTime1c: "18:00",
+//   },
+// ];
 
 export function QuickReservation() {
   const [selectedCity, setSelectedCity] = useState("");
@@ -60,8 +60,8 @@ export function QuickReservation() {
     };
     console.log(data);
 
-    const res = await getHospitalReservation(data);
-    setSearchResults(res || exampleDataList);
+    const res = await getFastReservation(data);
+    setSearchResults(res || []);
   };
 
   return (

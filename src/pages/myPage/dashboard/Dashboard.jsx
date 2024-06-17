@@ -1,4 +1,5 @@
 import { useNavigate } from "react-router-dom";
+import { useState } from "react";
 import {
   Banner,
   Calendar,
@@ -9,6 +10,7 @@ import {
 import * as S from "./Dashboard.styled";
 
 export function Dashboard() {
+  const [selectedDay, setSelectedDay] = useState(null);
   const navigate = useNavigate();
   return (
     <S.MainContent>
@@ -36,7 +38,7 @@ export function Dashboard() {
           <S.CalendarContainer>
             <p style={{ fontWeight: "bold" }}>진료예정</p>
             <S.Line></S.Line>
-            <Calendar />
+            <Calendar setSelectedDay={setSelectedDay} />
             <S.CalendarButtons>
               <S.Button
                 primary

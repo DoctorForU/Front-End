@@ -36,5 +36,5 @@ export const defaultInstance = axiosAPI(BASE_URL);
 export const hospitalInstance = axiosAPI(MS1_URL);
 export const authInstance = axiosAuthAPI(MS3_URL);
 export const mypageInstance = axiosAuthAPI(MS4_URL);
-export const reservationInstance = axiosAPI(MS5_URL);
+export const reservationInstance = axiosAuthAPI(MS5_URL);
 export const emergencyInstance = axiosAPI(MS6_URL);
