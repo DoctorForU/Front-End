@@ -71,3 +71,12 @@ export const getSelectedHealthData = async (userId, data) => {
     console.log(error);
   }
 };
+
+export const getSearchExerciseData = async (exerciseName) => {
+  try {
+    const res = await mypageInstance.get(`/health/exercise/${exerciseName}`);
+    return res.data;
+  } catch (error) {
+    console.log(error);
+  }
+}

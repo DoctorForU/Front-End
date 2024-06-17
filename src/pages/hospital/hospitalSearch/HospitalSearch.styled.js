@@ -5,7 +5,7 @@ export const Container = styled.div`
   flex-direction: column;
   align-items: center;
   width: 100%;
-  background: linear-gradient(to bottom, #f4f6f9 30%, #ffffff 20%);
+  background: linear-gradient(to bottom, #f4f6f9 280px, #ffffff 20px);
 `;
 
 export const TitleContainer = styled.div`

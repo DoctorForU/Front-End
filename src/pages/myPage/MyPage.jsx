@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { Layout } from "../../components/common";
-import { Dashboard, Modify, Inquiries, Prescription } from "./";
+import { Dashboard, Modify, Inquiries, Prescription, DailyHealth } from "./";
 import * as S from "./MyPage.styled";
 
 export function MyPage() {
@@ -31,6 +31,8 @@ export function MyPage() {
       <Dashboard />
     ) : activeItem === "prescription" ? (
       <Prescription />
+    ) : activeItem === "dailyhealth" ? (
+      <DailyHealth />
     ) : activeItem === "modify" ? (
       <Modify />
     ) : activeItem === "inquiries" ? (
@@ -66,8 +68,8 @@ export function MyPage() {
             <span>진단 내역</span>
           </S.SidebarItem>
           <S.SidebarItem
-            isActive={activeItem === "dashboard"}
-            onClick={() => handleSidebarClick("dashboard")}
+            isActive={activeItem === "dailyhealth"}
+            onClick={() => handleSidebarClick("dailyhealth")}
           >
             <S.Img src="/img/Icon13.png" alt="Icon13" />
             <span>Daily Health</span>
