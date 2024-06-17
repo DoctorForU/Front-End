@@ -1,3 +1,4 @@
+import { useNavigate } from "react-router-dom";
 import {
   Banner,
   Calendar,
@@ -8,6 +9,7 @@ import {
 import * as S from "./Dashboard.styled";
 
 export function Dashboard() {
+  const navigate = useNavigate();
   return (
     <S.MainContent>
       <S.Content>
@@ -31,7 +33,23 @@ export function Dashboard() {
             height: "100%",
           }}
         >
-          <Calendar />
+          <S.CalendarContainer>
+            <p style={{ fontWeight: "bold" }}>진료예정</p>
+            <S.Line></S.Line>
+            <Calendar />
+            <S.CalendarButtons>
+              <S.Button
+                primary
+                onClick={() => {
+                  navigate("/hospital-search");
+                }}
+              >
+                예약하기
+              </S.Button>
+              <S.Button>변경 및 취소</S.Button>
+            </S.CalendarButtons>
+          </S.CalendarContainer>
+
           <Inquiry />
         </div>
       </S.Content>

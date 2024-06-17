@@ -1,10 +1,18 @@
-import { reservationInstance } from "../utils";
+import { mypageInstance, reservationInstance } from "../utils";
 
-export const getHospitalReservation = async (data) => {
+export const getHospitalReservation = async (hpid) => {
+  try {
+    const res = await reservationInstance.get(`/toMypageForDate`, hpid);
+    return res.data;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const postHospitalReservation = async (data) => {
   try {
     const res = await reservationInstance.get(`/reservation`, data);
-    console.log({ res }); // 데이터 출력
-    return res.data;
+    return res.data.isSuccess;
   } catch (error) {
     console.log(error);
   }

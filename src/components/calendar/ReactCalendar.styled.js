@@ -13,13 +13,12 @@ export const StyledCalendar = styled(Calendar)`
   border: none;
   margin: 10px 0;
 
-  /* 달력 배경색 */
+  /* 달력 배경색 및 기본 스타일 제거 */
   .react-calendar {
     display: flex;
     width: 100%;
     max-width: 100%;
     background-color: white;
-    border: 1px solid white;
     text-align: center;
   }
 
@@ -106,9 +105,9 @@ export const StyledCalendar = styled(Calendar)`
   }
 
   .react-calendar__tile--now:enabled:hover,
-.react-calendar__tile--now:enabled:focus {
-  background: #c6f7d9;
-}
+  .react-calendar__tile--now:enabled:focus {
+    background: #c6f7d9;
+  }
 
   /* 선택한 날짜 스타일 적용 */
   .react-calendar__tile:enabled:hover,
