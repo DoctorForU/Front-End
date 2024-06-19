@@ -1,12 +1,12 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { postEmergency, getEmergencyMessage } from "../../api"; // 메시지 요청 버튼 만들기
 import { Modal } from "./Modal"; // 모달 컴포넌트 추가
 
 import * as S from "./EmergencyLabel.styled";
 
 export function EmergencyLabel({ results }) {
   const [isOpen, setIsOpen] = useState(false);
+  const [item, setItem] = useState("");
   const navigate = useNavigate();
 
   // 여기부터 팝업 설정
@@ -52,7 +52,7 @@ export function EmergencyLabel({ results }) {
 
   return (
     <>
-      <Modal isOpen={isOpen} closeModal={closeModal} />
+      <Modal isOpen={isOpen} closeModal={closeModal} hpid={item} />
       <S.ListContainer>
         {results.length > 0 ? (
           results.map((result, index) => (
@@ -62,7 +62,14 @@ export function EmergencyLabel({ results }) {
                 <S.HospitalName>응급실 번호: {result.dutyTel3}</S.HospitalName>
 
                 <span>최종 갱신일시: {formatDate(result.hvidate)}</span>
-                <S.Button onClick={openModal}>버튼</S.Button>
+                <S.Button
+                  onClick={() => {
+                    setItem(result.hpid);
+                    openModal();
+                  }}
+                >
+                  버튼
+                </S.Button>
               </S.Info>
               <S.Section>
                 <S.Title>입원병상</S.Title>
@@ -126,16 +133,10 @@ export function EmergencyLabel({ results }) {
                   <S.GridItem>{result.hv41}</S.GridItem>
                   <S.GridItem>{result.hv40}</S.GridItem>
                   <S.GridItem>{result.hvoc}</S.GridItem>
-                  <S.GridItem
-                    highlight={shouldHighlight(result.hv42)}
-                    lowlight={shouldLowlight(result.hv42)}
-                  >
+                  <S.GridItem highlight={shouldHighlight(result.hv42)} lowlight={shouldLowlight(result.hv42)}>
                     {result.hv42}
                   </S.GridItem>
-                  <S.GridItem
-                    highlight={shouldHighlight(result.hv43)}
-                    lowlight={shouldLowlight(result.hv43)}
-                  >
+                  <S.GridItem highlight={shouldHighlight(result.hv43)} lowlight={shouldLowlight(result.hv43)}>
                     {result.hv43}
                   </S.GridItem>
                   <S.GridItem></S.GridItem>
@@ -172,16 +173,10 @@ export function EmergencyLabel({ results }) {
                   <S.GridHeader>CRRT</S.GridHeader>
                   <S.GridHeader>ECMO</S.GridHeader>
 
-                  <S.GridItem
-                    highlight={shouldHighlight(result.hvctayn)}
-                    lowlight={shouldLowlight(result.hvctayn)}
-                  >
+                  <S.GridItem highlight={shouldHighlight(result.hvctayn)} lowlight={shouldLowlight(result.hvctayn)}>
                     {result.hvctayn}
                   </S.GridItem>
-                  <S.GridItem
-                    highlight={shouldHighlight(result.hvmriayn)}
-                    lowlight={shouldLowlight(result.hvmriayn)}
-                  >
+                  <S.GridItem highlight={shouldHighlight(result.hvmriayn)} lowlight={shouldLowlight(result.hvmriayn)}>
                     {result.hvmriayn}
                   </S.GridItem>
                   <S.GridItem
@@ -196,22 +191,13 @@ export function EmergencyLabel({ results }) {
                   >
                     {result.hvventiayn}
                   </S.GridItem>
-                  <S.GridItem
-                    highlight={shouldHighlight(result.hvincuayn)}
-                    lowlight={shouldLowlight(result.hvincuayn)}
-                  >
+                  <S.GridItem highlight={shouldHighlight(result.hvincuayn)} lowlight={shouldLowlight(result.hvincuayn)}>
                     {result.hvincuayn}
                   </S.GridItem>
-                  <S.GridItem
-                    highlight={shouldHighlight(result.hvcrrtayn)}
-                    lowlight={shouldLowlight(result.hvcrrtayn)}
-                  >
+                  <S.GridItem highlight={shouldHighlight(result.hvcrrtayn)} lowlight={shouldLowlight(result.hvcrrtayn)}>
                     {result.hvcrrtayn}
                   </S.GridItem>
-                  <S.GridItem
-                    highlight={shouldHighlight(result.hvecmoayn)}
-                    lowlight={shouldLowlight(result.hvecmoayn)}
-                  >
+                  <S.GridItem highlight={shouldHighlight(result.hvecmoayn)} lowlight={shouldLowlight(result.hvecmoayn)}>
                     {result.hvecmoayn}
                   </S.GridItem>
                 </S.Grid>
@@ -223,22 +209,13 @@ export function EmergencyLabel({ results }) {
                   <S.GridHeader></S.GridHeader>
                   <S.GridHeader></S.GridHeader>
                   <S.GridHeader></S.GridHeader>
-                  <S.GridItem
-                    highlight={shouldHighlight(result.hvoxyayn)}
-                    lowlight={shouldLowlight(result.hvoxyayn)}
-                  >
+                  <S.GridItem highlight={shouldHighlight(result.hvoxyayn)} lowlight={shouldLowlight(result.hvoxyayn)}>
                     {result.hvoxyayn}
                   </S.GridItem>
-                  <S.GridItem
-                    highlight={shouldHighlight(result.hvhypoayn)}
-                    lowlight={shouldLowlight(result.hvhypoayn)}
-                  >
+                  <S.GridItem highlight={shouldHighlight(result.hvhypoayn)} lowlight={shouldLowlight(result.hvhypoayn)}>
                     {result.hvhypoayn}
                   </S.GridItem>
-                  <S.GridItem
-                    highlight={shouldHighlight(result.hvamyn)}
-                    lowlight={shouldLowlight(result.hvamyn)}
-                  >
+                  <S.GridItem highlight={shouldHighlight(result.hvamyn)} lowlight={shouldLowlight(result.hvamyn)}>
                     {result.hvamyn}
                   </S.GridItem>
                   <S.GridItem></S.GridItem>

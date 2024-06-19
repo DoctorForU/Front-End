@@ -1,7 +1,24 @@
+import { useState } from "react";
 import ReactModal from "react-modal";
-import * as S from "./EmergencyLabel.styled";
+import { postEmergency, getEmergencyMessage } from "../../api"; // 메시지 요청 버튼 만들기
 
-export function Modal({ isOpen, closeModal }) {
+import * as S from "./EmergencyLabel.styled";
+import { useEffect } from "react";
+
+export function Modal({ isOpen, closeModal, hpid }) {
+  const [data, setData] = useState([]);
+
+  useEffect(() => {
+    handleModalMessage(); //처음 실행 -> 초기화 개념
+  }, []);
+
+  const handleModalMessage = async () => {
+    const res = await getEmergencyMessage(hpid);
+    if (res) {
+      setData(res);
+    }
+  };
+
   const customStyles = {
     overlay: {
       backgroundColor: "rgba(0, 0, 0, 0.5)",
@@ -21,7 +38,7 @@ export function Modal({ isOpen, closeModal }) {
   return (
     <ReactModal isOpen={isOpen} style={customStyles}>
       <div>
-        아무노래나 일단 틀어
+        {hpid}
         <S.ModalButton
           onClick={() => {
             closeModal();
