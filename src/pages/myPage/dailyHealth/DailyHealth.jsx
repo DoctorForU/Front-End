@@ -1,13 +1,30 @@
 import { useNavigate } from "react-router-dom";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { HealthList } from "../../../components";
-import { postRegisterExercise } from "../../../api";
+import { postToGetExercise, postRegisterExercise } from "../../../api";
 
 import * as S from "./DailyHealth.styled";
 
 export function DailyHealth() {
   const [exerciseList, setExerciseList] = useState([]);
   const navigate = useNavigate();
+
+  useEffect(() => {
+    postToGetExercise();
+  }, []);
+
+  const postToGetExercise = async () => {
+    const now = new Date();
+    const today = now.getDate();
+    const data = {
+      userId: sessionStorage.getItem("userId"),
+      selectedDate: today,
+    };
+    const res = await postToGetExercise(data);
+    if (res) {
+      setExerciseList([...exerciseList, res]);
+    }
+  };
 
   const handleExerciseList = (exerciseName, isChecked) => {
     // 체크박스 선택시

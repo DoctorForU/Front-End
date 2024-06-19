@@ -42,10 +42,20 @@ export const postInquiriesData = async (data) => {
   }
 };
 
-export const getHealthData = async (data) => {
-  // 운동 기록
+export const postToGetDashboardExercise = async (data) => {
+  // 대시보드 운동 기록 불러오기
   try {
-    const res = await mypageInstance.get("/healthdata", data);
+    const res = await mypageInstance.get("/exercise/dashboard", data);
+    return res.data;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const postToGetExercise = async (data) => {
+  // DailyHealth 운동 기록 불러오기
+  try {
+    const res = await mypageInstance.get("/exercise/get", data);
     return res.data;
   } catch (error) {
     console.log(error);
@@ -53,7 +63,7 @@ export const getHealthData = async (data) => {
 };
 
 export const postRegisterExercise = async (data) => {
-  // DailyHealth 운동 기록
+  // DailyHealth 운동 기록 등록
   try {
     const res = await mypageInstance.post("/exercise/register", data);
     return res.data.isSuccess;
@@ -69,4 +79,4 @@ export const getSearchExerciseData = async (exerciseName) => {
   } catch (error) {
     console.log(error);
   }
-}
+};

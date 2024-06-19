@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { getHealthData } from "../../api";
+import { postToGetDashboardExercise } from "../../api";
 import { Modal } from "./";
 import * as S from "./Health.styled";
 
@@ -38,7 +38,7 @@ export function Health() {
       userId: sessionStorage.getItem("userId"),
       selectedDate: selectedDate,
     };
-    const res = await getHealthData(data);
+    const res = await postToGetDashboardExercise(data);
     console.log(res);
     if (res) setData(res);
     else setData(exampleData);

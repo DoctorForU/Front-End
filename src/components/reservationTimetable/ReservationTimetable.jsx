@@ -17,16 +17,16 @@ export function ReservationTimetable({ selectedDay, data }) {
     }
 
     const reserveDate = dayjs(selectedDay).format("YYYY-MM-DD");
-    const data = {
+    const reservationData = {
       userId: userId,
       hpid: data.hpid,
       dutyName: data.dutyName,
       reserveDate: reserveDate,
       reserveTime: time,
     };
-    console.log(data);
+    console.log(reservationData);
 
-    const res = await postHospitalReservation(data);
+    const res = await postHospitalReservation(reservationData);
     if (res) {
       alert("예약 완료되었습니다.");
       navigate("/mypage/dashboard");

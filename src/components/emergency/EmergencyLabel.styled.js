@@ -91,3 +91,19 @@ export const StatusIndicator = styled.span`
   background-color: ${(props) => (props.status === "good" ? "green" : props.status === "average" ? "yellow" : "red")};
   margin-right: 5px;
 `;
+
+export const ModalButton = styled.button`
+  cursor: pointer;
+  color: white;
+  border: none;
+  width: 130px;
+  height: 100px;
+  font-size: 20px;
+  margin-left: 3em;
+  border-radius: 10px;
+  background-color: #435cc8;
+
+  &:hover {
+    background-color: #324a9e;
+  }
+`;
