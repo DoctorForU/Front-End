@@ -36,17 +36,30 @@ export const Info = styled.div`
   background-color: #d4eaff;
 `;
 
+// export const Button = styled.button`
+//   padding: 8px 12px;
+//   font-size: 14px;
+//   background-color: #007bff;
+//   color: white;
+//   border: none;
+//   border-radius: 5px;
+//   cursor: pointer;
+
+//   &:hover {
+//     background-color: #0056b3;
+//   }
+// `;
 export const Button = styled.button`
-  padding: 8px 12px;
-  font-size: 14px;
-  background-color: #007bff;
+  padding: 6px 10px; /* 크기 조정 */
+  font-size: 12px; /* 폰트 크기 조정 */
+  background-color: #ff0000; /* 배경색을 빨간색으로 변경 */
   color: white;
   border: none;
   border-radius: 5px;
   cursor: pointer;
 
   &:hover {
-    background-color: #0056b3;
+    background-color: #cc0000; /* 호버 색상을 조금 어두운 빨간색으로 변경 */
   }
 `;
 
@@ -96,8 +109,8 @@ export const ModalButton = styled.button`
   cursor: pointer;
   color: white;
   border: none;
-  width: 130px;
-  height: 100px;
+  width: 70px;
+  height: 50px;
   font-size: 20px;
   margin-left: 3em;
   border-radius: 10px;

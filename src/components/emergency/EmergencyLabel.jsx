@@ -62,17 +62,20 @@ export function EmergencyLabel({ results }) {
                 <S.HospitalName>응급실 번호: {result.dutyTel3}</S.HospitalName>
 
                 <span>최종 갱신일시: {formatDate(result.hvidate)}</span>
-                <S.Button
-                  onClick={() => {
-                    setItem(result.hpid);
-                    openModal();
-                  }}
-                >
-                  버튼
-                </S.Button>
               </S.Info>
               <S.Section>
-                <S.Title>입원병상</S.Title>
+                <S.Title style={{ display: "flex", alignItems: "center" }}>
+                  입원병상
+                  <S.Button
+                    onClick={() => {
+                      setItem(result.hpid);
+                      openModal();
+                    }}
+                    style={{ marginLeft: "30px", margin: "5px" }} // 여백을 추가
+                  >
+                    응급실 메시지
+                  </S.Button>
+                </S.Title>
                 <S.Grid>
                   <S.GridHeader>[중환자실] 일반</S.GridHeader>
                   <S.GridHeader>[중환자실] 내과</S.GridHeader>

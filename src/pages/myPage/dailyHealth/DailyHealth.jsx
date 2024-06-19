@@ -15,7 +15,8 @@ export function DailyHealth() {
 
   const handleUpdateExercise = async () => {
     const now = new Date();
-    const today = now.getDate();
+    //const today = now.getDate();
+    const today = now.toISOString().split("T")[0];
     const data = {
       userId: sessionStorage.getItem("userId"),
       selectedDate: today,
