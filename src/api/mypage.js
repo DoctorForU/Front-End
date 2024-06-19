@@ -35,7 +35,7 @@ export const getInquiriesData = async (userId) => {
 
 export const postInquiriesData = async (data) => {
   try {
-    const res = await mypageInstance.get("/inquiry/register", data);
+    const res = await mypageInstance.post("/inquiry/register", data);
     return res.data.isSuccess;
   } catch (error) {
     console.log(error);
@@ -45,7 +45,7 @@ export const postInquiriesData = async (data) => {
 export const postToGetDashboardExercise = async (data) => {
   // 대시보드 운동 기록 불러오기
   try {
-    const res = await mypageInstance.get("/exercise/dashboard", data);
+    const res = await mypageInstance.post("/exercise/dashboard", data);
     return res.data;
   } catch (error) {
     console.log(error);
@@ -55,7 +55,7 @@ export const postToGetDashboardExercise = async (data) => {
 export const postToGetExercise = async (data) => {
   // DailyHealth 운동 기록 불러오기
   try {
-    const res = await mypageInstance.get("/exercise/get", data);
+    const res = await mypageInstance.post("/exercise/get", data);
     return res.data;
   } catch (error) {
     console.log(error);

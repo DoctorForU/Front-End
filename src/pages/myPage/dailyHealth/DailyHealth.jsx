@@ -10,10 +10,10 @@ export function DailyHealth() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    postToGetExercise();
+    handleUpdateExercise();
   }, []);
 
-  const postToGetExercise = async () => {
+  const handleUpdateExercise = async () => {
     const now = new Date();
     const today = now.getDate();
     const data = {
@@ -22,7 +22,8 @@ export function DailyHealth() {
     };
     const res = await postToGetExercise(data);
     if (res) {
-      setExerciseList([...exerciseList, res]);
+      //setExerciseList([...exerciseList, res]);
+      setExerciseList(res); // 여기에 spread operator를 사용하지 않습니다.
     }
   };
 
@@ -41,18 +42,14 @@ export function DailyHealth() {
         },
       ]);
     } else {
-      setExerciseList(
-        exerciseList.filter((item) => item.exerciseName !== exerciseName)
-      );
+      setExerciseList(exerciseList.filter((item) => item.exerciseName !== exerciseName));
     }
   };
 
   const handleTimeChange = (index, part, value) => {
     // 시:분 입력
     const updatedList = [...exerciseList];
-    let timeParts = updatedList[index].exerciseDuration
-      ? updatedList[index].exerciseDuration.split(":")
-      : ["00", "00"];
+    let timeParts = updatedList[index].exerciseDuration ? updatedList[index].exerciseDuration.split(":") : ["00", "00"];
     if (part === 0) {
       timeParts[0] = value.padStart(2, "0"); // 두 자리로 패딩
     } else {
@@ -123,11 +120,7 @@ export function DailyHealth() {
 
   return (
     <S.Container>
-      <HealthList
-        exerciseList={exerciseList}
-        setExerciseList={setExerciseList}
-        onExerciseChange={handleExerciseList}
-      />
+      <HealthList exerciseList={exerciseList} setExerciseList={setExerciseList} onExerciseChange={handleExerciseList} />
       <S.Content>
         {exerciseList.map((exercise, index) => (
           <S.Card key={index}>
@@ -152,76 +145,50 @@ export function DailyHealth() {
               </thead>
               <tbody>
                 <S.TableRow>
-                  <S.TableCell
-                    style={{ textAlign: "left", marginLeft: "40px" }}
-                  >
-                    {exercise.exerciseName}
-                  </S.TableCell>
+                  <S.TableCell style={{ textAlign: "left", marginLeft: "40px" }}>{exercise.exerciseName}</S.TableCell>
                   <S.TableCell>
                     <S.Input
                       type="number"
                       value={exercise.exerciseSets}
-                      onChange={(e) =>
-                        handleInputChange(index, "exerciseSets", e.target.value)
-                      }
+                      onChange={(e) => handleInputChange(index, "exerciseSets", e.target.value)}
                     />
                   </S.TableCell>
                   <S.TableCell>
                     <S.Input
                       type="number"
                       value={exercise.exerciseWeight}
-                      onChange={(e) =>
-                        handleInputChange(
-                          index,
-                          "exerciseWeight",
-                          e.target.value
-                        )
-                      }
+                      onChange={(e) => handleInputChange(index, "exerciseWeight", e.target.value)}
                     />
                   </S.TableCell>
                   <S.TableCell>
                     <S.Input
                       type="number"
                       value={exercise.exerciseCount}
-                      onChange={(e) =>
-                        handleInputChange(
-                          index,
-                          "exerciseCount",
-                          e.target.value
-                        )
-                      }
+                      onChange={(e) => handleInputChange(index, "exerciseCount", e.target.value)}
                     />
                   </S.TableCell>
                   <S.TableCell style={{ flexDirection: "row", width: "28%" }}>
                     <S.Input
                       style={{ width: "25px" }}
                       type="number"
-                      value={exercise.exerciseDuration.split(":")[0] || "00"}
-                      onChange={(e) =>
-                        handleTimeChange(index, 0, e.target.value)
-                      }
+                      //value={exercise.exerciseDuration.split(":")[0] || "00"}
+                      value={exercise.exerciseDuration ? exercise.exerciseDuration.split(":")[0] : "00"}
+                      onChange={(e) => handleTimeChange(index, 0, e.target.value)}
                     />
                     <span style={{ margin: "0 10px" }}>:</span>
                     <S.Input
                       style={{ width: "50px" }}
                       type="number"
-                      value={exercise.exerciseDuration.split(":")[1] || "00"}
-                      onChange={(e) =>
-                        handleTimeChange(index, 1, e.target.value)
-                      }
+                      //value={exercise.exerciseDuration.split(":")[1] || "00"}
+                      value={exercise.exerciseDuration ? exercise.exerciseDuration.split(":")[1] : "00"}
+                      onChange={(e) => handleTimeChange(index, 1, e.target.value)}
                     />
                   </S.TableCell>
                   <S.TableCell>
                     <S.CheckBox
                       type="checkbox"
                       checked={exercise.isCompleted}
-                      onChange={(e) =>
-                        handleInputChange(
-                          index,
-                          "isCompleted",
-                          e.target.checked
-                        )
-                      }
+                      onChange={(e) => handleInputChange(index, "isCompleted", e.target.checked)}
                     />
                   </S.TableCell>
                 </S.TableRow>
