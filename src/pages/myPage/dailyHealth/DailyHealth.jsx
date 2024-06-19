@@ -15,11 +15,13 @@ export function DailyHealth() {
 
   const handleUpdateExercise = async () => {
     const now = new Date();
+    const koreaTime = new Date(now.getTime() + (9 * 60 * 60 * 1000));
+    const todayKST = koreaTime.toISOString().split("T")[0];
     //const today = now.getDate();
-    const today = now.toISOString().split("T")[0];
+    //const today = now.toISOString().split("T")[0];
     const data = {
       userId: sessionStorage.getItem("userId"),
-      selectedDate: today,
+      selectedDate: todayKST,
     };
     const res = await postToGetExercise(data);
     if (res) {
