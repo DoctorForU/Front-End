@@ -10,6 +10,7 @@ export function Header({ color }) {
 
   const handleLogout = () => {
     sessionStorage.removeItem("userId");
+    sessionStorage.removeItem("identify");
     setIsLogin(false);
     navigate("/auth/login");
   };
@@ -34,9 +35,13 @@ export function Header({ color }) {
       <S.Nav>
         <ul>
           <li onClick={() => navigate("/hospital-search")}>병원 검색</li>
-          <li onClick={() => navigate("/emergency-search")}>실시간 응급 상황판</li>
-          <li>질병 검색</li>
-          <li>의료 제품 검색</li>
+          <li onClick={() => navigate("/emergency-search")}>
+            실시간 응급 상황판
+          </li>
+          <li onClick={() => navigate("/hospital-search/reservation")}>
+            빠른 예약
+          </li>
+          <li> </li>
         </ul>
       </S.Nav>
       <S.Menu>

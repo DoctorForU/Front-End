@@ -1,28 +1,26 @@
+import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { HealthList } from "../../../components";
+import { postRegisterExercise } from "../../../api";
 
 import * as S from "./DailyHealth.styled";
 
 export function DailyHealth() {
-  const [exerciseList, setExerciseList] = useState([
-    {
-      exerciseName: "",
-      exerciseSet: 0,
-      exerciseWeight: 0,
-      exerciseCount: 0,
-    },
-  ]);
+  const [exerciseList, setExerciseList] = useState([]);
+  const navigate = useNavigate();
 
   const handleExerciseList = (exerciseName, isChecked) => {
+    // 체크박스 선택시
     if (isChecked) {
       setExerciseList([
         ...exerciseList,
         {
-          exerciseName,
-          exerciseSet: 0,
+          exerciseName: exerciseName,
+          exerciseSets: 0,
           exerciseWeight: 0,
           exerciseCount: 0,
-          status: false,
+          exerciseDuration: "00:00",
+          isCompleted: false,
         },
       ]);
     } else {
@@ -32,11 +30,79 @@ export function DailyHealth() {
     }
   };
 
+  const handleTimeChange = (index, part, value) => {
+    // 시:분 입력
+    const updatedList = [...exerciseList];
+    let timeParts = updatedList[index].exerciseDuration
+      ? updatedList[index].exerciseDuration.split(":")
+      : ["00", "00"];
+    if (part === 0) {
+      timeParts[0] = value.padStart(2, "0"); // 두 자리로 패딩
+    } else {
+      timeParts[1] = value.padStart(1, "0"); // 두 자리로 패딩
+    }
+    updatedList[index].exerciseDuration = timeParts.join(":");
+    setExerciseList(updatedList);
+  };
+
   const handleInputChange = (index, field, value) => {
+    // 값 입력시
     const updatedList = [...exerciseList];
     updatedList[index][field] = value;
     setExerciseList(updatedList);
   };
+
+  const onSave = async () => {
+    const userId = sessionStorage.getItem("userId");
+    const data = exerciseList.map((exercise) => ({
+      userId: userId,
+      exerciseName: exercise.exerciseName,
+      exerciseSets: parseInt(exercise.exerciseSets, 10),
+      exerciseWeight: parseInt(exercise.exerciseWeight, 10),
+      exerciseCount: parseInt(exercise.exerciseCount, 10),
+      isCompleted: exercise.isCompleted,
+      exerciseDuration: exercise.exerciseDuration
+        ? exercise.exerciseDuration
+            .split(":")
+            .map((part) => part.padStart(2, "0"))
+            .join(":")
+        : "00:00",
+    }));
+
+    console.log(data);
+    const res = await postRegisterExercise(data);
+    if (res) {
+      alert("저장되었습니다.");
+      navigate("/mypage/dashboard");
+    } else alert("저장에 실패하였습니다.");
+  };
+
+  // const onSave = async () => {
+  //   const userId = sessionStorage.getItem("userId");
+  //   const data = exerciseList.map((exercise) => ({
+  //       // ...exercise,
+  //       userId: userId,
+  //       exerciseName: exercise.exerciseName,
+  //       exerciseSets: parseInt(exercise.exerciseSets, 10),
+  //       exerciseWeight: parseInt(exercise.exerciseWeight, 10),
+  //       exerciseCount: parseInt(exercise.exerciseCount, 10),
+  //       isCompleted: exercise.isCompleted,
+  //       exerciseDuration: exercise.exerciseDuration
+  //         ? exercise.exerciseDuration
+  //             .split(":")
+  //             .map((part) => part.padStart(2, "0")) // 두 자리로 패딩
+  //             .join(":")
+  //         : "00:00",
+  //     }));
+  //   };
+
+  //   console.log(data);
+  //   const res = await postRegisterExercise(data);
+  //   if (res) {
+  //     alert("저장되었습니다.");
+  //     navigate("/mypage/dashboard");
+  //   } else alert("저장에 실패하였습니다.");
+  // };
 
   return (
     <S.Container>
@@ -63,6 +129,7 @@ export function DailyHealth() {
                   <S.TableHeader>세트</S.TableHeader>
                   <S.TableHeader>kg</S.TableHeader>
                   <S.TableHeader>회</S.TableHeader>
+                  <S.TableHeader>시 / 분</S.TableHeader>
                   <S.TableHeader>완료</S.TableHeader>
                 </S.TableRow>
               </thead>
@@ -71,21 +138,21 @@ export function DailyHealth() {
                   <S.TableCell
                     style={{ textAlign: "left", marginLeft: "40px" }}
                   >
-                    {exercise.name}
+                    {exercise.exerciseName}
                   </S.TableCell>
                   <S.TableCell>
                     <S.Input
                       type="number"
-                      value={exercise.set}
+                      value={exercise.exerciseSets}
                       onChange={(e) =>
-                        handleInputChange(index, "exerciseSet", e.target.value)
+                        handleInputChange(index, "exerciseSets", e.target.value)
                       }
                     />
                   </S.TableCell>
                   <S.TableCell>
                     <S.Input
                       type="number"
-                      value={exercise.weight}
+                      value={exercise.exerciseWeight}
                       onChange={(e) =>
                         handleInputChange(
                           index,
@@ -98,7 +165,7 @@ export function DailyHealth() {
                   <S.TableCell>
                     <S.Input
                       type="number"
-                      value={exercise.count}
+                      value={exercise.exerciseCount}
                       onChange={(e) =>
                         handleInputChange(
                           index,
@@ -108,12 +175,35 @@ export function DailyHealth() {
                       }
                     />
                   </S.TableCell>
+                  <S.TableCell style={{ flexDirection: "row", width: "28%" }}>
+                    <S.Input
+                      style={{ width: "25px" }}
+                      type="number"
+                      value={exercise.exerciseDuration.split(":")[0] || "00"}
+                      onChange={(e) =>
+                        handleTimeChange(index, 0, e.target.value)
+                      }
+                    />
+                    <span style={{ margin: "0 10px" }}>:</span>
+                    <S.Input
+                      style={{ width: "50px" }}
+                      type="number"
+                      value={exercise.exerciseDuration.split(":")[1] || "00"}
+                      onChange={(e) =>
+                        handleTimeChange(index, 1, e.target.value)
+                      }
+                    />
+                  </S.TableCell>
                   <S.TableCell>
                     <S.CheckBox
                       type="checkbox"
-                      checked={exercise.status}
+                      checked={exercise.isCompleted}
                       onChange={(e) =>
-                        handleInputChange(index, "status", e.target.checked)
+                        handleInputChange(
+                          index,
+                          "isCompleted",
+                          e.target.checked
+                        )
                       }
                     />
                   </S.TableCell>
@@ -122,6 +212,8 @@ export function DailyHealth() {
             </S.Table>
           </S.Card>
         ))}
+        <S.Line></S.Line>
+        <S.Button onClick={onSave}>저장하기</S.Button>
       </S.Content>
     </S.Container>
   );

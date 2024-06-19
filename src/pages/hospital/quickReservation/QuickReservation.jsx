@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import { Layout } from "../../../components";
 import { departments } from "../Data";
 import { getFastReservation } from "../../../api";
@@ -28,6 +29,15 @@ export function QuickReservation() {
   const [districts, setDistricts] = useState([]);
   const [cityData, setCityData] = useState({});
   const [searchResults, setSearchResults] = useState([]);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const userId = sessionStorage.getItem("userId");
+    if (userId === null) {
+      alert("로그인 후 이용가능한 서비스입니다.");
+      navigate("/auth/login");
+    }
+  }, []);
 
   useEffect(() => {
     fetch("/city_data.json")

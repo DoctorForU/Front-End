@@ -27,7 +27,7 @@ export function Certification() {
     }
 
     sessionStorage.setItem("identify", identify);
-    navigate("/mypage/treat")
+    navigate("/mypage/prescription")
   };
 
   return (

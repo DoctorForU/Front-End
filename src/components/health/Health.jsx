@@ -3,20 +3,11 @@ import { getHealthData } from "../../api";
 import { Modal } from "./";
 import * as S from "./Health.styled";
 
-const exampleData = [
-  {
-    totalTime: 50,
-    totalExercise: 3,
-    totalWeight: 150,
-    createAt: "2024-06-10",
-  },
-  {
-    totalTime: 100,
-    totalExercise: 5,
-    totalWeight: 170,
-    createAt: "2024-06-12",
-  },
-];
+const exampleData = {
+  totalTime: 50,
+  totalExercise: 3,
+  totalWeight: 150,
+};
 
 export function Health() {
   const now = new Date();
@@ -32,9 +23,9 @@ export function Health() {
   // 주간 달력
   const [daylist, setDaylist] = useState([]);
   const [selectedDate, setSelectedDate] = useState({
-    day: 0,
-    month: 0,
-    year: 0,
+    day: today,
+    month: thisMonth,
+    year: thisYear,
   });
 
   useEffect(() => {
@@ -42,8 +33,12 @@ export function Health() {
   }, []);
 
   const handleHealthData = async () => {
-    const item = sessionStorage.getItem("userId");
-    const res = await getHealthData(item);
+    // 대시보드 운동 기록
+    const data = {
+      userId: sessionStorage.getItem("userId"),
+      selectedDate: selectedDate,
+    };
+    const res = await getHealthData(data);
     console.log(res);
     if (res) setData(res);
     else setData(exampleData);
@@ -103,10 +98,14 @@ export function Health() {
       selectedDate.month,
       selectedDate.year
     );
-    const selectedData = data.find(
-      (record) => record.createAt === formattedDate
-    );
-    return selectedData || { totalTime: 0, totalExercise: 0, totalWeight: 0 };
+    if (Array.isArray(data)) {
+      const selectedData = data.find(
+        (record) => record.createAt === formattedDate
+      );
+      return selectedData || { totalTime: 0, totalExercise: 0, totalWeight: 0 };
+    } else {
+      return { totalTime: 0, totalExercise: 0, totalWeight: 0 };
+    }
   };
 
   const selectedData = getDataForSelectedDate(selectedDate);
@@ -123,7 +122,12 @@ export function Health() {
 
   return (
     <>
-      <Modal isOpen={isOpen} closeModal={closeModal} data={selectedDate} />
+      <Modal
+        isOpen={isOpen}
+        closeModal={closeModal}
+        data={selectedDate}
+        date={data}
+      />
       <S.Container>
         <p style={{ fontWeight: "bold" }}>운동기록</p>
         <S.Line style={{ height: "auto", width: "100%" }}></S.Line>

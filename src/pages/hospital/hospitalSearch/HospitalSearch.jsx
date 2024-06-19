@@ -12,10 +12,10 @@ const primaryOptions = [
 ];
 
 export function HospitalSearch() {
-  const [primaryOption, setPrimaryOption] = useState("");
-  const [secondaryOptions, setSecondaryOptions] = useState([]);
-  const [selectedCity, setSelectedCity] = useState("");
-  const [districts, setDistricts] = useState([]);
+  const [primaryOption, setPrimaryOption] = useState(""); // 진료 과목
+  const [secondaryOptions, setSecondaryOptions] = useState([]); // 항목
+  const [selectedCity, setSelectedCity] = useState(""); // 시/도
+  const [districts, setDistricts] = useState([]); // 시/군/구
   const [cityData, setCityData] = useState({});
   const [hospitalName, setHospitalName] = useState("");
   const [searchResults, setSearchResults] = useState([]);
@@ -23,6 +23,10 @@ export function HospitalSearch() {
   const itemsPerPage = 5;
 
   useEffect(() => {
+    const storedSearch = sessionStorage.getItem("searchHospital");
+    console.log(storedSearch);
+    // if (storedSearch) setSearchResults(storedSearch);
+
     fetch("/city_data.json")
       .then((response) => response.json())
       .then((data) => {
@@ -69,7 +73,6 @@ export function HospitalSearch() {
 
     console.log("Request data: ", data);
 
-    
     try {
       const result = await postHospitals(data);
       console.log("Response data: ", result);

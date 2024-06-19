@@ -93,6 +93,7 @@ export const Button = styled.button`
     background-color: #324a9e;
   }
 `;
+
 export const Content = styled.div`
   display: flex;
   flex-direction: column;

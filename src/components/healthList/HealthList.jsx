@@ -12,27 +12,27 @@ export function HealthList({
   const [data, setData] = useState("");
   const [exerciseName, setExerciseName] = useState("");
 
-  const handleExerciseList = (exercise) => {
-    const existingExercise = exerciseList.find(
-      (item) => item.exerciseName === exercise.name
-    );
-    if (existingExercise) {
-      setExerciseList(
-        exerciseList.filter((item) => item.exerciseName !== exercise.name)
-      );
-    } else {
-      setExerciseList([
-        ...exerciseList,
-        {
-          name: exercise.name,
-          set: 0,
-          weight: 0,
-          count: 0,
-          status: false,
-        },
-      ]);
-    }
-  };
+  // const handleExerciseList = (exercise) => {
+  //   const existingExercise = exerciseList.find(
+  //     (item) => item.exerciseName === exercise.name
+  //   );
+  //   if (existingExercise) {
+  //     setExerciseList(
+  //       exerciseList.filter((item) => item.exerciseName !== exercise.name)
+  //     );
+  //   } else {
+  //     setExerciseList([
+  //       ...exerciseList,
+  //       {
+  //         exerciseName: exercise.name,
+  //         exerciseSet: 0,
+  //         exerciseWeight: 0,
+  //         count: 0,
+  //         status: false,
+  //       },
+  //     ]);
+  //   }
+  // };
 
   const handleSearchExerciseData = async () => {
     console.log(exerciseName);

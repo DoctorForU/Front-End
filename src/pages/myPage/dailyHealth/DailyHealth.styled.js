@@ -22,6 +22,7 @@ export const Card = styled.div`
   width: 90%;
   height: 150px;
   padding: 10px;
+  gap: 10px;
   border-radius: 10px;
   background-color: white;
 `;
@@ -33,6 +34,29 @@ export const Input = styled.input`
   padding: 0.5em;
   border: 1px solid #ddd;
   border-radius: 4px;
+  text-align: center;
+`;
+
+export const Line = styled.div`
+  width: 95%;
+  margin: 20px 0;
+  border: 1px solid #ddd;
+`;
+
+export const Button = styled.button`
+  cursor: pointer;
+  color: white;
+  border: none;
+  width: 130px;
+  height: 40px;
+  font-size: 20px;
+  margin: 1em;
+  border-radius: 10px;
+  background-color: #324a9e;
+
+  &:hover {
+    background-color: #4cc8;
+  }
 `;
 
 export const Table = styled.table`

@@ -42,31 +42,21 @@ export const postInquiriesData = async (data) => {
   }
 };
 
-export const getReservationData = async () => {
-  // 예약 내역
-  try {
-    const res = await mypageInstance.get("/reservation");
-    return res.data;
-  } catch (error) {
-    console.log(error);
-  }
-};
-
-export const getHealthData = async (userId) => {
+export const getHealthData = async (data) => {
   // 운동 기록
   try {
-    const res = await mypageInstance.get(`/health/${userId}`);
+    const res = await mypageInstance.get("/healthdata", data);
     return res.data;
   } catch (error) {
     console.log(error);
   }
 };
 
-export const getSelectedHealthData = async (userId, data) => {
-  // 선택 날짜 운동 기록
+export const postRegisterExercise = async (data) => {
+  // DailyHealth 운동 기록
   try {
-    const res = await mypageInstance.get(`/health/select/${userId}`, data);
-    return res.data;
+    const res = await mypageInstance.post("/exercise/register", data);
+    return res.data.isSuccess;
   } catch (error) {
     console.log(error);
   }

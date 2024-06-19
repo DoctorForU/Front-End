@@ -3,15 +3,6 @@ import { getInquiriesData } from "../../../api";
 import { Modal } from "./";
 import * as S from "./Inquiries.styled";
 
-const exampleData = [
-  {
-    title: "비밀번호",
-    content: "비밀번호 바꾸는 방법 알려주세요",
-    date: "2024-06-06",
-    status: "접수완료", // 접수완료, 답변완료
-  },
-];
-
 export function Inquiries() {
   const [isOpen, setIsOpen] = useState(false);
   const [tempData, setTempData] = useState({}); // 보여질 데이터
@@ -26,7 +17,7 @@ export function Inquiries() {
     const res = await getInquiriesData(userId);
     if (res) {
       setData(res);
-    } else setData(exampleData);
+    }
   };
 
   const openModal = () => {

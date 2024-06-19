@@ -1,5 +1,6 @@
 import { useState } from "react";
 import Modal from "react-modal";
+import { postInquiriesData } from "../../api";
 import * as S from "./Inquiry.styled";
 
 export function Inquiry() {
@@ -40,18 +41,23 @@ export function Inquiry() {
     },
   };
 
-  const onSubmit = () => {
+  const onSubmit = async () => {
     const contentsReplaceNewline = () => {
       return form.content.replaceAll("<br>", "\r\n");
-    };
+    }; // 스페이스, 줄바꿈 저장
 
     const data = {
+      // userId: sessionStorage.getItem("userId"),
       title: form.title,
       content: contentsReplaceNewline(),
     };
-
     console.log(data);
-    closeModal();
+
+    const res = await postInquiriesData(data);
+    if (res) {
+      alert("등록이 완료되었습니다.");
+      closeModal();
+    }
   };
 
   return (

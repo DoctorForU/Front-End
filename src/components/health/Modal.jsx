@@ -9,24 +9,7 @@ const exampleData = {
   totalCount: 3,
   createAt: "2024-06-10",
 };
-export function Modal({ isOpen, closeModal, date }) {
-  console.log(date);
-  const [data, setData] = useState();
-
-  useEffect(() => {
-    handleHealthData();
-  }, []);
-
-  const handleHealthData = async () => {
-    const selectedDate = {
-      date: date,
-    };
-    const item = sessionStorage.getItem("userId");
-    const res = await getSelectedHealthData(item, selectedDate);
-    console.log(res);
-    if (res) setData(res);
-    else setData(exampleData);
-  };
+export function Modal({ isOpen, closeModal, date, data }) {
 
   const customStyles = {
     overlay: {
@@ -49,7 +32,9 @@ export function Modal({ isOpen, closeModal, date }) {
       <h2 style={{ fontWeight: "bold" }}>{date}</h2>
       <S.Line style={{ height: "auto", width: "100%" }}></S.Line>
       <S.Content>
-        <span></span>
+        <span>{data.exerciseName}</span>
+        <span>{data.exerciseWeight}kg</span>
+        <span>{data.exerciseCount}회</span>
         <S.Button
           style={{ height: "50px", margin: "0" }}
           onClick={() => {
