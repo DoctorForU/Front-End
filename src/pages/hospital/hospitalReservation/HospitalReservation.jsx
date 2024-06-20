@@ -1,7 +1,7 @@
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { Calendar, Layout, ReservationTimetable } from "../../../components";
-import { getHospitalReservation, postHospitalReservation } from "../../../api";
+import { getHospitalReservation } from "../../../api";
 
 //import { exampleData } from "./Data";
 import * as S from "./HospitalReservation.styled";

@@ -22,10 +22,10 @@ export const getFastReservation = async (data) => {
   }
 };
 
-export const getReservationList = async (data) => {
+export const postToGetReservation = async (data) => {
   // 예약 내역
   try {
-    const res = await mypageInstance.get("/reservation", data);
+    const res = await mypageInstance.post("/reservation/get", data);
     return res.data;
   } catch (error) {
     console.log(error);

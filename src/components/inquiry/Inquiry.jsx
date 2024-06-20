@@ -47,7 +47,7 @@ export function Inquiry() {
     }; // 스페이스, 줄바꿈 저장
 
     const data = {
-      // userId: sessionStorage.getItem("userId"),
+      userId: sessionStorage.getItem("userId"),
       title: form.title,
       content: contentsReplaceNewline(),
     };

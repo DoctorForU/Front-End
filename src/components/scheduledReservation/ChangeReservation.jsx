@@ -3,10 +3,14 @@ import { useNavigate } from "react-router-dom";
 import Select from "react-select";
 import dayjs from "dayjs";
 
-import { getHospitalReservation, postHospitalReservation } from "../../api";
+import {
+  getHospitalReservation,
+  postHospitalReservation,
+  deleteHospitalReservation,
+} from "../../api";
 import * as S from "./ScheduledReservation.styled";
 
-export function ChangeReservation({ selectedDay, closeModal, item }) {
+export function ChangeReservation({ setIsClick, item }) {
   const [selectedDate, setSelectedDate] = useState({
     year: {
       value: new Date().getFullYear(),
@@ -18,8 +22,6 @@ export function ChangeReservation({ selectedDay, closeModal, item }) {
     },
     day: { value: new Date().getDate(), label: `${new Date().getDate()}일` },
   });
-
-  const [formattedDate, setFormattedDate] = useState(""); //yy-mm-dd
 
   const getYears = () => {
     const currentYear = new Date().getFullYear();
@@ -64,14 +66,6 @@ export function ChangeReservation({ selectedDay, closeModal, item }) {
     setFormattedDate(formatted);
   };
 
-  useEffect(() => {
-    formatDateString(
-      selectedDate.year.value,
-      selectedDate.month.value,
-      selectedDate.day.value
-    );
-  }, []);
-
   const years = getYears();
   const months = getMonths();
   const days = getDays(selectedDate.year.value, selectedDate.month.value);
@@ -81,7 +75,9 @@ export function ChangeReservation({ selectedDay, closeModal, item }) {
     control: (provided) => ({ ...provided, height: "40px" }),
   };
 
-  const [data, setData] = useState({});
+  //////////////////////////////////////////////////////////////////////
+  const [data, setData] = useState({}); // 예약 가능한 타임테이블 데이터
+  const [formattedDate, setFormattedDate] = useState(""); // yy-mm-dd
   const [selectedReservations, setSelectedReservations] = useState([]);
   const navigate = useNavigate();
 
@@ -92,7 +88,6 @@ export function ChangeReservation({ selectedDay, closeModal, item }) {
   const handleReservation = async () => {
     // 병원 별 예약 가능 타임테이블
     const res = await getHospitalReservation(item.hpid);
-    console.log(res);
     if (res) {
       setData(res);
     }
@@ -100,38 +95,42 @@ export function ChangeReservation({ selectedDay, closeModal, item }) {
 
   useEffect(() => {
     handleSelectReservation();
-  }, [selectedDate]);
+  }, [formattedDate]);
 
   const handleSelectReservation = () => {
     // 선택 날짜 -> 예약 가능한 타임테이블
-    const dayOfWeek = dayjs(selectedDay).format("dddd").toLowerCase(); // 요일 출력
+    const dayOfWeek = dayjs(formattedDate).format("dddd").toLowerCase(); // 요일 출력
     const reservations = data[dayOfWeek] || []; // 요일 선택
     setSelectedReservations(reservations);
+    console.log("날짜: " + formattedDate);
+    console.log("예약 테이블: " + selectedReservations);
   };
 
   const onReservation = async (time) => {
-    console.log(selectedDate);
     const userId = sessionStorage.getItem("userId");
     if (userId === null) {
       alert("로그인 후 이용가능한 서비스입니다.");
       navigate("/auth/login");
     }
 
-    const reserveDate = dayjs(selectedDay).format("YYYY-MM-DD");
+    const reserveDate = dayjs(formattedDate).format("YYYY-MM-DD");
     const data = {
       userId: userId,
-      hpid: data.hpid,
-      dutyName: data.dutyName,
+      hpid: item.hpid,
+      dutyName: item.dutyName,
       reserveDate: reserveDate,
       reserveTime: time,
     };
-    console.log(data);
 
     const res = await postHospitalReservation(data);
     if (res) {
-      alert("예약 변경되었습니다.");
-      closeModal();
-    } else alert("잘못된 요청입니다.");
+      const del = await deleteHospitalReservation(item.id);
+      console.log("삭제: " + item.id);
+      if (del) {
+        alert("예약 변경되었습니다.");
+        setIsClick(false);
+      } else alert("잘못된 요청입니다.");
+    }
   };
 
   return (
@@ -164,22 +163,26 @@ export function ChangeReservation({ selectedDay, closeModal, item }) {
           placeholder="일"
         />
       </S.SelectContainer>
-      <S.Table>
-        {selectedReservations.map((item, index) => (
-          <S.TableRow key={index}>
-            <S.TableCell>{item}</S.TableCell>
-            <S.TableCell>
-              <S.Button
-                onClick={() => {
-                  onReservation(item);
-                }}
-              >
-                예약하기
-              </S.Button>
-            </S.TableCell>
-          </S.TableRow>
-        ))}
-      </S.Table>
+      <S.TimeContainer>
+        <S.Line></S.Line>
+        <S.Table>
+          {selectedReservations.map((item, index) => (
+            <S.TableRow key={index}>
+              <S.TableCell style={{ padding: "0" }}>{item}</S.TableCell>
+              <S.TableCell style={{ padding: "0" }}>
+                <S.Button
+                  primary
+                  onClick={() => {
+                    onReservation(item);
+                  }}
+                >
+                  예약하기
+                </S.Button>
+              </S.TableCell>
+            </S.TableRow>
+          ))}
+        </S.Table>
+      </S.TimeContainer>
     </>
   );
 }

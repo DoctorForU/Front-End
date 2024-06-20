@@ -11,7 +11,7 @@ import {
 } from "recharts";
 import { useState, useEffect } from "react";
 import * as S from "./HealthCare.styled";
-import { Modal } from "./Modal";
+import { Modal } from "./HealthCareModal";
 import { getHealthCareData } from "../../api";
 import { transformHealthData } from "../../services";
 

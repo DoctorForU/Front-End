@@ -22,10 +22,10 @@ export const postHealthCareData = async (userId, data) => {
   }
 };
 
-export const getInquiriesData = async (userId) => {
+export const postToGetInquiries = async (data) => {
   // 문의사항
   try {
-    const res = await mypageInstance.get(`/inquiry/${userId}`);
+    const res = await mypageInstance.post("/inquiry/get", data);
     console.log(res.data);
     return res.data;
   } catch (error) {

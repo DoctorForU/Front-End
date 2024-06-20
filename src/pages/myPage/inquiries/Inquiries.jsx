@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { getInquiriesData } from "../../../api";
+import { postToGetInquiries } from "../../../api";
 import { Modal } from "./";
 import * as S from "./Inquiries.styled";
 
@@ -13,8 +13,10 @@ export function Inquiries() {
   }, []);
 
   const handleInquiriesData = async () => {
-    const userId = sessionStorage.getItem("userId");
-    const res = await getInquiriesData(userId);
+    const data = {
+      userId: sessionStorage.getItem("userId"),
+    };
+    const res = await postToGetInquiries(data);
     if (res) {
       setData(res);
     }

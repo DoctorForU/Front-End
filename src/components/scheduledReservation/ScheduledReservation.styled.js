@@ -65,15 +65,15 @@ export const Button = styled.button`
   }
 `;
 
+export const TimeContainer = styled.div`
+  width: 60%;
+  overflow-y: scroll;
+`;
+
 export const Table = styled.table`
   width: 95%;
   border-collapse: collapse;
   text-align: center;
-`;
-
-export const TableHeader = styled.th`
-  height: 30px;
-  padding: 8px 20px;
 `;
 
 export const TableRow = styled.tr`
@@ -101,4 +101,5 @@ export const SelectContainer = styled.div`
   display: flex;
   flex-direction: row;
   gap: 10px;
+  margin: 10px;
 `;

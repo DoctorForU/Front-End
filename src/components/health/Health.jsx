@@ -3,25 +3,30 @@ import { postToGetDashboardExercise } from "../../api";
 import { Modal } from "./";
 import * as S from "./Health.styled";
 
-const exampleData = {
-  totalTime: 50,
-  totalExercise: 3,
-  totalWeight: 150,
-};
+// const exampleData = {
+//   totalTime: 50,
+//   totalExercise: 3,
+//   totalWeight: 150,
+// };
 
 export function Health() {
   const now = new Date();
   const today = now.getDate();
+
+  const koreaTime = new Date(now.getTime() + 9 * 60 * 60 * 1000);
+  const todayKST = koreaTime.toISOString().split("T")[0];
+
   const thisMonth = now.getMonth();
   const thisYear = now.getFullYear();
   const todayWeak = now.getDay();
   const lastday = new Date(thisYear, thisMonth + 1, 0).getDate();
 
-  const [data, setData] = useState(exampleData);
+  const [data, setData] = useState({});
   const [isOpen, setIsOpen] = useState(false);
 
   // 주간 달력
   const [daylist, setDaylist] = useState([]);
+  const [date, setDate] = useState("");
   const [selectedDate, setSelectedDate] = useState({
     day: today,
     month: thisMonth,
@@ -30,26 +35,37 @@ export function Health() {
 
   useEffect(() => {
     handleHealthData();
-  }, []);
+  }, [selectedDate]);
 
   const handleHealthData = async () => {
     // 대시보드 운동 기록
+    setDate(
+      `${selectedDate.year}-${String(selectedDate.month + 1).padStart(
+        2,
+        "0"
+      )}-${String(selectedDate.day).padStart(2, "0")}`
+    );
     const data = {
       userId: sessionStorage.getItem("userId"),
-      selectedDate: selectedDate,
+      selectedDate: `${selectedDate.year}-${String(
+        selectedDate.month + 1
+      ).padStart(2, "0")}-${String(selectedDate.day).padStart(2, "0")}`,
+      //selectedDate: todayKST,
     };
+
+    console.log(data);
     const res = await postToGetDashboardExercise(data);
     console.log(res);
     if (res) setData(res);
-    else setData(exampleData);
+    //else setData(exampleData);
   };
 
   useEffect(() => {
-    // 날짜 초기화
-    setDaylist(getAlldate(today, lastday, thisMonth, thisYear));
-  }, [today, lastday, todayWeak, thisMonth, thisYear]);
+    // 달력 생성
+    setDaylist(getAlldate(today, thisMonth, thisYear)); // lastday
+  }, [today, todayWeak, thisMonth, thisYear]); // lastday,
 
-  function getAlldate(today, lastday, month, year) {
+  function getAlldate(today, month, year) {
     let dates = [];
     let startDay = today - 7; // 현재 날짜 -7일
     let currentMonth = month;
@@ -59,10 +75,10 @@ export function Health() {
       // 이전달 날짜 처리
       const previousMonthLastDay = new Date(year, month, 0).getDate();
       startDay = previousMonthLastDay + startDay;
-      currentMonth = month - 1;
+      currentMonth = currentMonth - 1;
       if (currentMonth < 0) {
         currentMonth = 11;
-        currentYear = year - 1;
+        currentYear = currentYear - 1;
       }
     }
 
@@ -92,24 +108,6 @@ export function Health() {
     ).padStart(2, "0")}`;
   };
 
-  const getDataForSelectedDate = (selectedDate) => {
-    const formattedDate = getFormattedDate(
-      selectedDate.day,
-      selectedDate.month,
-      selectedDate.year
-    );
-    if (Array.isArray(data)) {
-      const selectedData = data.find(
-        (record) => record.createAt === formattedDate
-      );
-      return selectedData || { totalTime: 0, totalExercise: 0, totalWeight: 0 };
-    } else {
-      return { totalTime: 0, totalExercise: 0, totalWeight: 0 };
-    }
-  };
-
-  const selectedData = getDataForSelectedDate(selectedDate);
-
   const openModal = () => {
     document.body.style.overflow = "hidden";
     setIsOpen(true);
@@ -122,12 +120,7 @@ export function Health() {
 
   return (
     <>
-      <Modal
-        isOpen={isOpen}
-        closeModal={closeModal}
-        data={selectedDate}
-        date={data}
-      />
+      <Modal isOpen={isOpen} closeModal={closeModal} date={date} />
       <S.Container>
         <p style={{ fontWeight: "bold" }}>운동기록</p>
         <S.Line style={{ height: "auto", width: "100%" }}></S.Line>
@@ -160,21 +153,19 @@ export function Health() {
         <S.HealthContainer>
           <S.HealthContent>
             <S.Img src="/img/Icon17.png" alt="Icon17" />
-            <span>{selectedData.totalTime}분</span>
+            <span>{data.totalDurationInMinutes}분</span>
             <span style={{ color: "#8799AB" }}>운동 시간</span>
           </S.HealthContent>
           <S.Line></S.Line>
           <S.HealthContent>
             <S.Img src="/img/Icon18.png" alt="Icon18" />
-            <span>{selectedData.totalExercise}개</span>
+            <span>{data.totalCount}개</span>
             <span style={{ color: "#8799AB" }}>운동 개수</span>
           </S.HealthContent>
           <S.Line></S.Line>
           <S.HealthContent>
             <S.Img src="/img/Icon19.png" alt="Icon19" />
-            <span>
-              {selectedData.totalWeight ? data.totalWeight + "Kg" : "-"}
-            </span>
+            <span>{data.totalWeight ? data.totalWeight + "Kg" : "-"}</span>
             <span style={{ color: "#8799AB" }}>총 중량</span>
           </S.HealthContent>
           <S.Button onClick={openModal}>운동 현황</S.Button>

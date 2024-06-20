@@ -1,59 +1,50 @@
 import ReactModal from "react-modal";
 import { useEffect, useState } from "react";
-import { ChangeReservation } from "./";
-import { ReservationTimetable } from "../../components";
-import {
-  getReservationList,
-  deleteHospitalReservation,
-  getHospitalReservation,
-} from "../../api";
+import { ChangeReservation } from ".";
+import { deleteHospitalReservation } from "../../api";
 
 import * as S from "./ScheduledReservation.styled";
 
-const exampleData = [
-  {
-    hpid: "A1116538",
-    dutyName: "서울 병원",
-    reserveDate: "2024-06-17",
-    reserveTime: "1400-1430",
-  },
-  {
-    hpid: "A1116538",
-    dutyName: "서울 병원",
-    reserveDate: "2024-06-17",
-    reserveTime: "1400-1430",
-  },
-];
+// const exampleData = [
+//   {
+//     hpid: "A1116538",
+//     dutyName: "서울 병원",
+//     reserveDate: "2024-06-17",
+//     reserveTime: "1400-1430",
+//   },
+//   {
+//     hpid: "A1116538",
+//     dutyName: "서울 병원",
+//     reserveDate: "2024-06-17",
+//     reserveTime: "1400-1430",
+//   },
+// ];
 
-export function Modal({ isOpen, closeModal }) {
-  const [data, setData] = useState([]); // 전체 예약 내역
+export function ScheduledReservationModal({
+  isOpen,
+  closeModal,
+  reservationList,
+  handelGetReservation,
+}) {
   const [item, setItem] = useState({}); // 선택 예약 내역
-  const [selectedDay, setSelectedDay] = useState(null);
   const [isClick, setIsClick] = useState(false);
-
-  const convertTimeFormat = (time) => {
-    const times = time.split("-");
-    const startHour = times[0].substring(0, 2);
-    const startMinute = times[0].substring(2);
-    const endHour = times[1].substring(0, 2);
-    const endMinute = times[1].substring(2);
-
-    return `${startHour}:${startMinute} - ${endHour}:${endMinute}`;
-  };
 
   useEffect(() => {
     handelGetReservation();
-  }, []);
+  }, [isClick]);
 
-  const handelGetReservation = async () => {
-    // 예약 내역
-    const userId = sessionStorage.getItem("userId");
-    const data = {
-      userId: userId,
-    };
-    const res = await getReservationList(data);
-    if (res) setData(res);
-    else setData(exampleData);
+  const convertTimeFormat = (time) => {
+    if (!time) {
+      return "";
+    } else {
+      const times = time.split("-");
+      const startHour = times[0].substring(0, 2);
+      const startMinute = times[0].substring(2);
+      const endHour = times[1].substring(0, 2);
+      const endMinute = times[1].substring(2);
+
+      return `${startHour}:${startMinute} - ${endHour}:${endMinute}`; //HH:MM - hh:mm
+    }
   };
 
   const onCancelReservation = async (reservationId) => {
@@ -71,7 +62,7 @@ export function Modal({ isOpen, closeModal }) {
     content: {
       display: "flex",
       flexDirection: "column",
-      width: "40em",
+      width: "45em",
       height: "400px",
       margin: "auto",
       borderRadius: "10px",
@@ -96,12 +87,12 @@ export function Modal({ isOpen, closeModal }) {
           </S.Title>
           <S.Line></S.Line>
           <S.Table>
-            {data.map((item, index) => (
+            {reservationList.map((item, index) => (
               <S.TableRow key={index}>
                 <S.TableCell style={{ color: "black" }}>
                   {item.dutyName}
                 </S.TableCell>
-                <S.TableCell>{item.reserveDate}</S.TableCell>
+                <S.TableCell style={{}}>{item.reserveDate}</S.TableCell>
                 <S.TableCell>{convertTimeFormat(item.reserveTime)}</S.TableCell>
                 <S.TableCell>
                   <S.ModalButton
@@ -141,11 +132,7 @@ export function Modal({ isOpen, closeModal }) {
           </S.Title>
           <S.Line></S.Line>
           <h3 style={{ fontWeight: "bold" }}>병원명: {item.dutyName}</h3>
-          <ChangeReservation
-            setSelectedDay={setSelectedDay}
-            item={item}
-            closeModal={closeModal}
-          />
+          <ChangeReservation item={item} setIsClick={setIsClick} />
         </>
       )}
     </ReactModal>

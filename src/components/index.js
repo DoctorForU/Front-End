@@ -6,6 +6,7 @@ export * from "./banner";
 export * from "./healthCare";
 export * from "./health";
 export * from "./healthList";
+export * from "./exerciseCard";
 export * from "./inquiry";
 export * from "./reservationList";
 export * from "./reservationTimetable";

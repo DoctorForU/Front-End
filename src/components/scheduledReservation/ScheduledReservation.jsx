@@ -1,13 +1,31 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+
+import { postToGetReservation } from "../../api";
 import { Calendar } from "../calendar";
-import { Modal } from "./Modal";
+import { ScheduledReservationModal } from "./ScheduledReservationModal";
 import * as S from "./ScheduledReservation.styled";
 
 export function ScheduledReservation() {
   const [isOpen, setIsOpen] = useState(false);
   const [selectedDay, setSelectedDay] = useState(null);
+  const [data, setData] = useState([]); // 예약 내역 데이터
   const navigate = useNavigate();
+
+  useEffect(() => {
+    handelGetReservation();
+  }, [isOpen]);
+
+  const handelGetReservation = async () => {
+    // 예약 내역
+    const userId = sessionStorage.getItem("userId");
+    const data = {
+      userId: userId,
+    };
+    const res = await postToGetReservation(data);
+    console.log(res);
+    if (res) setData(res);
+  };
 
   const openModal = () => {
     document.body.style.overflow = "hidden";
@@ -21,7 +39,12 @@ export function ScheduledReservation() {
 
   return (
     <>
-      <Modal isOpen={isOpen} closeModal={closeModal} />
+      <ScheduledReservationModal
+        isOpen={isOpen}
+        closeModal={closeModal}
+        reservationList={data}
+        handelGetReservation={handelGetReservation}
+      />
       <S.CalendarContainer>
         <p style={{ fontWeight: "bold" }}>진료예정</p>
         <S.Line></S.Line>
