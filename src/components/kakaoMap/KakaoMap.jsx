@@ -25,22 +25,18 @@ export function KakaoMap({ data }) {
     };
     const map = new kakao.maps.Map(container, options);
 
-    const labels = ["A", "B", "C", "D", "E", "F"];
+    //const labels = ["A", "B", "C", "D", "E", "F"];
     data.forEach((hospital, index) => {
-      const coords = new kakao.maps.LatLng(
-        hospital.wgs84Lat,
-        hospital.wgs84Lon
-      );
+      const coords = new kakao.maps.LatLng(hospital.wgs84Lat, hospital.wgs84Lon);
       const marker = new kakao.maps.Marker({
         map: map,
         position: coords,
-        title: labels[index % labels.length], // 마커의 타이틀을 알파벳으로 설정
+        //title: labels[index % labels.length], // 마커의 타이틀을 알파벳으로 설정
       });
 
+      const hospitalName = hospital.dutyName; // 병원명 가져오기
       const infowindow = new kakao.maps.InfoWindow({
-        content: `<div style="width:50px;height:50px;display:flex;align-items:center;justify-content:center;border-radius:50%;background-color:blue;color:white;font-size:16px;">${
-          labels[index % labels.length]
-        }</div>`,
+        content: `<div style="padding:10px; background-color:white; color:black; font-size:16px; border-radius:15px;">${hospitalName}</div>`,
       });
 
       infowindow.open(map, marker);

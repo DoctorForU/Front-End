@@ -40,15 +40,7 @@ export function EmergencyLabel({ results }) {
     return `${year}년 ${month}월 ${day}일 ${hour}시 ${minute}분 ${second}초`;
   };
 
-  // const handleButtonClick = async (hpid) => {   // 팝업 추가
-  //   try {
-  //     const data = await getEmergencyMessage(hpid);
-  //     setModalData(data);
-  //     setIsModalOpen(true);
-  //   } catch (error) {
-  //     console.error("Error fetching emergency message:", error);
-  //   }
-  // }; // 팝업 추가
+
 
   return (
     <>

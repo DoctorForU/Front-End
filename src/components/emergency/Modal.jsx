@@ -36,7 +36,7 @@ export function Modal({ isOpen, closeModal, hpid }) {
       display: "flex",
       flexDirection: "column",
       width: "80em",
-      maxHeight: "40vh",
+      maxHeight: "50vh",
       //height: "400px",
       margin: "auto",
       borderRadius: "10px",
