@@ -15,14 +15,6 @@ import { Modal } from "./HealthCareModal";
 import { getHealthCareData } from "../../api";
 import { transformHealthData } from "../../services";
 
-// const exampleData = [
-//   { systolic: 120, diastolic: 80, weight: 30, createdAt: "1/4" },
-//   { systolic: 115, diastolic: 75, weight: 40, createdAt: "1/11" },
-//   { systolic: 130, diastolic: 85, weight: 50, createdAt: "1/18" },
-//   { systolic: 120, diastolic: 80, weight: 45, createdAt: "1/25" },
-//   { systolic: 130, diastolic: 85, weight: 70, createdAt: "2/1" },
-// ];
-
 export function HealthCare() {
   const [isOpen, setIsOpen] = useState(false);
   const [data, setData] = useState([]);
@@ -51,7 +43,7 @@ export function HealthCare() {
     console.log(res);
     if (res) {
       const transformedData = transformHealthData(res);
-      setData(transformedData);
+      setData(transformedData.slice(-7)); // 최신 데이터 7개만 저장
     }
   };
 

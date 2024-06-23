@@ -56,13 +56,6 @@ export function PresriptionModal({ isOpen, closeModal, medication }) {
           </tbody>
         </S.Table>
       </div>
-      <S.Button
-        onClick={() => {
-          closeModal();
-        }}
-      >
-        닫기
-      </S.Button>
     </ReactModal>
   );
 }
