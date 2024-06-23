@@ -39,6 +39,14 @@ export function HospitalDetail() {
     handleHospitalDetail();
   }, [params.hpid]);
 
+  const sectionTitles = {
+    basic: "기본정보",
+    beds: "병상정보",
+    surgery: "수술가능여부",
+    emergency: "실시간 응급 상황",
+    equipment: "가용가능 장비현황",
+  };
+
   const renderValue = (value) => {
     if (value === "Y") return "가능";
     if (value === "N") return "불가";
@@ -53,25 +61,18 @@ export function HospitalDetail() {
     return <div>Loading...</div>;
   }
 
-  const renderSection = (sectionData) => {
+  const renderSection = (sectionData, title) => {
     return (
       <S.Section>
-        <S.Table>
-          <thead>
-            <tr>
-              <th>종류</th>
-              <th>가능여부</th>
-            </tr>
-          </thead>
-          <tbody>
-            {sectionData.map((item, index) => (
-              <tr key={index}>
-                <td>{item.label}</td>
-                <td>{renderValue(hospitalData[item.field])}</td>
-              </tr>
-            ))}
-          </tbody>
-        </S.Table>
+        <h3>{title}</h3>
+        <S.CardsContainer>
+          {sectionData.map((item, index) => (
+            <S.Card key={index}>
+              <h4>{item.label}</h4>
+              <p>{renderValue(hospitalData[item.field])}</p>
+            </S.Card>
+          ))}
+        </S.CardsContainer>
       </S.Section>
     );
   };
@@ -85,6 +86,7 @@ export function HospitalDetail() {
             border: "1px solid #dde0fc",
             borderRadius: "10px",
             width: "80%",
+            padding: "20px",
           }}
         >
           <S.HospitalInfo>
@@ -92,8 +94,8 @@ export function HospitalDetail() {
               {hospitalData.dutyName}{" "}
               <span className="hospital-type">응급진료병원</span>
             </h2>
-            <p className="hospital-tel">{hospitalData.dutyTel1}</p>
-            <p className="hospital-addr">{hospitalData.dutyAddr}</p>
+            <li>{hospitalData.dutyTel1}</li>
+            <li>{hospitalData.dutyAddr}</li>
           </S.HospitalInfo>
         </S.Section>
         <S.TabNav>
@@ -130,51 +132,54 @@ export function HospitalDetail() {
         </S.TabNav>
         <S.Line></S.Line>
         {activeTab === "basic" && (
-          <S.Section>
-            <S.Title>진료과목</S.Title>
-            <span>{hospitalData.dgidIdName}</span>
-            <S.Title>진료가능시간</S.Title>
-            <p>
-              월요일: {hospitalData.dutyTime1s} - {hospitalData.dutyTime1c}
-            </p>
-            <p>
-              화요일: {hospitalData.dutyTime2s} - {hospitalData.dutyTime2c}
-            </p>
-            <p>
-              수요일: {hospitalData.dutyTime3s} - {hospitalData.dutyTime3c}
-            </p>
-            <p>
-              목요일: {hospitalData.dutyTime4s} - {hospitalData.dutyTime4c}
-            </p>
-            <p>
-              금요일: {hospitalData.dutyTime5s} - {hospitalData.dutyTime5c}
-            </p>
-            <p>
-              토요일: {hospitalData.dutyTime6s} - {hospitalData.dutyTime6c}
-            </p>
-            <p>
-              공휴일: {hospitalData.dutyTime7s} - {hospitalData.dutyTime7c}
-            </p>
-            <p>기관설명상세: {hospitalData.dutyInf}</p>
-            <p>응급실운영여부: {renderValue(hospitalData.dutyEryn)}</p>
-          </S.Section>
+          <>
+            <S.InfoSection>
+              <div>
+                <S.Title>진료과목</S.Title>
+                <span>{hospitalData.dgidIdName}</span>
+                <S.Title style={{ marginTop: "30px" }}>
+                  기관설명상세: {hospitalData.dutyInf}
+                </S.Title>
+                <S.Title>
+                  응급실운영여부: {renderValue(hospitalData.dutyEryn)}
+                </S.Title>
+              </div>
+            </S.InfoSection>
+            <S.InfoSection>
+              <div>
+                <S.Title>진료가능시간</S.Title>
+                <p>
+                  월요일: {hospitalData.dutyTime1s} - {hospitalData.dutyTime1c}
+                </p>
+                <p>
+                  화요일: {hospitalData.dutyTime2s} - {hospitalData.dutyTime2c}
+                </p>
+                <p>
+                  수요일: {hospitalData.dutyTime3s} - {hospitalData.dutyTime3c}
+                </p>
+                <p>
+                  목요일: {hospitalData.dutyTime4s} - {hospitalData.dutyTime4c}
+                </p>
+                <p>
+                  금요일: {hospitalData.dutyTime5s} - {hospitalData.dutyTime5c}
+                </p>
+                <p>
+                  토요일: {hospitalData.dutyTime6s} - {hospitalData.dutyTime6c}
+                </p>
+                <p>
+                  공휴일: {hospitalData.dutyTime7s} - {hospitalData.dutyTime7c}
+                </p>
+              </div>
+            </S.InfoSection>
+          </>
         )}
-        {activeTab === "beds" && renderSection(bedInfo)}
-        {activeTab === "surgery" && renderSection(surgeryInfo)}
-        {activeTab === "emergency" && (
-          <S.Section>
-            <h3>실시간 응급상황 현황판</h3>
-            <S.CardsContainer>
-              {emergencyInfo.map((item, index) => (
-                <S.Card key={index}>
-                  <h4>{item.label}</h4>
-                  <p>{renderValue(hospitalData[item.field])}</p>
-                </S.Card>
-              ))}
-            </S.CardsContainer>
-          </S.Section>
-        )}
-        {activeTab === "equipment" && renderSection(equipmentInfo)}
+        {activeTab === "beds" && renderSection(bedInfo, sectionTitles.beds)}
+        {activeTab === "surgery" &&
+          renderSection(surgeryInfo, sectionTitles.surgery)}
+        {activeTab === "emergency" &&
+          renderSection(emergencyInfo, sectionTitles.emergency)}
+        {activeTab === "equipment" &&
+          renderSection(equipmentInfo, sectionTitles.equipment)}
       </S.Container>
     </Layout>
   );

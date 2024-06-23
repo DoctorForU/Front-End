@@ -11,9 +11,18 @@ export const Container = styled.div`
 `;
 
 export const Section = styled.section`
-  width: 85%;
+  width: 80%;
   margin: 20px 0;
-  padding: 20px;
+`;
+
+export const InfoSection = styled.section`
+  display: flex;
+  flex-direction: row;
+  padding: 1em 2em;
+  margin: 10px 0;
+  gap: 10em;
+  width: 80%;
+  background-color: #f5f5f5;
 `;
 
 export const HospitalInfo = styled.div`
@@ -22,7 +31,7 @@ export const HospitalInfo = styled.div`
 
   h2 {
     font-size: 1.5rem;
-    margin-bottom: 10px;
+    margin-bottom: 30px;
   }
 
   .hospital-type {
@@ -30,8 +39,8 @@ export const HospitalInfo = styled.div`
     color: #666;
   }
 
-  p {
-    margin: 5px 0;
+  li {
+    margin: 10px 0;
   }
 `;
 
@@ -63,6 +72,7 @@ export const TabNav = styled.nav`
 export const Title = styled.p`
   font-size: 16px;
   font-weight: bold;
+  margin-top: 10px;
 `;
 
 export const Line = styled.div`
@@ -76,6 +86,7 @@ export const Table = styled.table`
   border-collapse: collapse;
   th,
   td {
+    height: 40px;
     border: 1px solid #ddd;
     padding: 8px;
     text-align: left;
@@ -89,14 +100,16 @@ export const CardsContainer = styled.div`
   display: flex;
   flex-wrap: wrap;
   gap: 16px;
+  padding: 10px 0;
+  margin: 10px -8px;
 `;
 
 export const Card = styled.div`
-  background-color: #f9f9f9;
+  background-color: #f5f6fa;
   border: 1px solid #ddd;
   border-radius: 8px;
   padding: 16px;
-  width: calc(33.333% - 16px);
+  width: calc(30% - 20px);
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   h4 {
     margin-top: 0;
