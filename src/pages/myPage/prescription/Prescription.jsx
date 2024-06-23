@@ -5,18 +5,6 @@ import { PresriptionModal } from "./";
 
 import * as S from "./Prescription.styled";
 
-const exampleData = [
-  {
-    treatId: 1,
-    name: "비인후과의원[동구 안심로22길]",
-    date: "2022-06-06",
-    type: "일반외래",
-    visits: 1,
-    prescriptions: 1,
-    requests: 1,
-  },
-];
-
 const getDefaultDateRange = () => {
   const endDate = new Date();
   const startDate = new Date();
@@ -67,7 +55,11 @@ export function Prescription() {
       endDate: endDate,
     };
 
-    console.log(data);
+    console.log("요청 데이터: " + data);
+
+    const res = await postToGetPrescriptionData(data);
+    if (res) setData(res);
+    console.log(res);
   };
 
   const openModal = () => {
