@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { getReservationData } from "../../api";
+import { postToGetReservation } from "../../api";
 import dayjs from "dayjs";
 
 import * as R from "./ReactCalendar.styled";
@@ -23,11 +23,16 @@ export function Calendar({ setSelectedDay }) {
   }, []);
 
   const handleReservationData = async () => {
-    // const res = await getReservationData();
-    // if (res) {
-    //   setData(res);
-    // } else setData(exampleData);
-    setData(exampleData);
+    const userId = sessionStorage.getItem("userId");
+    const data = {
+      userId: userId,
+    };
+    const res = await postToGetReservation(data);
+    console.log(res);
+
+    if (res) {
+      setData(res);
+    }
   };
 
   const handleChange = (date) => {
@@ -37,6 +42,10 @@ export function Calendar({ setSelectedDay }) {
     setSelectedDay(date);
   };
 
+  const reservedDates = data.map((item) =>
+    dayjs(item.reserveDate).format("YYYY-MM-DD")
+  );
+
   return (
     <R.StyledCalendar
       onChange={handleChange}
@@ -45,7 +54,7 @@ export function Calendar({ setSelectedDay }) {
       tileContent={({ date, view }) => {
         if (view === "month") {
           const formattedDate = dayjs(date).format("YYYY-MM-DD");
-          if (data.includes(formattedDate)) {
+          if (reservedDates.includes(formattedDate)) {
             return <div className="dot"></div>;
           }
         }

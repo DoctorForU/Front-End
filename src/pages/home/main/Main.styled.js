@@ -12,12 +12,13 @@ export const Title = styled.h1`
   color: white;
   font-weight: bold;
   font-size: 50px;
-  margin-bottom: 150px;
+  margin: 3em 0;
 `;
 
 export const BoxContainer = styled.div`
   display: flex;
   flex-direction: row;
+  margin-top: 1em;
 `;
 
 export const BoxTitle = styled.span`

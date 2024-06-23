@@ -48,7 +48,7 @@ export function Prescription() {
   }, []);
 
   const handleGetPrescription = async () => {
-    const identity = sessionStorage.getItem("identity");
+    const identity = sessionStorage.getItem("identify");
 
     const data = {
       identity: identity,
@@ -57,6 +57,17 @@ export function Prescription() {
     const res = await postToGetPrescriptionData(data);
     if (res) setData(res);
     console.log(res);
+  };
+
+  const onSearch = async () => {
+    const identity = sessionStorage.getItem("identify");
+    const data = {
+      userIdentity: identity,
+      startDate: startDate,
+      endDate: endDate,
+    };
+
+    console.log(data);
   };
 
   const openModal = () => {
@@ -71,7 +82,11 @@ export function Prescription() {
 
   return (
     <>
-      <PresriptionModal isOpen={isOpen} closeModal={closeModal} treatId={treatId} />
+      <PresriptionModal
+        isOpen={isOpen}
+        closeModal={closeModal}
+        treatId={treatId}
+      />
       <S.Container>
         <S.Title>
           <h1 style={{ margin: "2em 0 0 4em" }}>진단 내역</h1>
@@ -125,7 +140,7 @@ export function Prescription() {
               <S.FormInput type="date" defaultValue={startDate} />
               <span>~</span>
               <S.FormInput type="date" defaultValue={endDate} />
-              <S.FormButton>조회</S.FormButton>
+              <S.FormButton onClick={onSearch}>조회</S.FormButton>
             </S.FormGroup>
           </S.Form>
         </S.Content>
