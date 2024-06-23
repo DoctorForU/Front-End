@@ -1,7 +1,7 @@
 import ReactModal from "react-modal";
 import * as S from "./Prescription.styled";
 
-export function Modal({ isOpen, closeModal, treatId }) {
+export function PresriptionModal({ isOpen, closeModal, medicationId }) {
   const customStyles = {
     overlay: {
       backgroundColor: "rgba(0, 0, 0, 0.5)",
@@ -20,7 +20,7 @@ export function Modal({ isOpen, closeModal, treatId }) {
 
   return (
     <ReactModal isOpen={isOpen} style={customStyles}>
-      <h2 style={{ fontWeight: "bold" }}>{treatId}</h2>
+      <h2 style={{ fontWeight: "bold" }}>{medicationId}</h2>
       <S.Line></S.Line>
       <S.Content>
         

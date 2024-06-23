@@ -1,2 +1,2 @@
 export * from "./Prescription";
-export * from "./Modal";
+export * from "./PrescriptionModal";

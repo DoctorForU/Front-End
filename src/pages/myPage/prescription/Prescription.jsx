@@ -1,8 +1,8 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { Modal } from "./";
+import { postToGetPrescriptionData } from ".././../../api";
+import { PresriptionModal } from "./";
 
-import { getPrescriptionData } from ".././../../api";
 import * as S from "./Prescription.styled";
 
 const exampleData = [
@@ -44,15 +44,19 @@ export function Prescription() {
     if (certification === null) {
       navigate("/certify");
     }
-    handlePrescriptionData();
+    handleGetPrescription();
   }, []);
 
-  const handlePrescriptionData = async () => {
+  const handleGetPrescription = async () => {
     const identity = sessionStorage.getItem("identity");
-    const res = await getPrescriptionData(identity);
-    if (res) {
-      setData(res);
-    } else setData(exampleData);
+
+    const data = {
+      identity: identity,
+    };
+
+    const res = await postToGetPrescriptionData(data);
+    if (res) setData(res);
+    console.log(res);
   };
 
   const openModal = () => {
@@ -67,7 +71,7 @@ export function Prescription() {
 
   return (
     <>
-      <Modal isOpen={isOpen} closeModal={closeModal} treatId={treatId} />
+      <PresriptionModal isOpen={isOpen} closeModal={closeModal} treatId={treatId} />
       <S.Container>
         <S.Title>
           <h1 style={{ margin: "2em 0 0 4em" }}>진단 내역</h1>
@@ -170,17 +174,17 @@ export function Prescription() {
                     <S.TableCell
                       style={{ pointer: "cursor" }}
                       onClick={() => {
-                        setTreatId(item.treatId);
+                        setTreatId(item.medicationId);
                         openModal();
                       }}
                     >
-                      {item.name}
+                      {item.hospitalName}
                     </S.TableCell>
-                    <S.TableCell>{item.date}</S.TableCell>
-                    <S.TableCell>{item.type}</S.TableCell>
-                    <S.TableCell>{item.visits}</S.TableCell>
-                    <S.TableCell>{item.prescriptions}</S.TableCell>
-                    <S.TableCell>{item.requests}</S.TableCell>
+                    <S.TableCell>{item.treatDate}</S.TableCell>
+                    <S.TableCell>{item.treatSubject}</S.TableCell>
+                    <S.TableCell>{item.visitDays}</S.TableCell>
+                    <S.TableCell>{item.prescribeCnt}</S.TableCell>
+                    <S.TableCell>{item.prescribeDays}</S.TableCell>
                   </S.TableRow>
                 ))
               )}
