@@ -23,7 +23,7 @@ const getDefaultDateRange = () => {
 export function Prescription() {
   const [isOpen, setIsOpen] = useState(false);
   const [data, setData] = useState([]);
-  const [treatId, setTreatId] = useState(0);
+  const [medication, setMedicationn] = useState({});
   const { startDate, endDate } = getDefaultDateRange();
   const navigate = useNavigate();
 
@@ -32,22 +32,9 @@ export function Prescription() {
     if (certification === null) {
       navigate("/certify");
     }
-    handleGetPrescription();
   }, []);
 
   const handleGetPrescription = async () => {
-    const identity = sessionStorage.getItem("identify");
-
-    const data = {
-      identity: identity,
-    };
-
-    const res = await postToGetPrescriptionData(data);
-    if (res) setData(res);
-    console.log(res);
-  };
-
-  const onSearch = async () => {
     const identity = sessionStorage.getItem("identify");
     const data = {
       userIdentity: identity,
@@ -55,7 +42,7 @@ export function Prescription() {
       endDate: endDate,
     };
 
-    console.log("요청 데이터: " + data);
+    console.log(data);
 
     const res = await postToGetPrescriptionData(data);
     if (res) setData(res);
@@ -77,7 +64,7 @@ export function Prescription() {
       <PresriptionModal
         isOpen={isOpen}
         closeModal={closeModal}
-        treatId={treatId}
+        medication={medication}
       />
       <S.Container>
         <S.Title>
@@ -123,16 +110,16 @@ export function Prescription() {
             </span>
           </S.SearchTitle>
           <S.Form>
-            <S.FormGroup>
+            {/* <S.FormGroup>
               <S.FormLabel>병·의원</S.FormLabel>
               <S.FormInput placeholder="병·의원" />
-            </S.FormGroup>
+            </S.FormGroup> */}
             <S.FormGroup>
               <S.FormLabel>대상기간</S.FormLabel>
               <S.FormInput type="date" defaultValue={startDate} />
               <span>~</span>
               <S.FormInput type="date" defaultValue={endDate} />
-              <S.FormButton onClick={onSearch}>조회</S.FormButton>
+              <S.FormButton onClick={handleGetPrescription}>조회</S.FormButton>
             </S.FormGroup>
           </S.Form>
         </S.Content>
@@ -179,19 +166,24 @@ export function Prescription() {
                 data.map((item) => (
                   <S.TableRow key={item.id}>
                     <S.TableCell
-                      style={{ pointer: "cursor" }}
+                      style={{
+                        pointer: "cursor",
+                        color: "red",
+                        fontWeight: "bold",
+                        textDecoration: "underline",
+                      }}
                       onClick={() => {
-                        setTreatId(item.medicationId);
+                        setMedicationn(item.medicationId);
                         openModal();
                       }}
                     >
                       {item.hospitalName}
                     </S.TableCell>
-                    <S.TableCell>{item.treatDate}</S.TableCell>
-                    <S.TableCell>{item.treatSubject}</S.TableCell>
+                    <S.TableCell>{item.treatStartDate}</S.TableCell>
+                    <S.TableCell>{item.medicationId.diseaseId}</S.TableCell>
                     <S.TableCell>{item.visitDays}</S.TableCell>
                     <S.TableCell>{item.prescribeCnt}</S.TableCell>
-                    <S.TableCell>{item.prescribeDays}</S.TableCell>
+                    <S.TableCell>{item.medicationId.prescribeDays}</S.TableCell>
                   </S.TableRow>
                 ))
               )}

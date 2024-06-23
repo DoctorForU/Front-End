@@ -6,7 +6,6 @@ export const Container = styled.div`
   align-items: center;
   width: calc(100% - 250px);
   height: 100%;
-  overflow: hidden;
 `;
 
 export const Title = styled.div`
@@ -15,6 +14,22 @@ export const Title = styled.div`
   height: 11em;
   width: 100%;
   background: #f4f6f9;
+`;
+
+export const ModalTitle = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding: 0 10px;
+`;
+
+export const ModalButton = styled.button`
+  cursor: pointer;
+  width: 50px;
+  font-size: 16px;
+  font-weight: bold;
+  background-color: white;
+  border: none;
 `;
 
 export const InfoTitle = styled.span`
@@ -147,10 +162,11 @@ export const Line = styled.div`
 `;
 
 export const Button = styled.button`
+  cursor: pointer;
   border: none;
-  width: 25%;
-  height: 40px;
-  margin: 4em;
+  width: 20em;
+  height: 3em;
+  margin: 0 3em;
   color: white;
   background-color: #435cc8;
 `;

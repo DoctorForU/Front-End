@@ -1,7 +1,7 @@
 import ReactModal from "react-modal";
 import * as S from "./Prescription.styled";
 
-export function PresriptionModal({ isOpen, closeModal, medicationId }) {
+export function PresriptionModal({ isOpen, closeModal, medication }) {
   const customStyles = {
     overlay: {
       backgroundColor: "rgba(0, 0, 0, 0.5)",
@@ -14,24 +14,55 @@ export function PresriptionModal({ isOpen, closeModal, medicationId }) {
       margin: "auto",
       borderRadius: "10px",
       boxShadow: "0 2px 4px rgba(0, 0, 0, 0.2)",
-      overflow: "hidden",
+      overflowY: "scroll",
     },
   };
 
+  if (!medication) {
+    return null; // medication이 undefined일 경우 null 반환
+  }
+
   return (
     <ReactModal isOpen={isOpen} style={customStyles}>
-      <h2 style={{ fontWeight: "bold" }}>{medicationId}</h2>
-      <S.Line></S.Line>
-      <S.Content>
-        
-        <S.Button
+      <S.ModalTitle>
+        <h2 style={{ fontWeight: "bold" }}>처방 내역</h2>
+        <S.ModalButton
           onClick={() => {
             closeModal();
           }}
         >
-          닫기
-        </S.Button>
-      </S.Content>
+          <span style={{ fontSize: "30px", fontWeight: "lighter" }}>x</span>
+        </S.ModalButton>
+      </S.ModalTitle>
+      <S.Line></S.Line>
+      <div>
+        <S.Table>
+          <thead>
+            <S.TableRow>
+              <S.TableHeader>약품명</S.TableHeader>
+              <S.TableHeader>약품코드</S.TableHeader>
+              <S.TableHeader>처방약품효능</S.TableHeader>
+            </S.TableRow>
+          </thead>
+          <tbody>
+            {medication.drugs &&
+              medication.drugs.map((item) => (
+                <S.TableRow key={item.id}>
+                  <S.TableCell>{item.name}</S.TableCell>
+                  <S.TableCell>{item.code}</S.TableCell>
+                  <S.TableCell>{item.effect}</S.TableCell>
+                </S.TableRow>
+              ))}
+          </tbody>
+        </S.Table>
+      </div>
+      <S.Button
+        onClick={() => {
+          closeModal();
+        }}
+      >
+        닫기
+      </S.Button>
     </ReactModal>
   );
 }

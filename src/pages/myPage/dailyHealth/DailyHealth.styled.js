@@ -18,6 +18,10 @@ export const Content = styled.div`
   gap: 20px;
 `;
 
+export const ExerciseCards = styled.div`
+
+`;
+
 export const Card = styled.div`
   display: flex;
   width: 90%;
