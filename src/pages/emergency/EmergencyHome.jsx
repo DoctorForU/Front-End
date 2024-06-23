@@ -78,8 +78,6 @@ export function EmergencyHome() {
                 </option>
               ))}
             </S.Select>
-            <S.Line></S.Line>
-
             <S.Button onClick={handleClick}>
               <S.Img src="img/Icon08.png" alt="Icon08" />
             </S.Button>

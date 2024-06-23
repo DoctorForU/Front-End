@@ -1,5 +1,4 @@
-import { useEffect, useState } from "react";
-import { getSearchExerciseData } from "../../api";
+import { useState } from "react";
 
 import { healthListData } from "./Data"; // 운동 리스트 데이터
 import * as S from "./HealthList.styled";
