@@ -1,6 +1,5 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import { getHospitalDetail } from "../../api"; // 상세보기 버튼을 눌렀을 때
 import * as S from "./HospitalList.styled";
 
 const HospitalList = ({

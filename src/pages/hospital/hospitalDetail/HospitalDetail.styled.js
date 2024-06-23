@@ -1,23 +1,27 @@
 import styled from "styled-components";
 
 export const Container = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
   padding: 20px;
   max-width: 1200px;
   margin: 0 auto;
 `;
 
 export const Section = styled.section`
-  margin-bottom: 20px;
+  width: 85%;
+  margin: 20px 0;
   padding: 20px;
-  border: 1px solid #ddd;
-  border-radius: 10px;
 `;
 
 export const HospitalInfo = styled.div`
-  text-align: center;
+  text-align: left;
+  padding: 10px 20px;
 
   h2 {
-    font-size: 2rem;
+    font-size: 1.5rem;
     margin-bottom: 10px;
   }
 
@@ -31,56 +35,47 @@ export const HospitalInfo = styled.div`
   }
 `;
 
-// export const Table = styled.table`
-//   width: 100%;
-//   border-collapse: collapse;
-
-//   th,
-//   td {
-//     padding: 10px;
-//     border: 1px solid #ddd;
-//   }
-
-//   th {
-//     background-color: #f9f9f9;
-//   }
-
-//   td {
-//     text-align: center;
-//   }
-// `;
-
 export const TabNav = styled.nav`
   display: flex;
-  justify-content: center;
+  justify-content: left;
+  align-items: flex-end;
+  height: 80px;
+  width: 85%;
   margin-bottom: 20px;
 
   button {
     padding: 10px 20px;
     margin: 0 5px;
+    height: 40px;
     border: none;
-    background-color: #f0f0f0;
+    background-color: white;
+    font-size: 16px;
+
     cursor: pointer;
-    transition: background-color 0.3s;
 
     &.active {
-      background-color: #ddd;
+      color: #435cc8;
+      font-weight: bold;
     }
   }
 `;
 
-// export const Container = styled.div`
-//   padding: 20px;
-// `;
+export const Title = styled.p`
+  font-size: 16px;
+  font-weight: bold;
+`;
 
-// export const Section = styled.section`
-//   margin-bottom: 20px;
-// `;
+export const Line = styled.div`
+  border: 1px solid #eef0f3;
+  width: 85%;
+  margin-bottom: 20px;
+`;
 
 export const Table = styled.table`
   width: 100%;
   border-collapse: collapse;
-  th, td {
+  th,
+  td {
     border: 1px solid #ddd;
     padding: 8px;
     text-align: left;
@@ -109,4 +104,4 @@ export const Card = styled.div`
   p {
     margin: 0;
   }
-`; 
+`;
