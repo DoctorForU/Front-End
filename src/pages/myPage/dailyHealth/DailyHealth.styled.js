@@ -13,21 +13,15 @@ export const Content = styled.div`
   flex-direction: column;
   align-items: center;
   width: 100%;
-  height: 100%;
+  height: auto;
   padding: 40px;
   gap: 20px;
 `;
 
-export const ExerciseCards = styled.div`
-
-`;
-
 export const Card = styled.div`
-  display: flex;
-  width: 90%;
-  height: 150px;
-  padding: 10px;
-  gap: 10px;
+  width: 100%;
+  height: 130px;
+  padding: 10px 15px;
   border-radius: 10px;
   background-color: white;
 `;
@@ -66,7 +60,7 @@ export const Button = styled.button`
 
 export const Table = styled.table`
   width: 95%;
-  margin: 30px;
+  margin-left: 30px;
   border-collapse: collapse;
 `;
 
@@ -96,7 +90,6 @@ export const CheckBox = styled.input`
   display: inline-block;
   width: 100px;
   height: 30px;
-  margin-right: 10px;
   border: 2px solid #ddd;
   position: relative;
 `;

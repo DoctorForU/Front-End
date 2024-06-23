@@ -1,15 +1,10 @@
 import { useState, useEffect } from "react";
 import { postToGetExercise } from "../../api";
 import ReactModal from "react-modal";
+
 import * as S from "./Health.styled";
 
-const exampleData = {
-  exercise: "하체 | 점프 스쿼트",
-  totalWeight: 50,
-  totalCount: 3,
-  createAt: "2024-06-10",
-};
-export function Modal({ isOpen, closeModal, date }) {
+export function HealthModal({ isOpen, closeModal, date }) {
   const [data, setData] = useState([]);
 
   useEffect(() => {
@@ -36,7 +31,7 @@ export function Modal({ isOpen, closeModal, date }) {
     content: {
       display: "flex",
       flexDirection: "column",
-      width: "50em",
+      width: "40em",
       height: "400px",
       margin: "auto",
       borderRadius: "10px",
@@ -47,26 +42,33 @@ export function Modal({ isOpen, closeModal, date }) {
 
   return (
     <ReactModal isOpen={isOpen} style={customStyles}>
-      <h2 style={{ fontWeight: "bold" }}>{date}</h2>
-      <S.Line style={{ height: "auto", width: "100%" }}></S.Line>
-      <S.Content>
-        {data.map((exercise, index) => (
-          <>
-            <div key={index}>
-              <span>{exercise.exerciseName}</span>
-              <span>{exercise.exerciseWeight}kg</span>
-              <span>{exercise.exerciseCount}회</span>
-            </div>
-          </>
-        ))}
-        <S.Button
-          style={{ height: "50px", margin: "0" }}
+      <S.ModalTitle>
+        <h2 style={{ fontWeight: "bold" }}>{date}</h2>
+        <S.ModalButton
           onClick={() => {
             closeModal();
           }}
         >
-          닫기
-        </S.Button>
+          X
+        </S.ModalButton>
+      </S.ModalTitle>
+      <S.Line style={{ height: "auto", width: "100%" }}></S.Line>
+      <S.Content>
+        <S.Table>
+          {data.map((exercise, index) => (
+            <S.TableRow key={index}>
+              <S.TableCell style={{ width: "40%" }}>
+                <span>{exercise.exerciseName}</span>
+              </S.TableCell>
+              <S.TableCell>
+                <span>{exercise.exerciseWeight}kg</span>
+              </S.TableCell>
+              <S.TableCell style={{ textAlign: "left" }}>
+                <span>{exercise.exerciseCount}회</span>
+              </S.TableCell>
+            </S.TableRow>
+          ))}
+        </S.Table>
       </S.Content>
     </ReactModal>
   );

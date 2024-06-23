@@ -12,6 +12,22 @@ export const Container = styled.div`
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 `;
 
+export const ModalTitle = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding: 0 10px;
+`;
+
+export const ModalButton = styled.button`
+  cursor: pointer;
+  width: 50px;
+  font-size: 16px;
+  font-weight: bold;
+  background-color: white;
+  border: none;
+`;
+
 export const Line = styled.div`
   border: 1px solid #eef0f3;
   height: 100%;
@@ -48,6 +64,17 @@ export const Td = styled.td`
       background-color: #319dff;
       border: 1px solid #435cc8;
     `};
+`;
+
+export const TableCell = styled.td`
+  height: 30px;
+  border-top: 1px solid #ddd;
+  padding: 8px;
+  text-align: center;
+`;
+
+export const TableRow = styled.tr`
+  padding: 8px;
 `;
 
 export const Tr = styled.tr`

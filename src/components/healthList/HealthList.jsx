@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { getSearchExerciseData } from "../../api";
 
-import { healthListData } from "./Data";
+import { healthListData } from "./Data"; // 운동 리스트 데이터
 import * as S from "./HealthList.styled";
 
 export function HealthList({
@@ -9,14 +9,20 @@ export function HealthList({
   setExerciseList,
   onExerciseChange,
 }) {
-  const [data, setData] = useState("");
   const [exerciseName, setExerciseName] = useState("");
+  const [filteredData, setFilteredData] = useState(healthListData);
 
-  const handleSearchExerciseData = async () => {
+  const handleSearchExerciseData = () => {
     console.log(exerciseName);
-    const res = await getSearchExerciseData(exerciseName);
-    if (res) setData(res);
-    else alert("일치하는 운동이 없습니다.");
+    if (exerciseName.trim() === "") {
+      setFilteredData(healthListData);
+      return;
+    }
+
+    const filtered = healthListData.filter((exercise) =>
+      exercise.name.includes(exerciseName)
+    );
+    setFilteredData(filtered);
   };
 
   return (
@@ -45,7 +51,7 @@ export function HealthList({
         </S.Button>
       </S.SearchContainer>
       <S.ExerciseList>
-        {healthListData.map((exercise, index) => (
+        {filteredData.map((exercise, index) => (
           <S.ExerciseListItem key={index}>
             <S.CheckBox
               key={exercise.id}

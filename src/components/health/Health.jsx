@@ -1,13 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { postToGetDashboardExercise } from "../../api";
-import { Modal } from "./";
+import { HealthModal } from "./";
 import * as S from "./Health.styled";
-
-// const exampleData = {
-//   totalTime: 50,
-//   totalExercise: 3,
-//   totalWeight: 150,
-// };
 
 export function Health() {
   const now = new Date();
@@ -120,7 +114,7 @@ export function Health() {
 
   return (
     <>
-      <Modal isOpen={isOpen} closeModal={closeModal} date={date} />
+      <HealthModal isOpen={isOpen} closeModal={closeModal} date={date} />
       <S.Container>
         <p style={{ fontWeight: "bold" }}>운동기록</p>
         <S.Line style={{ height: "auto", width: "100%" }}></S.Line>
