@@ -1,7 +1,6 @@
 import styled from "styled-components";
 
 export const Container = styled.div`
-  cursor: pointer;
   display: flex;
   flex-direction: row;
   justify-content: space-around;

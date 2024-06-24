@@ -1,5 +1,3 @@
-import { useNavigate } from "react-router-dom";
-import { useState } from "react";
 import {
   Banner,
   ScheduledReservation,
@@ -10,7 +8,6 @@ import {
 import * as S from "./Dashboard.styled";
 
 export function Dashboard() {
-
   return (
     <S.Container>
       <S.MainContent>

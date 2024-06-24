@@ -1,43 +1,36 @@
+import { useState } from "react";
+import { BannerModal } from "./BannerModal";
+
 import * as S from "./Banner.styled";
 
-const exampleData = [
-  {
-    hpid: "A1100017",
-    dutyAddr: "서울특별시 종로구 대학로 101 (연건동)",
-    dutyName: "서울대학교병원",
-    dutyTel1: "1588-5700",
-  },
-  {
-    hpid: "A1100029",
-    dutyAddr: "서울특별시 종로구 새문안로 9, 적십자병원 (평동)",
-    dutyName: "서울적십자병원",
-    dutyTel1: "02-2002-8000",
-  },
-];
 export function Banner() {
+  const [isOpen, setIsOpen] = useState(false);
   const userId = sessionStorage.getItem("userId");
-  const groupedData = [];
-  for (let i = 0; i < exampleData.length; i += 2) {
-    groupedData.push(exampleData.slice(i, i + 2));
-  }
+
+  const openModal = () => {
+    document.body.style.overflow = "hidden";
+    setIsOpen(true);
+  };
+
+  const closeModal = (e) => {
+    document.body.style.overflow = "unset";
+    setIsOpen(false);
+  };
 
   return (
-    <S.Container>
-      <S.Img src="/img/Icon23.png" alt="Icon23" />
-      {/* <S.Title>대한민국 No.1 의료 통합 플랫폼</S.Title> */}
-      {/* {groupedData.map((group, index) => (
-        <S.CardGroup key={index}>
-          {group.map((hospital) => (
-            <S.Card key={hospital.hpid}>
-              <S.HospitalName>{hospital.dutyName}</S.HospitalName>
-              <S.Content>
-                <S.HospitalAddr>{hospital.dutyAddr}</S.HospitalAddr>
-                <S.HospitalTel>{hospital.dutyTel1}</S.HospitalTel>
-              </S.Content>
-            </S.Card>
-          ))}
-        </S.CardGroup>
-      ))} */}
-    </S.Container>
+    <>
+      <BannerModal isOpen={isOpen} closeModal={closeModal} />
+      <S.Container>
+        <S.Title>
+          <S.Content>{userId}님 환영합니다!👋</S.Content>
+          <S.Content style={{ fontSize: "30px" }}>
+            정기적으로 건강을 체크하세요
+            {/* Check Your Health Reqularly */}
+          </S.Content>
+          <S.BannerButton onClick={openModal}>오늘의 건강기록</S.BannerButton>
+        </S.Title>
+        <S.Img src="/img/Icon23.png" alt="Icon23" />
+      </S.Container>
+    </>
   );
 }

@@ -31,20 +31,20 @@ export function Main() {
           </S.Box>
           <S.Box
             onClick={() => {
+              navigate("/hospital-search/reservation");
+            }}
+          >
+            <S.Img src="img/Icon03.png" alt="Icon03" />
+            <S.BoxTitle>빠른 예약</S.BoxTitle>
+          </S.Box>
+          <S.Box
+            onClick={() => {
               navigate("/mypage/prescription");
             }}
           >
             <S.Img src="img/Icon02.png" alt="Icon02" />
             <S.BoxTitle>내 진료정보</S.BoxTitle>
             <S.BoxTitle style={{ marginTop: "0" }}>열람</S.BoxTitle>
-          </S.Box>
-          <S.Box
-            onClick={() => {
-              navigate("/hospital-search/reservation");
-            }}
-          >
-            <S.Img src="img/Icon03.png" alt="Icon03" />
-            <S.BoxTitle>빠른 예약</S.BoxTitle>
           </S.Box>
         </S.BoxContainer>
       </main>
