@@ -150,9 +150,9 @@ export function Prescription() {
                 <S.TableHeader>병·의원 명</S.TableHeader>
                 <S.TableHeader>진료개시일</S.TableHeader>
                 <S.TableHeader>진료형태</S.TableHeader>
-                <S.TableHeader>방문(입원)일수</S.TableHeader>
+                <S.TableHeader>입원일수</S.TableHeader>
                 <S.TableHeader>처방횟수</S.TableHeader>
-                <S.TableHeader>투약(요양)횟수</S.TableHeader>
+                <S.TableHeader>복용기간</S.TableHeader>
               </S.TableRow>
             </thead>
             <tbody>
