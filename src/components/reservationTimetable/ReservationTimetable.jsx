@@ -4,6 +4,7 @@ import { postHospitalReservation } from "../../api";
 import dayjs from "dayjs";
 
 import * as S from "./ReservationTimetable.styled";
+import { KakaoMap2 } from "../kakaoMap/KakaoMap2";
 
 export function ReservationTimetable({ selectedDay, data }) {
   const [selectedReservations, setSelectedReservations] = useState([]);

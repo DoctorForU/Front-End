@@ -2,6 +2,7 @@ import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { Calendar, Layout, ReservationTimetable } from "../../../components";
 import { getHospitalReservation } from "../../../api";
+import { KakaoMap2 } from "../../../components/kakaoMap/KakaoMap2";
 
 //import { exampleData } from "./Data";
 import * as S from "./HospitalReservation.styled";
@@ -46,6 +47,7 @@ export function HospitalReservation() {
             <ReservationTimetable selectedDay={selectedDay} data={data} />
           </S.ReservationContainer>
         </S.Content>
+        <KakaoMap2 data={data} />
       </S.Container>
     </Layout>
   );
